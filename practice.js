@@ -1,6 +1,6 @@
-function bad(){
-    hehe;
-    let ;;;;;;;
-                        hjdksfhsjk
-                        dhsfs
+function bad() {
+  hehe;
+  let;
+  hjdksfhsjk;
+  dhsfs;
 }
