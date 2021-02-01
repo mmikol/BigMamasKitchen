@@ -1,0 +1,34 @@
+{
+  "name": "bigmamaskitchen",
+  "version": "1.0.0",
+  "description": "Compilers project",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --collect-coverage",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmikol/BigMamasKitchen"
+  },
+  "author": "Bridget O'Connor, Sophia Mackin, Rachel Nguyen, Moriah Scott, Miliano Mikol",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mmikol/BigMamasKitchen/issues"
+  },
+  "homepage": "https://github.com/mmikol/BigMamasKitchen",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "deep-equal": "^2.0.2",
+    "jest": "^25.1.0",
+    "ohm-js": "^0.14.0",
+    "prettier": "^2.0.5",
+    "pretty-js": "^0.2.1",
+    "util": "^0.12.2",
+    "yargs": "^15.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0"
+  }
+}
