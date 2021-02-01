@@ -1,6 +1,6 @@
 # BigMamasKitchen
 
-insert logo
+![bmk](images/bmk.jpg)
 
 ## Introduction
 Welcome to the Kitchen!! Big Mama is strong, bold, loves cute things (such as her cat, Katchup), and cultivates the most flavorful dishes for her consumers. After a few minutes in her kitchen your taste buds are sure to be left tingling. She will throw in a wide variety of flavors from spicy to sweet, from tangy to salty, and will always finish a job with a sassy wink.
@@ -59,22 +59,18 @@ Foodies, people who like to cook
 | throw in param1, param2 | (param1, param2) |
 | until condition | (condition) |
 | cuisine ClassName | class className |
-
+| chef | constructor |
 | recipe | func |
+| bland | void |
+| stop | break |
+| mama.says("") | console.log("") | 
 
 
 * Note: After each statement please add the ;)
 * Note caplitalize classNames
 
-class:
 cuisine French 				
-constructor: 
-Chef
 
-Void
-bland
-Break 
-stop
 func: 
 recipe eggs_benedict throw in bitter egg_whites, sweet sauce (^-^)~  ~(^-^)
 declaration: 
@@ -85,6 +81,9 @@ spread:
 [ roll out... eggs ] ;)
 array:
 ingredient tangy roll_cake = [] this is an array
+
+
+## Control Flow
 If else statement: 
 Add a pinch until i < -35 (^-^)~
 
