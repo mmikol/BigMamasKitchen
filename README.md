@@ -1,86 +1,84 @@
 # BigMamasKitchen
 
-![bmk](images/bmk.jpg)
+![bmk](images/bmk.png)
 
 ## Introduction
+
 Welcome to the Kitchen!! Big Mama is strong, bold, loves cute things (such as her cat, Katchup), and cultivates the most flavorful dishes for her consumers. After a few minutes in her kitchen your taste buds are sure to be left tingling. She will throw in a wide variety of flavors from spicy to sweet, from tangy to salty, and will always finish a job with a sassy wink.
 
-This language is for people who love to cook as it uses cooking/baking phrases. BigMamasKitchen serves to spice up statically typed/scoped languages. 
+This language is for people who love to cook as it uses cooking/baking phrases. BigMamasKitchen serves to spice up statically typed/scoped languages.
 
 Cooked up by Bridget O'Connor, Sophia Mackin, Moriah Scott, Rachel Nguyen, Miliano Mikol.
 
-Cooking Language 
+Cooking Language
 variables can be ingredients
 loops can be things like stir or bake
-function can be like a recipe 
-
+function can be like a recipe
 
 Who is it for:
 Foodies, people who like to cook
 
 ## Features
 
-* Statically typed with static scoping
+- Statically typed with static scoping
 
-* Data Structures like arrays and dictionaries
+- Data Structures like arrays and dictionaries
 
-* Cooking keywords
+- Cooking keywords
 
-* Emoji brackets
+- Emoji brackets
 
-* Statements terminated with ;)
+- Statements terminated with ;)
 
-## Types: 
+## Types:
 
-| BigMamasKitchen     | JavaScript |
-| ----------- | ----------- |
-| spicy | Boolean |
-| bitter | Number|
-| salty | String|
+| BigMamasKitchen | JavaScript |
+| --------------- | ---------- |
+| spicy           | Boolean    |
+| bitter          | Number     |
+| salty           | String     |
 
+_Data Structure_
 
-
-*Data Structure*
-* Array - tangy
-* Dictionary - sweet
+- Array - tangy
+- Dictionary - sweet
 
 ## Keywords Guide
 
-| BigMamasKitchen | Other languages |
-| ----------- | ----------- |
-| cooked | true |
-| raw | false |
-| (^-^)~ ~(^-^) | {} |
-| ;) | ; |
+| BigMamasKitchen         | Other languages  |
+| ----------------------- | ---------------- |
+| cooked                  | true             |
+| raw                     | false            |
+| (^-^)~ ~(^-^)           | {}               |
+| ;)                      | ;                |
 | throw in param1, param2 | (param1, param2) |
-| until condition | (condition) |
-| cuisine ClassName | class className |
-| chef | constructor |
-| recipe | func |
-| bland | void |
-| stop | break |
-| mama.says("") | console.log("") | 
+| until condition         | (condition)      |
+| cuisine ClassName       | class className  |
+| chef                    | constructor      |
+| recipe                  | func             |
+| bland                   | void             |
+| stop                    | break            |
+| mama.says("")           | console.log("")  |
 
+- Note: After each statement please add the ;)
+- Note caplitalize classNames
 
-* Note: After each statement please add the ;)
-* Note caplitalize classNames
+cuisine French
 
-cuisine French 				
-
-func: 
-recipe eggs_benedict throw in bitter egg_whites, sweet sauce (^-^)~  ~(^-^)
-declaration: 
-ingredient bitter egg  = 1 ;)
-assignment: 
-egg  = 4 ;)
-spread: 
+func:
+recipe eggs_benedict throw in bitter egg_whites, sweet sauce (^-^)~ ~(^-^)
+declaration:
+ingredient bitter egg = 1 ;)
+assignment:
+egg = 4 ;)
+spread:
 [ roll out... eggs ] ;)
 array:
 ingredient tangy roll_cake = [] this is an array
 
-
 ## Control Flow
-If else statement: 
+
+If else statement:
 Add a pinch until i < -35 (^-^)~
 
 ~(^-^) or substitute until i > 35 (^-^) ~
@@ -92,21 +90,22 @@ conditional starter is an until
 while loop:
 stir until cooked (^-^)~
 ~(^-^)
+
 - cooked is true
-for loops: 
-bake ingredient bitter egg = 1 until egg < 40 degrees 50++ (^-^)~  ~(^-^)
-degrees are optional, this is the increment
-degrees defaults to 1++
-ingredient must be initialized, so we initialize it here you could also do 
-ingredient bitter egg  = 1
-bake egg until egg > 500  (^-^)~  ~(^-^)
-Multi-line Comment:
---[=] Include more sugar [=]--
-Single-line Comment: 
-~(=^‥^) i love big mama
-Print statement:
-BigMamasKitchen
-mama.says("Hello world!") ;)
+  for loops:
+  bake ingredient bitter egg = 1 until egg < 40 degrees 50++ (^-^)~ ~(^-^)
+  degrees are optional, this is the increment
+  degrees defaults to 1++
+  ingredient must be initialized, so we initialize it here you could also do
+  ingredient bitter egg = 1
+  bake egg until egg > 500 (^-^)~ ~(^-^)
+  Multi-line Comment:
+  --[=] Include more sugar [=]--
+  Single-line Comment:
+  ~(=^‥^) i love big mama
+  Print statement:
+  BigMamasKitchen
+  mama.says("Hello world!") ;)
 
 (31 pts) Complete the first pass of the design of the language that you will be writing a compiler for during this term. Give your language description on the README.md file of a public GitHub repository you will be setting up for the project. You should have, in your README:
 A nice logo
@@ -116,15 +115,8 @@ BigMamasKitchen
 A list of features
 Statically typed, declare the type when adding in parameters or also when declaring new variables
 
- 
- 
- 
- 
-
 ## Example Programs
- 
- 
- 
+
 Lots of example programs. You can do the “your language on the left, JavaScript on the right” presentation style.
 BigMamasKitchen
 JavaScript
@@ -132,59 +124,56 @@ mama.says("Hello world!") ;)
 console.log(“Hello world!”);
 recipe bitter Add throw in bitter a, bitter b (^-^)~
 serve a + b ;)
-  ~(^-^)
-function Add (a, b) { 
-    return a + b;
+~(^-^)
+function Add (a, b) {
+return a + b;
 }
 Add a pinch until i < -35 (^-^)~
-      mama.says(“too cold”) ;)
+mama.says(“too cold”) ;)
 ~(^-^) or substitute until i > 35 (^-^) ~
-      mama.says(“just right”) ;)
+mama.says(“just right”) ;)
 ~(^-^) dump leftovers (^-^)~
-      mama.says(“try again!”) ;)
+mama.says(“try again!”) ;)
 ~(^-^)
-
 
 if (i < -35) {
-    console.log(“too cold”);
+console.log(“too cold”);
 } else if (i > 35) {
-    console.log(“just right”);
+console.log(“just right”);
 } else {
-    console.log(“try again!”);
+console.log(“try again!”);
 }
-
 
 cuisine salty French (^-^)~
-      chef throw in salty spices, salty veggies (^-^)~
-              spices = spices ;)
-              veggies = veggies ;)
-      ~(^-^)
+chef throw in salty spices, salty veggies (^-^)~
+spices = spices ;)
+veggies = veggies ;)
+~(^-^)
 ~(^-^)
 class French {
-  constructor(spices, veggies) {
-    this.spices = spices;
-    this.veggies = veggies;
-  }
+constructor(spices, veggies) {
+this.spices = spices;
+this.veggies = veggies;
 }
-
+}
 
 ingredient bitter temperature = 0 ;)
 stir until cooked (^-^)~
-     temperature++ ;)
-     add a pinch until temperature == 360              (^-^)~
-            stop ;)
-      (^-^)~
+temperature++ ;)
+add a pinch until temperature == 360 (^-^)~
+stop ;)
+(^-^)~
 (^-^)~
 let temperature = 0
 while (true) {
-  temperature++
-  if(temperature == 360){
-    break;
-  }
+temperature++
+if(temperature == 360){
+break;
+}
 }
 
 ```
 BigMamasKitchen{
-    
+
 }
 ```
