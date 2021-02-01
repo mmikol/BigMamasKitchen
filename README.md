@@ -44,10 +44,6 @@ Foodies, people who like to cook
 * Array - tangy
 * Dictionary - sweet
 
-*Other*
-* Void - bland
-
-
 ## Keywords Guide
 
 | BigMamasKitchen | Other languages |
