@@ -119,9 +119,13 @@ Lots of example programs. You can do the “your language on the left, JavaScrip
 
 ### Hello World
 
-| BigMamasKitchen              | JavaScript                   |
-| ---------------------------- | ---------------------------- |
-| mama.says("Hello world!") ;) | console.log(“Hello world!”); |
+#### BigMamasKitchen
+
+mama.says("Hello world!") ;)
+
+#### JavaScript
+
+console.log(“Hello world!”); |
 
 ### Sum of Two Numbers
 
