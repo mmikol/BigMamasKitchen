@@ -153,39 +153,64 @@ Statically typed, declare the type when adding in parameters or also when declar
 
 Lots of example programs. You can do the “your language on the left, JavaScript on the right” presentation style.
 
-### Hello World
+### Hello, World!
 
-#### BigMamasKitchen
+<table>
+  <tr>
+  <th>BigMamasKitchen</th>
+  <th>JavaScript</th>
+  </tr>
+
+  <tr>
+  <td>
 
 ```
 mama.says("Hello world!") ;)
 ```
 
-#### JavaScript
+  </td>
+  <td>
 
-```
+```JavaScript
 console.log(“Hello world!”);
 ```
 
+  </td>
+  </tr>
+</table>
+
 ### Sum of Two Numbers
 
-#### BigMamasKitchen
+<table>
+  <tr>
+  <th>BigMamasKitchen</th>
+  <th>JavaScript</th>
+  </tr>
+
+  <tr>
+  <td>
 
 ```
- recipe bitter Add throw in bitter a, bitter b (^-^)~
- serve a + b ;)
- ~(^-^)
+recipe bitter Add throw in bitter a, bitter b (^-^)~
+serve a + b ;)
+~(^-^)
 ```
 
-#### JavaScript
+</td>
+  <td>
 
-```
- function Add (a, b) {
+```JavaScript
+function Add (a, b) {
  return a + b;
  }
 ```
 
-//these should be in conntrol flow i think
+  </td>
+  </tr>
+</table>
+
+**these should be in conntrol flow i think**
+
 Add a pinch until i < -35 (^-^)~
 mama.says(“too cold”) ;)
 ~(^-^) or substitute until i > 35 (^-^) ~
