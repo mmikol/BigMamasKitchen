@@ -1,6 +1,6 @@
 # BigMamasKitchen
 
-![bmk](images/bmk.png)
+![bmk2](images/bmk2.png)
 
 ## Introduction
 
