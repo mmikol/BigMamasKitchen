@@ -121,11 +121,15 @@ Lots of example programs. You can do the “your language on the left, JavaScrip
 
 #### BigMamasKitchen
 
+```
 mama.says("Hello world!") ;)
+```
 
 #### JavaScript
 
-console.log(“Hello world!”); |
+```
+console.log(“Hello world!”);
+```
 
 ### Sum of Two Numbers
 
