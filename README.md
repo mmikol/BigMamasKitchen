@@ -133,12 +133,21 @@ console.log(“Hello world!”);
 
 ### Sum of Two Numbers
 
-| BigMamasKitchen                                      | JavaScript            |
-| ---------------------------------------------------- | --------------------- |
-| recipe bitter Add throw in bitter a, bitter b (^-^)~ | function Add (a, b) { |
-| serve a + b ;)                                       | return a + b;         |
-| ~(^-^)                                               | }                     |
-|                                                      |                       |
+#### BigMamasKitchen
+
+```
+ recipe bitter Add throw in bitter a, bitter b (^-^)~
+ serve a + b ;)
+ ~(^-^)
+```
+
+#### JavaScript
+
+```
+ function Add (a, b) {
+ return a + b;
+ }
+```
 
 Add a pinch until i < -35 (^-^)~
 mama.says(“too cold”) ;)
