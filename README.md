@@ -1,6 +1,6 @@
 # BigMamasKitchen
 
-![bmk2](images/bmk2.png)
+<p align="center"><img src="images/bmk.png" alt="bmk logo" width="350"/></p>
 
 ## Introduction
 
