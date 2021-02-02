@@ -4,7 +4,7 @@
 
 ## Introduction
 
-Welcome to the Kitchen!! Big Mama is strong, bold, loves cute things (such as her cat, Katchup), and cultivates the most flavorful dishes for her consumers. After a few minutes in her kitchen your taste buds are sure to be left tingling. She will throw in a wide variety of flavors from spicy to sweet, from tangy to salty, and will always finish a job with a sassy wink.
+Welcome to the Kitchen!! Big Mama is strong, bold, loves cute things (such as her cat, Katchup), and cultivates the most flavorful dishes for her consumers. After a few minutes in her kitchen your taste buds are sure to be left tingling. She will throw in a wide variety of flavors from spicy to sweet, from tangy to salty, and will always finish a job with a sassy wink. Better get your plates ready, are you ready for a taste?
 
 This language is for people who love to cook as it uses cooking/baking phrases. BigMamasKitchen serves to spice up statically typed/scoped languages.
 
@@ -14,9 +14,6 @@ Cooking Language
 variables can be ingredients
 loops can be things like stir or bake
 function can be like a recipe
-
-Who is it for:
-Foodies, people who like to cook
 
 ## Features
 
@@ -78,7 +75,8 @@ ingredient tangy roll_cake = [] this is an array
 
 ## Control Flow
 
-If else statement:
+### If Else Statement
+
 Add a pinch until i < -35 (^-^)~
 
 ~(^-^) or substitute until i > 35 (^-^) ~
@@ -118,16 +116,22 @@ Statically typed, declare the type when adding in parameters or also when declar
 ## Example Programs
 
 Lots of example programs. You can do the “your language on the left, JavaScript on the right” presentation style.
-BigMamasKitchen
-JavaScript
-mama.says("Hello world!") ;)
-console.log(“Hello world!”);
-recipe bitter Add throw in bitter a, bitter b (^-^)~
-serve a + b ;)
-~(^-^)
-function Add (a, b) {
-return a + b;
-}
+
+### Hello World
+
+| BigMamasKitchen              | JavaScript                   |
+| ---------------------------- | ---------------------------- |
+| mama.says("Hello world!") ;) | console.log(“Hello world!”); |
+
+### Sum of Two Numbers
+
+| BigMamasKitchen                                      | JavaScript            |
+| ---------------------------------------------------- | --------------------- |
+| recipe bitter Add throw in bitter a, bitter b (^-^)~ | function Add (a, b) { |
+| serve a + b ;)                                       | return a + b;         |
+| ~(^-^)                                               | }                     |
+|                                                      |                       |
+
 Add a pinch until i < -35 (^-^)~
 mama.says(“too cold”) ;)
 ~(^-^) or substitute until i > 35 (^-^) ~
