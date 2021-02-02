@@ -11,9 +11,10 @@ This language is for people who love to cook as it uses cooking/baking phrases. 
 Cooked up by Bridget O'Connor, Sophia Mackin, Moriah Scott, Rachel Nguyen, Miliano Mikol.
 
 Cooking Language
-variables can be ingredients
-loops can be things like stir or bake
-function can be like a recipe
+
+- variables can be ingredients
+- loops can be things like stir or bake
+- function can be like a recipe
 
 ## Features
 
@@ -58,16 +59,30 @@ _Data Structure_
 | mama.says("")           | console.log("")  |
 
 - Note: After each statement please add the ;)
-- Note caplitalize classNames
+- Note: caplitalize classNames
 
 cuisine French
 
-func:
+## Function Declaration
+
+```
 recipe eggs_benedict throw in bitter egg_whites, sweet sauce (^-^)~ ~(^-^)
-declaration:
+```
+
+## Variable Declaration and Assignment
+
+### Declaration
+
+```
 ingredient bitter egg = 1 ;)
-assignment:
+```
+
+## Assignment
+
+```
 egg = 4 ;)
+```
+
 spread:
 [ roll out... eggs ] ;)
 array:
@@ -75,8 +90,9 @@ ingredient tangy roll_cake = [] this is an array
 
 ## Control Flow
 
-### If Else Statement
+### If Statement
 
+```
 Add a pinch until i < -35 (^-^)~
 
 ~(^-^) or substitute until i > 35 (^-^) ~
@@ -85,25 +101,45 @@ Add a pinch until i < -35 (^-^)~
 
 ~(^-^)
 conditional starter is an until
-while loop:
+```
+
+### While Loop
+
+```
 stir until cooked (^-^)~
 ~(^-^)
 
 - cooked is true
-  for loops:
-  bake ingredient bitter egg = 1 until egg < 40 degrees 50++ (^-^)~ ~(^-^)
-  degrees are optional, this is the increment
-  degrees defaults to 1++
-  ingredient must be initialized, so we initialize it here you could also do
-  ingredient bitter egg = 1
-  bake egg until egg > 500 (^-^)~ ~(^-^)
-  Multi-line Comment:
-  --[=] Include more sugar [=]--
-  Single-line Comment:
+```
+
+### For Loops
+
+```
+bake ingredient bitter egg = 1 until egg < 40 degrees 50++ (^-^)~ ~(^-^)
+- degrees are optional, this is the increment
+- degrees defaults to 1++
+- ingredient must be initialized, so we initialize it here you could also do
+ingredient bitter egg = 1
+bake egg until egg > 500 (^-^)~ ~(^-^)
+```
+
+## Comments
+
+### Multi-line Comment:
+
+```
+--[=] Include more sugar [=]--
+```
+
+### Single-line Comment:
+
+```
   ~(=^‥^) i love big mama
-  Print statement:
-  BigMamasKitchen
-  mama.says("Hello world!") ;)
+```
+
+Print statement:
+BigMamasKitchen
+mama.says("Hello world!") ;)
 
 (31 pts) Complete the first pass of the design of the language that you will be writing a compiler for during this term. Give your language description on the README.md file of a public GitHub repository you will be setting up for the project. You should have, in your README:
 A nice logo
@@ -149,6 +185,7 @@ console.log(“Hello world!”);
  }
 ```
 
+//these should be in conntrol flow i think
 Add a pinch until i < -35 (^-^)~
 mama.says(“too cold”) ;)
 ~(^-^) or substitute until i > 35 (^-^) ~
