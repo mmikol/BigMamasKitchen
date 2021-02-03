@@ -209,6 +209,39 @@ function Add (a, b) {
   </tr>
 </table>
 
+## Even or Odd
+
+<table>
+  <tr>
+  <th>BigMamasKitchen</th>
+  <th>JavaScript</th>
+  </tr>
+
+  <tr>
+  <td>
+
+```
+recipe bitter evenOdd throw in bitter a (^-^)~
+
+serve x % 2 == 0 ;)
+~(^-^)
+
+```
+
+</td>
+  <td>
+
+```JavaScript
+function evenOdd (a) {
+    return a % 2 == 0;
+}
+
+```
+
+  </td>
+  </tr>
+</table>
+
 **these should be in conntrol flow i think**
 
 Add a pinch until i < -35 (^-^)~
