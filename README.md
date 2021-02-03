@@ -36,37 +36,41 @@ Cooking Language
 | bitter          | Number     |
 | salty           | String     |
 
-_Data Structure_
-
-- Array - tangy
-- Dictionary - sweet
 
 ## Keywords Guide
 
-| BigMamasKitchen         | Other languages  |
+| BigMamasKitchen         |    JavaScript    |
 | ----------------------- | ---------------- |
 | cooked                  | true             |
 | raw                     | false            |
 | (^-^)~ ~(^-^)           | {}               |
 | ;)                      | ;                |
-| throw in param1, param2 | (param1, param2) |
+| throwIn param1, param2  | (param1, param2) |
 | until condition         | (condition)      |
-| cuisine ClassName       | class className  |
-| chef                    | constructor      |
+| ingredient              | let              |
 | recipe                  | func             |
 | bland                   | void             |
 | stop                    | break            |
-| mama.says("")           | console.log("")  |
+| stir                    | while            |
+| bake                    | for              |
+| addAPinch               | if               |
+| orSubstitute            | else if          |
+| dumpLeftovers           | else             |
+| rollOut...              | ...              |
+| mamaSays("")            | console.log("") |                   
+| null                    | empty            |
+| degrees                 | *incrementers*   |
 
-- Note: After each statement please add the ;)
-- Note: caplitalize classNames
 
-cuisine French
+    return      = "serve" ~idrest
+    until       = "until" ~idrest
+
+**Note: After each statement please add the ;)**
 
 ## Function Declaration
 
 ```
-recipe eggs_benedict throw in bitter egg_whites, sweet sauce (^-^)~ ~(^-^)
+recipe eggsBenedict throwIn bitter eggWhites, sweet sauce (^-^)~ ~(^-^)
 ```
 
 ## Variable Declaration and Assignment
@@ -83,24 +87,33 @@ ingredient bitter egg = 1 ;)
 egg = 4 ;)
 ```
 
-spread:
-[ roll out... eggs ] ;)
-array:
-ingredient tangy roll_cake = [] this is an array
+```
+Array: 
+
+ingredient  rollCake = (@) (@) 
+
+Dictionary 
+
+ingredient = [#] [#]
+
+Spread:
+
+(@) rollOut... eggs (@) ;)
+
+```
 
 ## Control Flow
 
 ### If Statement
 
 ```
-Add a pinch until i < -35 (^-^)~
+addAPinch until i < -35 (^-^)~
 
-~(^-^) or substitute until i > 35 (^-^) ~
+~(^-^) orSubstitute until i > 35 (^-^) ~
 
-~(^-^) dump leftovers (^-^)~
+~(^-^) dumpLeftovers (^-^)~
 
 ~(^-^)
-conditional starter is an until
 ```
 
 ### While Loop
@@ -109,13 +122,14 @@ conditional starter is an until
 stir until cooked (^-^)~
 ~(^-^)
 
-- cooked is true
 ```
 
 ### For Loops
 
 ```
 bake ingredient bitter egg = 1 until egg < 40 degrees 50++ (^-^)~ ~(^-^)
+
+**A Few Notes**
 - degrees are optional, this is the increment
 - degrees defaults to 1++
 - ingredient must be initialized, so we initialize it here you could also do
@@ -134,24 +148,11 @@ bake egg until egg > 500 (^-^)~ ~(^-^)
 ### Single-line Comment:
 
 ```
-  ~(=^‥^) i love big mama
+  ~(=^‥^) We love Big Mama
 ```
-
-Print statement:
-BigMamasKitchen
-mama.says("Hello world!") ;)
-
-(31 pts) Complete the first pass of the design of the language that you will be writing a compiler for during this term. Give your language description on the README.md file of a public GitHub repository you will be setting up for the project. You should have, in your README:
-A nice logo
-The name of your language, in a large font (unless the language name is readable from the image)
-BigMamasKitchen
-
-A list of features
-Statically typed, declare the type when adding in parameters or also when declaring new variables
 
 ## Example Programs
 
-Lots of example programs. You can do the “your language on the left, JavaScript on the right” presentation style.
 
 ### Hello, World!
 
@@ -165,7 +166,7 @@ Lots of example programs. You can do the “your language on the left, JavaScrip
   <td>
 
 ```
-mama.says("Hello world!") ;)
+mamaSays("Hello world!") ;)
 ```
 
   </td>
@@ -191,7 +192,7 @@ console.log(“Hello world!”);
   <td>
 
 ```
-recipe bitter Add throw in bitter a, bitter b (^-^)~
+recipe bitter Add throwIn bitter a, bitter b (^-^)~
 serve a + b ;)
 ~(^-^)
 ```
@@ -221,7 +222,7 @@ function Add (a, b) {
   <td>
 
 ```
-recipe bitter evenOdd throw in bitter a (^-^)~
+recipe bitter evenOdd throwIn bitter a (^-^)~
 
 serve x % 2 == 0 ;)
 ~(^-^)
@@ -242,16 +243,32 @@ function evenOdd (a) {
   </tr>
 </table>
 
-**these should be in conntrol flow i think**
 
-Add a pinch until i < -35 (^-^)~
-mama.says(“too cold”) ;)
+## Other Examples
+
+<table>
+  <tr>
+  <th>BigMamasKitchen</th>
+  <th>JavaScript</th>
+  </tr>
+
+  <tr>
+  <td>
+
+```
+addAPinch until i < -35 (^-^)~
+mamaSays(“too cold”) ;)
 ~(^-^) or substitute until i > 35 (^-^) ~
-mama.says(“just right”) ;)
-~(^-^) dump leftovers (^-^)~
-mama.says(“try again!”) ;)
+mamaSays(“just right”) ;)
+~(^-^) dumpLeftovers (^-^)~
+mamaSays(“try again!”) ;)
 ~(^-^)
+```
 
+</td>
+  <td>
+
+```JavaScript
 if (i < -35) {
 console.log(“too cold”);
 } else if (i > 35) {
@@ -260,26 +277,37 @@ console.log(“just right”);
 console.log(“try again!”);
 }
 
-cuisine salty French (^-^)~
-chef throw in salty spices, salty veggies (^-^)~
-spices = spices ;)
-veggies = veggies ;)
-~(^-^)
-~(^-^)
-class French {
-constructor(spices, veggies) {
-this.spices = spices;
-this.veggies = veggies;
-}
-}
+```
 
+  </td>
+  </tr>
+</table>
+
+
+<table>
+  <tr>
+  <th>BigMamasKitchen</th>
+  <th>JavaScript</th>
+  </tr>
+
+  <tr>
+  <td>
+
+```
 ingredient bitter temperature = 0 ;)
 stir until cooked (^-^)~
 temperature++ ;)
-add a pinch until temperature == 360 (^-^)~
+addAPinch until temperature == 360 (^-^)~
 stop ;)
 (^-^)~
 (^-^)~
+```
+
+</td>
+  <td>
+
+```JavaScript
+
 let temperature = 0
 while (true) {
 temperature++
@@ -289,7 +317,11 @@ break;
 }
 
 ```
-BigMamasKitchen{
 
-}
-```
+  </td>
+  </tr>
+</table>
+
+
+
+
