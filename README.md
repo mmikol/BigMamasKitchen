@@ -45,7 +45,6 @@ Cooking Language
 | raw                     | false            |
 | (^-^)~ ~(^-^)           | {}               |
 | ;)                      | ;                |
-| throwIn param1, param2  | (param1, param2) |
 | until condition         | (condition)      |
 | ingredient              | let              |
 | recipe                  | func             |

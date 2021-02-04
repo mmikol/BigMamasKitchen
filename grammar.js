@@ -8,12 +8,15 @@ import ohm from "ohm-js"
     
     el1, el2 = rollOut...egg
     spread will be difficult semantically, can consider not using it
-
+    Done: 
     switch out the -- (name) with what it actually is
         ex: -- addAPinch should be -- if
     | Exp in Stmt so that we can go to 
     store ;) as keyword terminate, then put it where it would be applicable
         otherwise scrap it and delete it where it is now
+    * Did we ge rid of degrees?
+    
+    Todo: 
     redo the Exp so that instead of nonempty lists, make it recursive
         ex: Exp1 = Exp1 && Exp2
     do we want a break to be allowed randomly by itself in a program
@@ -31,25 +34,25 @@ import ohm from "ohm-js"
 */
 const BigMamasKitchen = ohm.grammar(String.raw`BigMamasKitchen {
     Program     =  Stmt+
-    Stmt        =  Dec        -- dec            
+    Stmt        =  Dec                             -- dec            
                 |  Assignment terminate            -- assignment
                 |  Call terminate                 -- call
                 |  stop terminate                 -- break
-                |  serve Exp? terminate    --return
-                |  mamaSays Args terminate         -- print
-                |  addAPinch until Exp Block 
-                   (orSubstitute until Exp Block)*
-                   (dumpLeftovers Block)?              -- ifStatement
-                |  stir until Exp Block      -- while
-                |  bake (VarDec | id) until Exp (Increment)? Block --for
+                |  return Exp? terminate         --return
+                |  print Args terminate         -- print
+                |  if until Exp Block 
+                   (elseIf until Exp Block)*
+                   (else Block)?              -- ifStatement
+                |  while until Exp Block      -- while
+                |  for (VarDec | id) until Exp (Increment)? Block --for
                 |  Exp terminate    --expression
     Assignment  =  Increment                  -- increment
                 |  Var "=" Exp                -- assign
     Increment   =  Var incop             
     Dec         =  VarDec terminate  -- variable
                 | FuncDec 
-    VarDec      =  ingredient Type id "=" Exp 
-    FuncDec     =  recipe (Type | void) id Params Block 
+    VarDec      =  var Type id "=" Exp 
+    FuncDec     =  func (Type | void) id Params Block 
     Type        =  boolean 
                 |  number 
                 |  string
@@ -81,33 +84,32 @@ const BigMamasKitchen = ohm.grammar(String.raw`BigMamasKitchen {
     boolean     = "spicy" ~idrest
     number      = "bitter" ~idrest
     string      = "salty" ~idrest
-    stop       = "stop" ~idrest
-    addAPinch          = "addAPinch" ~idrest
-    orSubstitute      = "orSubstitute" ~idrest
-    dumpLeftovers        = "dumpLeftovers" ~idrest
-    raw       = "raw" ~idrest
-    cooked        = "cooked" ~idrest
-    bake         = "bake" ~idrest
+    break       = "stop" ~idrest
+    if          = "addAPinch" ~idrest
+    elseIf      = "orSubstitute" ~idrest
+    else        = "dumpLeftovers" ~idrest
+    false       = "raw" ~idrest
+    true        = "cooked" ~idrest
+    for         = "bake" ~idrest
     null        = "empty" ~idrest
-    mamaSays       = "mamaSays" ~idrest
-    serve      = "serve" ~idrest
+    print       = "mamaSays" ~idrest
+    return      = "serve" ~idrest
     void        = "bland" ~idrest
-    stir       = "stir" ~idrest
-    ingredient  = "ingredient" ~idrest
-    recipe      = "recipe" ~idrest
-    throwIn     = "throwIn " ~idrest
+    while       = "stir" ~idrest
+    var         = "ingredient" ~idrest
+    func        = "recipe" ~idrest
     until       = "until" ~idrest
-    degrees     = "degrees" ~idrest
+    incrementer = "degrees" ~idrest
     spread      = "rollOut..." ~idrest
-    terminate  =  ";)" ~idrest
-    keyword     =  boolean | addAPinch | stop | dumpLeftovers | number | bake
-                | serve | null | stir | cooked | string 
-                | void | raw | mamaSays | until | degrees | throwIn 
-                | orSubstitute | ingredient | spread | terminate
+    terminate   =  ";)" ~idrest
+    keyword     =  boolean | if | break | else | number | for
+                | return | null | while | true | string 
+                | void | false | print | until | incrementer  
+                | elseIf | var | spread | terminate | func
     id          =  ~keyword letter idrest*
     idrest      =  "_" | alnum
     numlit      =  digit+ ("." digit+)? (("E"|"e") ("+"|"-")? digit+)?
-    boollit     =  raw | cooked
+    boollit     =  true | false
     h           =  hexDigit
     escape      =  "\\\\" | "\\\"" | "\\'" | "\\n" | "\\t" | hexseq
     hexseq      =  "\\" h h? h? h? h? h? h? h? ";"
