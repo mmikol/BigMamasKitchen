@@ -58,18 +58,13 @@ Cooking Language
 | rollOut...              | ...              |
 | mamaSays("")            | console.log("") |                   
 | null                    | empty            |
-| degrees                 | *incrementers*   |
-
-
-    return      = "serve" ~idrest
-    until       = "until" ~idrest
 
 **Note: After each statement please add the ;)**
 
 ## Function Declaration
 
 ```
-recipe eggsBenedict throwIn bitter eggWhites, sweet sauce (^-^)~ ~(^-^)
+recipe eggsBenedict (bitter eggWhites, sweet sauce) (^-^)~ ~(^-^)
 ```
 
 ## Variable Declaration and Assignment
@@ -95,9 +90,6 @@ Dictionary
 
 ingredient = [#] [#]
 
-Spread:
-
-(@) rollOut... eggs (@) ;)
 
 ```
 
@@ -126,14 +118,7 @@ stir until cooked (^-^)~
 ### For Loops
 
 ```
-bake ingredient bitter egg = 1 until egg < 40 degrees 50++ (^-^)~ ~(^-^)
-
-**A Few Notes**
-- degrees are optional, this is the increment
-- degrees defaults to 1++
-- ingredient must be initialized, so we initialize it here you could also do
-ingredient bitter egg = 1
-bake egg until egg > 500 (^-^)~ ~(^-^)
+bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~ ~(^-^)
 ```
 
 ## Comments
@@ -165,7 +150,7 @@ bake egg until egg > 500 (^-^)~ ~(^-^)
   <td>
 
 ```
-mamaSays("Hello world!") ;)
+mamaSays "Hello world!" ;)
 ```
 
   </td>
@@ -191,7 +176,7 @@ console.log(“Hello world!”);
   <td>
 
 ```
-recipe bitter Add throwIn bitter a, bitter b (^-^)~
+recipe bitter Add (bitter a, bitter b) (^-^)~
 serve a + b ;)
 ~(^-^)
 ```
@@ -221,8 +206,7 @@ function Add (a, b) {
   <td>
 
 ```
-recipe bitter evenOdd throwIn bitter a (^-^)~
-
+recipe bitter evenOdd (bitter a) (^-^)~
 serve x % 2 == 0 ;)
 ~(^-^)
 
@@ -235,6 +219,48 @@ serve x % 2 == 0 ;)
 function evenOdd (a) {
     return a % 2 == 0;
 }
+
+```
+
+  </td>
+  </tr>
+</table>
+
+### Greatest Common Divisor 
+
+<table>
+  <tr>
+  <th>BigMamasKitchen</th>
+  <th>JavaScript</th>
+  </tr>
+
+  <tr>
+  <td>
+
+```
+recipe gcd (bitter a, bitter b) (^-^)~
+a = Math.abs(a) ;)
+
+~(^-^)
+
+```
+
+</td>
+  <td>
+
+```JavaScript
+function gcd(a,b) {
+    a = Math.abs(a);
+    b = Math.abs(b);
+    if (b > a) {var temp = a; a = b; b = temp;}
+    while (true) {
+        if (b == 0) return a;
+        a %= b;
+        if (a == 0) return b;
+        b %= a;
+    }
+}
+
 
 ```
 
@@ -256,11 +282,11 @@ function evenOdd (a) {
 
 ```
 addAPinch until i < -35 (^-^)~
-mamaSays(“too cold”) ;)
+  mamaSays “too cold” ;)
 ~(^-^) or substitute until i > 35 (^-^) ~
-mamaSays(“just right”) ;)
+  mamaSays “just right” ;)
 ~(^-^) dumpLeftovers (^-^)~
-mamaSays(“try again!”) ;)
+  mamaSays “try again!” ;)
 ~(^-^)
 ```
 
@@ -295,10 +321,10 @@ console.log(“try again!”);
 ```
 ingredient bitter temperature = 0 ;)
 stir until cooked (^-^)~
-temperature++ ;)
-addAPinch until temperature == 360 (^-^)~
-stop ;)
-(^-^)~
+  temperature++ ;)
+  addAPinch until temperature == 360 (^-^)~
+    stop ;)
+  (^-^)~
 (^-^)~
 ```
 
