@@ -1,4 +1,6 @@
-# BigMamasKitchen
+<h1 align="center" font="tradegothic">
+  BigMamasKitchen
+</h1>
 
 <p align="center"><img src="images/bmk.png" alt="bmk logo" width="350"/></p>
 
@@ -18,7 +20,7 @@ Cooked up by Bridget O'Connor, Sophia Mackin, Moriah Scott, Rachel Nguyen, Milia
 
 - Cooking keywords
 
-- Emoji brackets and comments
+- Emoticon brackets and comments
 
 - Simple statements terminated with ;)
 
@@ -33,6 +35,8 @@ Cooked up by Bridget O'Connor, Sophia Mackin, Moriah Scott, Rachel Nguyen, Milia
 | spicy           | Boolean    |
 | bitter          | Number     |
 | salty           | String     |
+| ArrType         | Array      |
+| DictType        | Dictionary |
 
 ## Keywords Guide
 
@@ -71,22 +75,41 @@ recipe eggsBenedict (bitter eggWhites, sweet sauce) (^-^)~ ~(^-^)
 ingredient bitter egg = 1 ;)
 ```
 
+Array:
+
+```
+ingredient spicy(@) rawEggs = (@)(@) ;)
+```
+
+Array of Array:
+
+```
+ingredient spicy(@)(@) boolArrArr = (@) (@)raw(@), (@)raw, cooked(@) (@) ;)`
+```
+
+Dictionary:
+
+```
+ingredient salty[#] basicDict = [#][#] ;)
+```
+
 ## Assignment
 
 ```
 egg = 4 ;)
 ```
 
+### Array:
+
 ```
-Array:
+rollCake = (@)"strawberry", "sugar", "cake"(@) ;)
+```
 
-ingredient salty(@) rollCake= (@)"strawberry", "sugar", "cake"(@) ;)
+### Dictionary:
 
-Dictionary:
+```
 
-ingredient spicy[#] ramen = [#] "MEAT" : [#] "Beef": 1[#] ,
-"VEGGIES" : [#] "Broccolli": 3[#] [#] ;)
-
+ingredient salty[#] basicDict = [#] "key" : "value" [#] ;)
 
 ```
 
@@ -95,6 +118,7 @@ ingredient spicy[#] ramen = [#] "MEAT" : [#] "Beef": 1[#] ,
 ### If Statement
 
 ```
+
 addAPinchOf i < -35 (^-^)~
 
 ~(^-^) orSubstitute i > 35 (^-^) ~
@@ -102,11 +126,13 @@ addAPinchOf i < -35 (^-^)~
 ~(^-^) dumpLeftovers (^-^)~
 
 ~(^-^)
+
 ```
 
 ### While Loop
 
 ```
+
 stir until cooked (^-^)~
 ~(^-^)
 
@@ -115,7 +141,9 @@ stir until cooked (^-^)~
 ### For Loops
 
 ```
+
 bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~ ~(^-^)
+
 ```
 
 ## Comments
@@ -123,13 +151,20 @@ bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~ ~(^-^)
 ### Multi-line Comment:
 
 ```
---[=] Include more sugar [=]--
+
+--[=] Include more sugar
+      if you want to
+      lol
+[=]--
+
 ```
 
 ### Single-line Comment:
 
 ```
-  ~(=^..^) We love Big Mama
+
+~(=^..^) We love Big Mama
+
 ```
 
 ## Example Programs
@@ -146,7 +181,9 @@ bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~ ~(^-^)
   <td>
 
 ```
+
 mamaSays "Hello world!" ;)
+
 ```
 
   </td>
@@ -244,8 +281,8 @@ recipe bitter gcd (bitter a, bitter b) (^-^)~
   ~(^-^)
 
   addAPinchOf b > a (^-^)~
-    ingredient bitter temp = a ;) 
-    a = b ;) 
+    ingredient bitter temp = a ;)
+    a = b ;)
     b = temp ;)
   ~(^-^)
 
@@ -304,7 +341,7 @@ function gcd(a,b) {
 ```
 addAPinchOf i < -35 (^-^)~
   mamaSays “too cold” ;)
-~(^-^) Orsubstitute i > 35 (^-^) ~
+~(^-^) orSubstitute i > 35 (^-^) ~
   mamaSays “just right” ;)
 ~(^-^) dumpLeftovers (^-^)~
   mamaSays “try again!” ;)
@@ -355,10 +392,10 @@ stir until cooked (^-^)~
 
 let temperature = 0
 while (true) {
-temperature++
-if(temperature == 360){
-break;
-}
+  temperature++
+  if(temperature == 360){
+    break;
+  }
 }
 
 ```
@@ -366,4 +403,3 @@ break;
   </td>
   </tr>
 </table>
-

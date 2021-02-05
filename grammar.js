@@ -1,7 +1,7 @@
 import ohm from "ohm-js"
 
 const BigMamasKitchen = ohm.grammar(String.raw`BigMamasKitchen {
-    Program         =  Stmt+
+    Program         =  Stmt*
     Stmt            =  SimpleStmt terminate		                        -- simple
                     |  Dec                                              -- dec            
                     |  addAPinchOf Exp Block        
