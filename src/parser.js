@@ -1,38 +1,7 @@
-import ohm from "ohm-js"
+import ohm from 'ohm-js'
 
-/*
-    spread id
-
-    ingredient egg = (@)4,4(@)
-    ingredient egg2 = (@)rollOut...egg(@)
-    
-    el1, el2 = rollOut...egg
-    spread will be difficult semantically, can consider not using it
-    Done: 
-    switch out the -- (name) with what it actually is
-        ex: -- addAPinch should be -- if
-    | Exp in Stmt so that we can go to 
-    store ;) as keyword terminate, then put it where it would be applicable
-        otherwise scrap it and delete it where it is now
-    * Did we ge rid of degrees?
-
-    Todo: 
-    redo the Exp so that instead of nonempty lists, make it recursive
-        ex: Exp1 = Exp1 && Exp2
-    do we want a break to be allowed randomly by itself in a program
-        consider moving it, look at realhotgirlsscript for ex.
-        semantically it can be enforced 
-        different groups do break differently
-    recommended we expand the rules the normal way with left and right
-        associativity instead of the NonemptyListOf since it will make 
-        AST trees easier later on
-    "(@)" ((id | Literal) ("," (id | Literal))*)? "(@)" ";)"  --array
-    do the same for dictionary as with array^
-    *can delete CollecDec since it is in Exp so VarDec will cover it*
-    !!!types for arrays and dictionaries??? so that each thing is the same!!!
-    for Params do ListOf
-*/
-const BigMamasKitchen = ohm.grammar(String.raw`BigMamasKitchen {
+const grammar = ohm.grammar(String.raw`
+BigMamasKitchen {
     Program     =  Stmt+
     Stmt        =  Dec                                          -- dec            
                 |  Assignment terminate                         -- assignment
@@ -132,3 +101,8 @@ const BigMamasKitchen = ohm.grammar(String.raw`BigMamasKitchen {
     comment     =  "--[=]" (any ("\n")?)* "[=]--"               -- multiLine
                 | "~(=^‥^)" (~"\n" any)*                        -- singleLine
   }`)
+
+export default function parse(source){
+    const match = grammar.match(source)
+    return match.succeeded()
+}
