@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Compilers project",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "jest --collect-coverage",
+    "test": "c8 node_modules/.bin/mocha -R nyan",
     "lint": "eslint ."
   },
   "repository": {
@@ -18,17 +19,14 @@
   },
   "homepage": "https://github.com/mmikol/BigMamasKitchen",
   "dependencies": {
-    "chai": "^4.2.0",
-    "deep-equal": "^2.0.2",
-    "jest": "^25.1.0",
     "ohm-js": "^0.14.0",
     "prettier": "^2.0.5",
-    "pretty-js": "^0.2.1",
-    "util": "^0.12.2",
-    "yargs": "^15.1.0"
+    "pretty-js": "^0.2.1"
   },
   "devDependencies": {
+    "c8": "^7.5.0",
     "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.10.0"
+    "eslint-config-prettier": "^6.10.0",
+    "mocha": "^8.2.1"
   }
 }
