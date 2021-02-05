@@ -36,28 +36,27 @@ Cooking Language
 | bitter          | Number     |
 | salty           | String     |
 
-
 ## Keywords Guide
 
-| BigMamasKitchen         |    JavaScript    |
-| ----------------------- | ---------------- |
-| cooked                  | true             |
-| raw                     | false            |
-| (^-^)~ ~(^-^)           | {}               |
-| ;)                      | ;                |
-| until condition         | (condition)      |
-| ingredient              | let              |
-| recipe                  | func             |
-| bland                   | void             |
-| stop                    | break            |
-| stir                    | while            |
-| bake                    | for              |
-| addAPinch               | if               |
-| orSubstitute            | else if          |
-| dumpLeftovers           | else             |
-| rollOut...              | ...              |
-| mamaSays("")            | console.log("") |                   
-| null                    | empty            |
+| BigMamasKitchen | JavaScript      |
+| --------------- | --------------- |
+| cooked          | true            |
+| raw             | false           |
+| (^-^)~ ~(^-^)   | {}              |
+| ;)              | ;               |
+| until condition | (condition)     |
+| ingredient      | let             |
+| recipe          | func            |
+| bland           | void            |
+| stop            | break           |
+| stir            | while           |
+| bake            | for             |
+| addAPinch       | if              |
+| orSubstitute    | else if         |
+| dumpLeftovers   | else            |
+| rollOut...      | ...             |
+| mamaSays("")    | console.log("") |
+| null            | empty           |
 
 **Note: After each statement please add the ;)**
 
@@ -82,11 +81,11 @@ egg = 4 ;)
 ```
 
 ```
-Array: 
+Array:
 
-ingredient  rollCake = (@) (@) 
+ingredient  rollCake = (@) (@)
 
-Dictionary 
+Dictionary
 
 ingredient = [#] [#]
 
@@ -136,7 +135,6 @@ bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~ ~(^-^)
 ```
 
 ## Example Programs
-
 
 ### Hello, World!
 
@@ -226,7 +224,7 @@ function evenOdd (a) {
   </tr>
 </table>
 
-### Greatest Common Divisor 
+### Greatest Common Divisor
 
 <table>
   <tr>
@@ -238,8 +236,20 @@ function evenOdd (a) {
   <td>
 
 ```
-recipe gcd (bitter a, bitter b) (^-^)~
+recipe bitter gcd (bitter a, bitter b) (^-^)~
 a = Math.abs(a) ;)
+b = Msath.abs(b) ;)
+
+addAPinch (b > a) (^-^)~
+ingredient temp = a ;) a = b ;) b = temp ;)
+~(^-^)
+stir until cooked (^-^)~
+addAPinch ( b == 0) serve a ;)
+a %= b ;)
+addAPinch ( a == 0) serve b ;)
+b %= a;
+~(^-^)
+
 
 ~(^-^)
 
@@ -267,7 +277,6 @@ function gcd(a,b) {
   </td>
   </tr>
 </table>
-
 
 ## Other Examples
 
@@ -308,7 +317,6 @@ console.log(“try again!”);
   </tr>
 </table>
 
-
 <table>
   <tr>
   <th>BigMamasKitchen</th>
@@ -346,7 +354,3 @@ break;
   </td>
   </tr>
 </table>
-
-
-
-
