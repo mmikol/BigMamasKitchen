@@ -12,6 +12,8 @@ This language is for people who love to cook as it uses cooking/baking phrases. 
 
 Cooked up by Bridget O'Connor, Sophia Mackin, Moriah Scott, Rachel Nguyen, Miliano Mikol.
 
+<br/>
+
 ## Features
 
 - Statically typed with static scoping
@@ -28,7 +30,9 @@ Cooked up by Bridget O'Connor, Sophia Mackin, Moriah Scott, Rachel Nguyen, Milia
 
 - Square Waffle Dictionaries [#]
 
-## Types:
+<br/>
+
+## Types
 
 | BigMamasKitchen | JavaScript |
 | --------------- | ---------- |
@@ -118,6 +122,7 @@ bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~
   mamaSays egg ;)
  ~(^-^)
 ```
+<br/>
 
 ## Comments
 
@@ -196,8 +201,7 @@ ingredient bitter fruit = rollCake[#]"strawberry"[#] ;)
 fruit = rollCake[#]"cake"[#] ;)
 ```
 
-
-
+<br/>
 
 ## Example Programs
 
