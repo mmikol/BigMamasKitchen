@@ -73,8 +73,6 @@ recipe eggsBenedict (bitter eggWhites, salty sauce) (^-^)~ ~(^-^)
 
 ## Variable Declaration and Assignment
 
-<br/>
-
 ### Declaration:
 
 ```
