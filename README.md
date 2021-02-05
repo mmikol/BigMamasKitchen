@@ -10,12 +10,6 @@ This language is for people who love to cook as it uses cooking/baking phrases. 
 
 Cooked up by Bridget O'Connor, Sophia Mackin, Moriah Scott, Rachel Nguyen, Miliano Mikol.
 
-Cooking Language
-
-- variables can be ingredients
-- loops can be things like stir or bake
-- function can be like a recipe
-
 ## Features
 
 - Statically typed with static scoping
@@ -24,9 +18,13 @@ Cooking Language
 
 - Cooking keywords
 
-- Emoji brackets
+- Emoji brackets and comments
 
-- Statements terminated with ;)
+- Simple statements terminated with ;)
+
+- Cinnamon Roll Arrays (@)
+
+- Square Waffle Dictionaries [#]
 
 ## Types:
 
@@ -51,11 +49,10 @@ Cooking Language
 | stop            | break           |
 | stir            | while           |
 | bake            | for             |
-| addAPinch       | if              |
+| addAPinchOf     | if              |
 | orSubstitute    | else if         |
 | dumpLeftovers   | else            |
-| rollOut...      | ...             |
-| mamaSays("")    | console.log("") |
+| mamaSays        | console.log("") |
 | null            | empty           |
 
 **Note: After each statement please add the ;)**
@@ -83,11 +80,12 @@ egg = 4 ;)
 ```
 Array:
 
-ingredient  rollCake = (@) (@)
+ingredient salty(@) rollCake= (@)"strawberry", "sugar", "cake"(@) ;)
 
-Dictionary
+Dictionary:
 
-ingredient = [#] [#]
+ingredient spicy[#] ramen = [#] "MEAT" : [#] "Beef": 1[#] ,
+"VEGGIES" : [#] "Broccolli": 3[#] [#] ;)
 
 
 ```
@@ -97,9 +95,9 @@ ingredient = [#] [#]
 ### If Statement
 
 ```
-addAPinch until i < -35 (^-^)~
+addAPinchOf i < -35 (^-^)~
 
-~(^-^) orSubstitute until i > 35 (^-^) ~
+~(^-^) orSubstitute i > 35 (^-^) ~
 
 ~(^-^) dumpLeftovers (^-^)~
 
@@ -131,7 +129,7 @@ bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~ ~(^-^)
 ### Single-line Comment:
 
 ```
-  ~(=^‥^) We love Big Mama
+  ~(=^..^) We love Big Mama
 ```
 
 ## Example Programs
@@ -175,7 +173,7 @@ console.log(“Hello world!”);
 
 ```
 recipe bitter Add (bitter a, bitter b) (^-^)~
-serve a + b ;)
+  serve a + b ;)
 ~(^-^)
 ```
 
@@ -204,8 +202,8 @@ function Add (a, b) {
   <td>
 
 ```
-recipe bitter evenOdd (bitter a) (^-^)~
-serve x % 2 == 0 ;)
+recipe spicy evenOdd (bitter a) (^-^)~
+  serve x % 2 == 0 ;)
 ~(^-^)
 
 ```
@@ -237,20 +235,34 @@ function evenOdd (a) {
 
 ```
 recipe bitter gcd (bitter a, bitter b) (^-^)~
-a = Math.abs(a) ;)
-b = Msath.abs(b) ;)
+  addAPinchOf a < 0 (^-^)~
+    a = -1 * a ;)
+  ~(^-^)
 
-addAPinch (b > a) (^-^)~
-ingredient temp = a ;) a = b ;) b = temp ;)
-~(^-^)
-stir until cooked (^-^)~
-addAPinch ( b == 0) serve a ;)
-a %= b ;)
-addAPinch ( a == 0) serve b ;)
-b %= a;
-~(^-^)
+  addAPinchOf (b < 0) (^-^)~
+    b = -1 * b ;)
+  ~(^-^)
 
+  addAPinchOf b > a (^-^)~
+    ingredient bitter temp = a ;) 
+    a = b ;) 
+    b = temp ;)
+  ~(^-^)
 
+  stir until cooked (^-^)~
+
+    addAPinchOf b == 0 (^-^)~
+      serve a ;)
+    ~(^-^)
+
+    a = a % b ;)
+
+    addAPinchOf a == 0 (^-^)~
+      serve b ;)
+    ~(^-^)
+
+    b = b % a ;)
+  ~(^-^)
 ~(^-^)
 
 ```
@@ -290,9 +302,9 @@ function gcd(a,b) {
   <td>
 
 ```
-addAPinch until i < -35 (^-^)~
+addAPinchOf i < -35 (^-^)~
   mamaSays “too cold” ;)
-~(^-^) or substitute until i > 35 (^-^) ~
+~(^-^) Orsubstitute i > 35 (^-^) ~
   mamaSays “just right” ;)
 ~(^-^) dumpLeftovers (^-^)~
   mamaSays “try again!” ;)
@@ -330,7 +342,7 @@ console.log(“try again!”);
 ingredient bitter temperature = 0 ;)
 stir until cooked (^-^)~
   temperature++ ;)
-  addAPinch until temperature == 360 (^-^)~
+  addAPinchOf temperature == 360 (^-^)~
     stop ;)
   (^-^)~
 (^-^)~
@@ -355,58 +367,3 @@ break;
   </tr>
 </table>
 
-## Ohm Examples
-
-### Passing:
-
-```
-
-mamaSays 1+2*3 ;)
-
-"oh no" ;)
-
-mamaSays (  	123   ) ;)
-
-mamaSays (2+4)*7 ;)
-
-mamaSays 2 * 3 ;)
-
-ingredient bitter g = 5 * 10 ;)
-
-(@) 3, 4, 5 (@) ;)
-
-8 * 9 + (9 - 5) ;)
-
-bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~
-~(^-^)
-
-serve a + b ;)
-
-recipe bitter Add (bitter a, bitter b) (^-^)~
-  serve a + b ;)
-~(^-^)
-
-ingredient spicy(@) rawEggs = (@) raw, raw (@) ;)
-
-ingredient spicy(@)(@) boolArrArr = (@) (@)raw(@), (@)raw, cooked(@) (@) ;)
-
-ingredient bitter[#][#] dictDict=
-[#]
-"key1" : [#] "inner1": 5[#] ,
-"key2" : [#] "inner2": 2[#]
-[#]  ;)
-
-ingredient salty[#] basicDict = [#]  "key" : "value" [#]  ;)
-
-```
-
-### Failing:
-
-```
-ingredient bitter g = 5 * 10 ;);)
-
-ingredient spicy(@) = (@) raw, raw (@) ;)
-
-ingredient salty[#]  bad= [#] "key" [#] ;)
-
-```

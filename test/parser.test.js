@@ -2,6 +2,23 @@ import assert from "assert"
 import parse from "../src/parser"
 
 const goodPrograms = [
+`mamaSays "make a muffin" ;)
+--[=] Include more sugar
+
+yay!
+ [=]--`,
+ `recipe salty pudding (salty chocolate, spicy water) (^-^)~
+
+ recipe salty cream (salty milk) (^-^)~
+     serve milk + "happiness" ;)
+ ~(^-^)
+
+ addAPinchOf water (^-^)~
+   serve cream(chocolate) ;)
+ ~(^-^) dumpLeftovers (^-^)~
+   serve "no pudding today" ;)
+ ~(^-^)
+~(^-^)`,
 "mamaSays 1+2*3 ;)",
 `"oh no" ;)`,
 `mamaSays (  	123   ) ;)`,
@@ -24,12 +41,29 @@ const goodPrograms = [
     "key2" : [#] "inner2": 2[#]  
 [#];)`,
 `ingredient salty[#] basicDict = [#]  "key" : "value" [#]  ;)`,
+`serve -8 < 9 ;)`,
+`serve -(-(-(-(-(-(-5)))))) ;)`,
+`serve 4 || 9 ;)`,
+`serve 3 && 5 || 2 ;)`,
+`serve 3 || 5 && 2 * 5 + (5 - 1) ;)`,
+`addAPinchOf grand (^-^)~
+serve cooked ;)
+~(^-^) orSubstitute another (^-^)~
+serve raw ;)
+~(=^..^) saying something
+~(^-^)`
 ]
 
 const badPrograms = [
     `ingredient bitter g = 5 * 10 ;);)`,
     `ingredient spicy(@) = (@) raw, raw (@) ;)`,
-    `ingredient salty[#]  bad= [#] "key" [#] ;)`
+    `ingredient salty[#]  bad= [#] "key" [#] ;)`,
+    `serve -10 < 5 > -4 ;)`,
+    `serve -------5 ;)`,
+    `bake ingredient bitter egg = 1 u egg < 40 egg++ (^-^)~
+    ~(^-^)`,
+    `bake ingredient bitter egg = 1 until egg < 40 egg++ (^ -^)~
+    ~(^-^)`
 ]
 
 describe("The parser", () => {
