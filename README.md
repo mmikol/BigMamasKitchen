@@ -35,8 +35,10 @@ Cooked up by Bridget O'Connor, Sophia Mackin, Moriah Scott, Rachel Nguyen, Milia
 | spicy           | Boolean    |
 | bitter          | Number     |
 | salty           | String     |
-| ArrType         | Array      |
-| DictType        | Dictionary |
+| (@)             | Array      |
+| [#]             | Map/Object |
+
+<br/>
 
 ## Keywords Guide
 
@@ -59,91 +61,64 @@ Cooked up by Bridget O'Connor, Sophia Mackin, Moriah Scott, Rachel Nguyen, Milia
 | mamaSays        | console.log("") |
 | null            | empty           |
 
-**Note: After each statement please add the ;)**
+<br/>
 
 ## Function Declaration
 
 ```
-recipe eggsBenedict (bitter eggWhites, sweet sauce) (^-^)~ ~(^-^)
+recipe eggsBenedict (bitter eggWhites, salty sauce) (^-^)~ ~(^-^)
 ```
+
+<br/>
 
 ## Variable Declaration and Assignment
 
-### Declaration
+<br/>
+
+### Declaration:
 
 ```
-ingredient bitter egg = 1 ;)
+ingredient bitter taco = 1 ;)
+ingredient salty cake = "chocolate" ;)
+ingredient spicy egg = raw ;)
 ```
 
-Array:
+### Assignment:
 
 ```
-ingredient spicy(@) rawEggs = (@)(@) ;)
+taco = 4 ;)
+cake = "vanilla" ;)
+egg = cooked ;)
 ```
-
-Array of Array:
-
-```
-ingredient spicy(@)(@) boolArrArr = (@) (@)raw(@), (@)raw, cooked(@) (@) ;)`
-```
-
-Dictionary:
-
-```
-ingredient salty[#] basicDict = [#][#] ;)
-```
-
-## Assignment
-
-```
-egg = 4 ;)
-```
-
-### Array:
-
-```
-rollCake = (@)"strawberry", "sugar", "cake"(@) ;)
-```
-
-### Dictionary:
-
-```
-
-ingredient salty[#] basicDict = [#] "key" : "value" [#] ;)
-
-```
+<br/>
 
 ## Control Flow
-
-### If Statement
+### If Statement:
 
 ```
-
 addAPinchOf i < -35 (^-^)~
-
+  mamaSays "Too little" ;)
 ~(^-^) orSubstitute i > 35 (^-^) ~
-
+  mamaSays "Too much" ;)
 ~(^-^) dumpLeftovers (^-^)~
-
+  mamaSays "Just right" ;)
 ~(^-^)
-
 ```
 
-### While Loop
+### While Loop:
 
 ```
-
 stir until cooked (^-^)~
+  mamaSays "infinite loop baby" ;)
 ~(^-^)
-
 ```
 
-### For Loops
+### For Loop:
 
 ```
-
-bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~ ~(^-^)
-
+bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~
+  mamaSays egg ;)
+ ~(^-^)
 ```
 
 ## Comments
@@ -151,21 +126,80 @@ bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~ ~(^-^)
 ### Multi-line Comment:
 
 ```
-
 --[=] Include more sugar
       if you want to
       lol
 [=]--
-
 ```
 
 ### Single-line Comment:
 
 ```
-
 ~(=^..^) We love Big Mama
+```
+
+<br/>
+
+## Array
+
+### Declaration: 
 
 ```
+ingredient spicy(@) rawEggs = (@)raw, raw(@) ;)
+```
+
+### Array of Array:
+
+```
+ingredient spicy(@)(@) boolArrArr = 
+(@) (@)raw(@), (@)raw, cooked(@) (@) ;)
+```
+
+### Array Access: 
+```
+ingredient salty(@) rollCake = (@)"strawberry", "sugar", "cake"(@) ;)
+
+ingredient salty fruit = rollCake(@)0(@) ;)
+
+fruit = rollCake(@)2(@) ;)
+```
+<br/>
+
+## Dictionary
+
+### Declaration:
+
+```
+salty[#] basicDict = [#] "key" : "value" [#] ;)
+
+```
+
+### Dictionary of Dictionaries:
+
+```
+ingredient bitter[#][#] dictDict= 
+[#] 
+    "key1" : [#] "inner1" : 5 [#] , 
+    "key2" : [#] "inner2" : 2 [#]  
+[#] ;)
+```
+
+### Dictionary Access:
+
+```
+ingredient bitter[#] rollCake = [#]
+  "strawberry": 0, 
+  "sugar": 1,
+  "cake": 2
+[#] ;)
+
+ingredient bitter fruit = rollCake[#]"strawberry"[#] ;)
+
+fruit = rollCake[#]"cake"[#] ;)
+```
+
+
+
 
 ## Example Programs
 
@@ -181,9 +215,7 @@ bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~ ~(^-^)
   <td>
 
 ```
-
 mamaSays "Hello world!" ;)
-
 ```
 
   </td>
@@ -220,14 +252,14 @@ recipe bitter Add (bitter a, bitter b) (^-^)~
 ```JavaScript
 function Add (a, b) {
  return a + b;
- }
+}
 ```
 
   </td>
   </tr>
 </table>
 
-## Even or Odd
+### Even or Odd
 
 <table>
   <tr>
@@ -240,7 +272,7 @@ function Add (a, b) {
 
 ```
 recipe spicy evenOdd (bitter a) (^-^)~
-  serve x % 2 == 0 ;)
+  serve a % 2 == 0 ;)
 ~(^-^)
 
 ```
@@ -313,9 +345,9 @@ function gcd(a,b) {
     b = Math.abs(b);
     if (b > a) {var temp = a; a = b; b = temp;}
     while (true) {
-        if (b == 0) return a;
+        if (b === 0) return a;
         a %= b;
-        if (a == 0) return b;
+        if (a === 0) return b;
         b %= a;
     }
 }

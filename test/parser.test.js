@@ -61,6 +61,20 @@ comments
 [=]--
 ~(^-^)`,
 String.raw`serve 2^2 ;)`,
+String.raw`ingredient salty(@) rollCake = (@)"strawberry", "sugar", "cake"(@) ;)
+
+ingredient salty fruit = rollCake(@)0(@) ;)
+
+fruit = rollCake(@)2(@) ;)`,
+String.raw`ingredient bitter[#] rollCake = [#]
+"strawberry": 0, 
+"sugar": 1,
+"cake": 2
+[#] ;)
+
+ingredient bitter fruit = rollCake[#]"strawberry"[#] ;)
+
+fruit = rollCake[#]"cake"[#] ;)`
 ]
 
 const badPrograms = [
