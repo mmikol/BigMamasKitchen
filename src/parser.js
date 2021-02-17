@@ -70,6 +70,7 @@ BigMamasKitchen {
                   |  id
   Call            =  id "(" Args ")"
   Args            =  ListOf<Exp, ",">
+  
   spicy           = "spicy" ~idrest
   bitter          = "bitter" ~idrest
   salty           = "salty" ~idrest
@@ -115,46 +116,47 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   Program(body) {
     return new ast.Program(body.ast())
   },
-  Statement_declare(_let, id, _eq, expression) {
-    return new ast.Declaration(id.sourceString, expression.ast())
-  },
-  Statement_assign(id, _eq, expression) {
-    return new ast.Assignment(
-      new ast.IdentifierExpression(id.sourceString),
-      expression.ast()
-    )
-  },
-  Statement_print(_print, expression) {
-    return new ast.PrintStatement(expression.ast())
-  },
-  Exp_binary(left, op, right) {
-    return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
-  },
-  Exp1_binary(left, op, right) {
-    return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
-  },
-  Term_binary(left, op, right) {
-    return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
-  },
-  Term_unary(op, operand) {
-    return new ast.UnaryExpression(op.sourceString, operand.ast())
-  },
-  Factor_binary(left, op, right) {
-    return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
-  },
+  
+  // Statement_declare(_let, id, _eq, expression) {
+  //   return new ast.Declaration(id.sourceString, expression.ast())
+  // },
+  // Statement_assign(id, _eq, expression) {
+  //   return new ast.Assignment(
+  //     new ast.IdentifierExpression(id.sourceString),
+  //     expression.ast()
+  //   )
+  // },
+  // Statement_print(_print, expression) {
+  //   return new ast.PrintStatement(expression.ast())
+  // },
+  // Exp_binary(left, op, right) {
+  //   return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
+  // },
+  // Exp1_binary(left, op, right) {
+  //   return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
+  // },
+  // Term_binary(left, op, right) {
+  //   return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
+  // },
+  // Term_unary(op, operand) {
+  //   return new ast.UnaryExpression(op.sourceString, operand.ast())
+  // },
+  // Factor_binary(left, op, right) {
+  //   return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
+  // },
 
-  Primary_parens(_open, expression, _close) {
-    return expression.ast()
-  },
-  Primary_unary(op, operand) {
-    return new ast.UnaryExpression(op.sourceString, operand.ast())
-  },
-  num(_base, _radix, _fraction) {
-    return new ast.LiteralExpression(+this.sourceString)
-  },
-  id(_firstChar, _restChars) {
-    return new ast.IdentifierExpression(this.sourceString)
-  },
+  // Primary_parens(_open, expression, _close) {
+  //   return expression.ast()
+  // },
+  // Primary_unary(op, operand) {
+  //   return new ast.UnaryExpression(op.sourceString, operand.ast())
+  // },
+  // num(_base, _radix, _fraction) {
+  //   return new ast.LiteralExpression(+this.sourceString)
+  // },
+  // id(_firstChar, _restChars) {
+  //   return new ast.IdentifierExpression(this.sourceString)
+  // },
 })
 /* eslint-enable no-unused-vars*/
 
@@ -166,7 +168,7 @@ export default function parse(sourceCode) {
   return astBuilder(match).ast()
 }
 
-// export default function parse(source) {
-//   const match = grammar.match(source)
-//   return match.succeeded()
-// }
+export function syntaxIsOkay(source) {
+  const match = bmkGrammar.match(source)
+  return match.succeeded()
+}

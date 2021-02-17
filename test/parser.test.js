@@ -1,5 +1,5 @@
 import assert from "assert"
-import parse from "../src/parser.js"
+import parse, {syntaxIsOkay} from "../src/parser.js"
 
 const goodPrograms = [
   String.raw`mamaSays "make a muffin" ;)
@@ -89,6 +89,21 @@ String.raw`bake ingredient bitter egg = 1 until egg < 40 egg++ (^ -^)~
     ~(^-^)`,
 ]
 
+describe("The syntax checker", () => {
+  for (const program of goodPrograms) {
+    it(`recognizes ${program}`, () => {
+      assert.ok(syntaxIsOkay(program))
+    })
+  }
+
+  for (const program of badPrograms) {
+    it(`rejects ${program}`, () => {
+      assert.ok(!syntaxIsOkay(program))
+    })
+  }
+  //can also use landing
+})
+
 describe("The parser", () => {
   for (const program of goodPrograms) {
     it(`recognizes ${program}`, () => {
@@ -98,7 +113,7 @@ describe("The parser", () => {
 
   for (const program of badPrograms) {
     it(`reject ${program}`, () => {
-      assert.ok(!parse(program))
+      assert.throws(()  => parse(program))
     })
   }
   //can also use landing

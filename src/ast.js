@@ -67,6 +67,24 @@ export class Return {
   }
 }
 
+export class BinaryExpression {
+  constructor(op, left, right){
+    Object.assign(this, {op, left, right})
+  }
+}
+
+export class IdentifierExpression{
+  constructor(name){
+    this.name = name
+  }
+}
+
+export class Call{
+  constructor(callee, args){
+    Object.assign(this, {callee, args})
+  }
+}
+
 function prettied(node) {
   // Return a compact and pretty string representation of the node graph,
   // taking care of cycles. Written here from scratch because the built-in
