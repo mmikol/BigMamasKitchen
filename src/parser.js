@@ -43,7 +43,7 @@ BigMamasKitchen {
   Block           =  "(^-^)~" Stmt* "~(^-^)"
   Exp             =  Exp "||" Exp1                                    -- or
                   |  Exp "&&" Exp1                                    -- and
-                  |    Exp1
+                  |  Exp1
   Exp1            =  Exp2 relop Exp2                                  -- binary
                   |  Exp2
   Exp2            =  Exp2 addop Exp3                                  -- binary
@@ -116,6 +116,63 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   Program(body) {
     return new ast.Program(body.ast())
   },
+  //ingredient Type id "=" Exp
+  VarDec(_ingredient, type, identifiers, _eq, initializers){
+    return new ast.VariableDeclaration(identifiers.ast(), initializers.ast())
+  },
+  //recipe (Type | bland) id Params Block 
+  FuncDec(_recipe, _left, type, _right, name, parameters, body){
+    return new ast.FunctionDeclaration(
+      name.ast(),
+      parameters.ast(),
+      body.ast()
+    )
+  }, 
+  //though not sure what to do about the increment
+  Assignment(targets, _eq, sources){
+    return new ast.Assignment(targets.ast(), sources.ast())
+  },
+  //
+  ForLoop(_fur, iterator, _in, range, body){
+    return new ast.ForLoop(iterator.ast(), range.ast(), body.ast())
+  },
+  WhileLoop(_purr, test, body){
+    return new ast.WhileLoop(test.ast(), body.ast())
+  }, 
+  Print(_meow, _left, argument, _right){
+
+  },
+  Break(_){
+    return new ast.Break()
+  },
+  Return(_keyword, returnValue){
+    return new ast.Return(returnValue.ast())
+  },
+  Exp_add(left, op, right){
+    return new ast.BinaryExpression(left.ast(), op.sourceString, right.ast())
+  },
+  Call(callee, _left, args, _right){
+    return new ast.Call(callee, args)
+  },
+  id(first, rest){
+    return new ast.IdentifierExpression(this.sourceString)
+  },
+  num(digits){
+    return Number(digits.sourceString)
+  },
+  string(_left, chars, _right){
+    return chars.sourceString
+  },
+  Params(_left, params, _right){
+    return ast.Parameter(params.asIteration().ast())
+  }
+
+
+  //Params =  "(" ListOf<ParamEl, ","> ")"
+  //ParamEl =  Type id
+
+
+
   
   // Statement_declare(_let, id, _eq, expression) {
   //   return new ast.Declaration(id.sourceString, expression.ast())
