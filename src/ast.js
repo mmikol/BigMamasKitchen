@@ -16,22 +16,9 @@ export class Program {
     return prettied(this)
   }
 }
-
-export class FunctionDeclaration {
-  constructor(name, parameters, body) {
-    Object.assign(this, { name, parameters, body })
-  }
-}
-
-export class VariableDeclaration {
-  constructor(variables, initializers) {
-    Object.assign(this, { variables, initializers })
-  }
-}
-
-export class Parameter {
-  constructor(name, type) {
-    Object.assign(this, { name, type })
+export class Expression {
+  constructor(expression) {
+    this.expression = expression
   }
 }
 
@@ -41,9 +28,63 @@ export class Assignment {
   }
 }
 
-export class ForLoop {
-  constructor(iterator, range, body) {
-    Object.assign(this, { iterator, range, body })
+export class Increment {
+  constructor(target, increment) {
+    Object.assign(this, { target, increment })
+  }
+}
+
+export class VariableDeclaration {
+  constructor(type, variables, initializers) {
+    Object.assign(this, { type, variables, initializers })
+  }
+}
+
+export class ArrayDeclaration {
+  constructor(type, variables, initializers) {
+    Object.assign(this, { type, variables, initializers })
+  }
+}
+
+export class ArrayType {
+  constructor(type) {
+    Object.assign(this, { type })
+  }
+}
+
+export class DictionaryDeclaration {
+  constructor(type, variables, initializers) {
+    Object.assign(this, { type, variables, initializers })
+  }
+}
+
+export class DictionaryType {
+  constructor(keyType, valueType) {
+    Object.assign(this, { keyType, valueType })
+  }
+}
+
+export class FunctionDeclaration {
+  constructor(type, id, parameters, body) {
+    Object.assign(this, { type, id, parameters, body })
+  }
+}
+
+export class Type {
+  constructor(id) {
+    this.id = id
+  }
+}
+
+export class Params {
+  constructor(type, id) {
+    Object.assign(this, { type, id })
+  }
+}
+
+export class IfStatement {
+  constructor(tests, consequents, alternate) {
+    Object.assign(this, { tests, consequents, alternate })
   }
 }
 
@@ -53,9 +94,15 @@ export class WhileLoop {
   }
 }
 
+export class ForLoop {
+  constructor(iterator, range, increment, body) {
+    Object.assign(this, { iterator, range, increment, body })
+  }
+}
+
 export class PrintStatement {
-  constructor(arguement) {
-    this.arguement = arguement
+  constructor(argument) {
+    this.argument = argument
   }
 }
 
@@ -68,20 +115,32 @@ export class Return {
 }
 
 export class BinaryExpression {
-  constructor(op, left, right){
-    Object.assign(this, {op, left, right})
+  constructor(op, left, right) {
+    Object.assign(this, { op, left, right })
   }
 }
 
-export class IdentifierExpression{
-  constructor(name){
-    this.name = name
+export class UnaryExpression {
+  constructor(prefix, expression) {
+    Object.assign(this, { prefix, expression })
   }
 }
 
-export class Call{
-  constructor(callee, args){
-    Object.assign(this, {callee, args})
+export class IdentifierExpression {
+  constructor(id) {
+    this.id = id
+  }
+}
+
+export class Call {
+  constructor(callee, args) {
+    Object.assign(this, { callee, args })
+  }
+}
+
+export class Block {
+  constructor(statements) {
+    this.statements = statements
   }
 }
 

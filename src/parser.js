@@ -17,7 +17,7 @@ BigMamasKitchen {
                   |  serve Exp?                                       -- return
                   |  mamaSays Exp                                     -- print
                   |  Exp                                              -- expression
-  Assignment      =  Increment                                        -- increment
+  Assignment      =  Increment                                        
                   |  Var "=" Exp                                      -- assign
   Increment       =  Var incop             
   Dec             =  FuncDec 
@@ -117,104 +117,191 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     return new ast.Program(body.ast())
   },
   //ingredient Type id "=" Exp
-  VarDec(_ingredient, type, identifiers, _eq, initializers){
-    return new ast.VariableDeclaration(identifiers.ast(), initializers.ast())
+  VarDec(_ingredient, type, id, _eq, initializers) {
+    return new ast.VariableDeclaration(
+      type.ast(),
+      id.ast(),
+      initializers.ast()
+    )
   },
-  //recipe (Type | bland) id Params Block 
-  FuncDec(_recipe, _left, type, _right, name, parameters, body){
+    //  ArrDec          =  ingredient ArrType id "=" Array 
+  // ????
+  ArrDec(_ingredient, type, id, _eq, initializers) {
+    return new ast.ArrayDeclaration(type.ast(), id.ast(), initializers.ast())
+  },
+  // ArrType         =  ArrType "(@)" 
+  // |  Type "(@)"	
+  ArrType(type, _array) {
+    return new ast.ArrayType(type.ast())
+  },
+  //   DictDec         =  ingredient DictType id "=" Dict 
+  DictDec(_ingredient, type, id, _eq, initializers) {
+    return new ast.DictionaryDeclaration(type.ast(), id.ast, initalizers.ast())
+  },
+  // DictType        =  DictType "[#]" 
+  // |  Type "[#]" 
+  DictType(type, _dictionary) {
+    return new ast.DictionaryType(type.ast())
+  },
+  // Array           =  "(@)" ListOf<Exp, ","> "(@)"                     -- array
+  Array_array(_left, expressions, _right) {
+    return new ast.Array(expressions.ast())
+  },
+  // Dict            =  "[#]" ListOf< DictEl, ","> "[#]"                 -- dict
+  Dict_dict(_left, expressions, _right) {
+    return new ast.Dict(expressions.ast())
+  },
+  //recipe (Type | bland) id Params Block
+  FuncDec(_recipe, _left, type, _right, id, parameters, body) {
     return new ast.FunctionDeclaration(
-      name.ast(),
+      type.ast(),
+      id.ast(),
       parameters.ast(),
       body.ast()
     )
-  }, 
-  //though not sure what to do about the increment
-  Assignment(targets, _eq, sources){
+  },
+  //|  Var "=" Exp                                      -- assign
+  Assignment_assign(targets, _eq, sources) {
     return new ast.Assignment(targets.ast(), sources.ast())
   },
-  //
-  ForLoop(_fur, iterator, _in, range, body){
-    return new ast.ForLoop(iterator.ast(), range.ast(), body.ast())
-  },
-  WhileLoop(_purr, test, body){
-    return new ast.WhileLoop(test.ast(), body.ast())
-  }, 
-  Print(_meow, _left, argument, _right){
+  //Increment  =  Var incop 
+  Increment(target, increment){
+    return new ast.Increment(target.ast(), increment.ast())
 
   },
-  Break(_){
+  Statement_if(_addAPinchOf, firstTest, firstBlock, _orSubstitute, secondTest, secondBlock, _dumpLeftovers, finalBlock) {
+    const tests = [firstTestError.ast(), ...secondTest.ast()]
+    const consequents = [firstBlock.ast(), ...secondBlock.ast()]
+    const alternate = arrayToNullable(finalBlock.ast())
+    return new IfStatement(tests, consequents, alternate)
+  }
+  // |  stir until Exp Block                             -- while
+  Statement_while(_stir, _until, test, body) {
+    return new ast.WhileLoop(test.ast(), body.ast())
+  },
+  //  |  bake (VarDec | id) until Exp (Increment)? Block  -- for
+  // do we include increment if it's optional?
+  Statement_for(_bake, iterator, _until, range, increment, body) {
+    return new ast.ForLoop(iterator.ast(), range.ast(), increment.ast(), body.ast())
+  },
+
+  // mamaSays Exp 
+  SimpleStmt_print(_mamaSays, argument) {
+    return new ast.PrintStatement(argument.ast())
+
+  },
+  //stop  -- break
+  SimpleStmt_break(_stop) {
     return new ast.Break()
   },
-  Return(_keyword, returnValue){
+  //serve Exp?  
+  SimpleStmt_return(_serve, returnValue) {
     return new ast.Return(returnValue.ast())
   },
-  Exp_add(left, op, right){
-    return new ast.BinaryExpression(left.ast(), op.sourceString, right.ast())
+  //  Exp             =  Exp "||" Exp1                                    -- or
+  //|  Exp "&&" Exp1                                    -- and
+  //|  Exp1 is this right??
+  Exp_or(left, _or, right) {
+    return new ast.Expression(left.ast(), op.ast(), right.ast())
   },
-  Call(callee, _left, args, _right){
+  Exp_and(left, _and, right) {
+    return new ast.Expression(left.ast(), op.ast(), right.ast())
+  },
+  Exp1_binary(left, op, right) {
+    return new ast.BinaryExpression(left.ast(), op.ast(), right.ast())
+  },
+  Exp2_binary(left, op, right) {
+    return new ast.BinaryExpression(left.ast(), op.ast(), right.ast())
+  },
+  Exp3_binary(left, op, right) {
+    return new ast.BinaryExpression(left.ast(), op.ast(), right.ast())
+  },
+  Exp4_unary(prefix, expression) {
+    return new ast.UnaryExpression(prefix.ast(), expression.ast())
+  },
+  //Exp5            =  Exp6 "^" Exp5     
+  // why is this not binary?                             -- exponential
+  // why not source string??
+  Exp5_exponential(left, op, right) {
+    return new ast.BinaryExpression(left.ast(), op.ast(), right.ast())
+  },
+  Exp6_parens(_left, expression,_right) {
+    return new ast.Expression(expression.ast())
+  },
+  Call(callee, _left, args, _right) {
     return new ast.Call(callee, args)
   },
-  id(first, rest){
+  //  Block           =  "(^-^)~" Stmt* "~(^-^)"
+  Block(_left, statements, _right) {
+    return new ast.Block(statements.ast())
+  },
+  // types?????????????
+  spicy(_) {
+    return Type
+  },
+  bitter(_) {
+    return Type
+  },
+  salty(_) {
+    return Type
+  },
+  id(_first, _rest) {
     return new ast.IdentifierExpression(this.sourceString)
   },
-  num(digits){
+  numlit(digits) {
     return Number(digits.sourceString)
   },
-  string(_left, chars, _right){
+  stringlit(_left, chars, _right) {
     return chars.sourceString
   },
-  Params(_left, params, _right){
+  Params(_left, params, _right) {
     return ast.Parameter(params.asIteration().ast())
-  }
+  },
 
+//Params =  "(" ListOf<ParamEl, ","> ")"
+//ParamEl =  Type id
 
-  //Params =  "(" ListOf<ParamEl, ","> ")"
-  //ParamEl =  Type id
+// Statement_declare(_let, id, _eq, expression) {
+//   return new ast.Declaration(id.sourceString, expression.ast())
+// },
+// Statement_assign(id, _eq, expression) {
+//   return new ast.Assignment(
+//     new ast.IdentifierExpression(id.sourceString),
+//     expression.ast()
+//   )
+// },
+// Statement_print(_print, expression) {
+//   return new ast.PrintStatement(expression.ast())
+// },
+// Exp_binary(left, op, right) {
+//   return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
+// },
+// Exp1_binary(left, op, right) {
+//   return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
+// },
+// Term_binary(left, op, right) {
+//   return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
+// },
+// Term_unary(op, operand) {
+//   return new ast.UnaryExpression(op.sourceString, operand.ast())
+// },
+// Factor_binary(left, op, right) {
+//   return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
+// },
 
-
-
-  
-  // Statement_declare(_let, id, _eq, expression) {
-  //   return new ast.Declaration(id.sourceString, expression.ast())
-  // },
-  // Statement_assign(id, _eq, expression) {
-  //   return new ast.Assignment(
-  //     new ast.IdentifierExpression(id.sourceString),
-  //     expression.ast()
-  //   )
-  // },
-  // Statement_print(_print, expression) {
-  //   return new ast.PrintStatement(expression.ast())
-  // },
-  // Exp_binary(left, op, right) {
-  //   return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
-  // },
-  // Exp1_binary(left, op, right) {
-  //   return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
-  // },
-  // Term_binary(left, op, right) {
-  //   return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
-  // },
-  // Term_unary(op, operand) {
-  //   return new ast.UnaryExpression(op.sourceString, operand.ast())
-  // },
-  // Factor_binary(left, op, right) {
-  //   return new ast.BinaryExpression(op.sourceString, left.ast(), right.ast())
-  // },
-
-  // Primary_parens(_open, expression, _close) {
-  //   return expression.ast()
-  // },
-  // Primary_unary(op, operand) {
-  //   return new ast.UnaryExpression(op.sourceString, operand.ast())
-  // },
-  // num(_base, _radix, _fraction) {
-  //   return new ast.LiteralExpression(+this.sourceString)
-  // },
-  // id(_firstChar, _restChars) {
-  //   return new ast.IdentifierExpression(this.sourceString)
-  // },
-})
+// Primary_parens(_open, expression, _close) {
+//   return expression.ast()
+// },
+// Primary_unary(op, operand) {
+//   return new ast.UnaryExpression(op.sourceString, operand.ast())
+// },
+// num(_base, _radix, _fraction) {
+//   return new ast.LiteralExpression(+this.sourceString)
+// },
+// id(_firstChar, _restChars) {
+//   return new ast.IdentifierExpression(this.sourceString)
+// },
+// })
 /* eslint-enable no-unused-vars*/
 
 export default function parse(sourceCode) {
