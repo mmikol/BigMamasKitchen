@@ -75,6 +75,10 @@ export class Type {
     this.id = id
   }
 }
+// maybe like this?????
+export const SpicyType = new Type("spicy")
+export const BitterType = new Type("bitter")
+export const SaltyType = new Type("salty")
 
 export class Params {
   constructor(type, id) {
