@@ -40,27 +40,45 @@ export class VariableDeclaration {
   }
 }
 
-export class ArrayDeclaration {
-  constructor(type, variables, initializers) {
-    Object.assign(this, { type, variables, initializers })
-  }
-}
-
 export class ArrayType {
   constructor(type) {
     Object.assign(this, { type })
   }
 }
 
-export class DictionaryDeclaration {
-  constructor(type, variables, initializers) {
-    Object.assign(this, { type, variables, initializers })
+export class DictType {
+  constructor(type) {
+    Object.assign(this, { type })
   }
 }
 
-export class DictionaryType {
-  constructor(keyType, valueType) {
-    Object.assign(this, { keyType, valueType })
+export class ArrayLiteral {
+  constructor(expression) {
+    this.expression = expression
+  }
+}
+
+export class DictLiteral {
+  constructor(expression) {
+    this.expression = expression
+  }
+}
+
+export class ArrayAccess {
+  constructor(variable, index) {
+    Object.assign(this, { variable, index })
+  }
+}
+
+export class DictAccess {
+  constructor(variable, key) {
+    Object.assign(this, { variable, key })
+  }
+}
+
+export class NamedType {
+  constructor(name) {
+    Object.assign(this, { name })
   }
 }
 
@@ -75,14 +93,53 @@ export class Type {
     this.id = id
   }
 }
+
+// export class NumericLiteral {
+//   constructor(value) {
+//     this.value = value
+//   }
+// }
+
+// export class BooleanLiteral {
+//   constructor(value) {
+//     this.value = value
+//   }
+// }
+
+// export class StringLiteral {
+//   constructor(value) {
+//     this.value = value
+//   }
+// }
+
 // maybe like this?????
+/*
 export const SpicyType = new Type("spicy")
 export const BitterType = new Type("bitter")
 export const SaltyType = new Type("salty")
+*/
 
-export class Params {
+export class Parameter {
+  constructor(params) {
+    this.params = params
+  }
+}
+
+export class Args {
+  constructor(args) {
+    this.args = args
+  }
+}
+
+export class ParamEl {
   constructor(type, id) {
     Object.assign(this, { type, id })
+  }
+}
+
+export class DictEl {
+  constructor(string, expression) {
+    Object.assign(this, { string, expression })
   }
 }
 

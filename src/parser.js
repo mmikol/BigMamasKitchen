@@ -8,35 +8,30 @@ BigMamasKitchen {
                   |  Dec                                              -- dec            
                   |  addAPinchOf Exp Block        
                       (orSubstitute Exp Block)*
-                      (dumpLeftovers Block)?                          -- ifStatement    
-                  |  stir until Exp Block                             -- while
-                  |  bake (VarDec | id) until Exp (Increment)? Block  -- for
+                      (dumpLeftovers Block)?                          -- if    
+                  |  Loop
   SimpleStmt      =  Assignment                                       -- assignment
                   |  Call                                             -- call
                   |  stop                                             -- break
                   |  serve Exp?                                       -- return
                   |  mamaSays Exp                                     -- print
                   |  Exp                                              -- expression
+  Loop            =  stir until Exp Block                             -- while
+                  |  bake (VarDec | id) until Exp (Increment)? Block  -- for
   Assignment      =  Increment                                        
                   |  Var "=" Exp                                      -- assign
-  Increment       =  Var incop             
+  Increment       =  Var incop  
   Dec             =  FuncDec 
-                  |  ( VarDec | ArrDec | DictDec ) terminate          -- variable
+                  |  VarDec terminate                                 -- variable
   VarDec          =  ingredient Type id "=" Exp
-  ArrDec          =  ingredient ArrType id "=" Array 
-  DictDec         =  ingredient DictType id "=" Dict 
   FuncDec         =  recipe (Type | bland) id Params Block 
-  Type            =  spicy 
-                  |  bitter 
+  Type            =  Type "(@)"	                                      -- array
+                  |  Type "[#]"                                       -- dict 
+                  |  spicy 
+                  |  bitter
                   |  salty
-                  |  ArrType
-                  |  DictType
-  ArrType         =  ArrType "(@)" 
-                  |  Type "(@)"	
-  DictType        =  DictType "[#]" 
-                  |  Type "[#]" 
-  Array           =  "(@)" ListOf<Exp, ","> "(@)"                     -- array
-  Dict            =  "[#]" ListOf< DictEl, ","> "[#]"                 -- dict
+  Array           =  "(@)" ListOf<Exp, ","> "(@)"                     
+  Dict            =  "[#]" ListOf< DictEl, ","> "[#]"                 
   DictEl          =  stringlit ":" Exp
   Params          =  "(" ListOf<ParamEl, ","> ")"
   ParamEl         =  Type id
@@ -64,8 +59,8 @@ BigMamasKitchen {
                   |  stringlit
                   |  Array
                   |  Dict
-  Var             =  Var "(@)" Exp "(@)"                              -- arraySubscript
-                  |  Var "[#]" stringlit  "[#]"                       -- dictionary 
+  Var             =  Var "(@)" Exp "(@)"                              -- array
+                  |  Var "[#]" Exp  "[#]"                       -- dictionary 
                   |  Call
                   |  id
   Call            =  id "(" Args ")"
@@ -111,41 +106,55 @@ BigMamasKitchen {
   comment         =  "--[=]" (~"[=]--" any)* "[=]--"                    -- multiLine
                   | "~(=^..^)" (~"\n" any)*                              -- singleLine
 }`)
+
+function arrayToNullable(a) {
+  return a.length === 0 ? null : a[0]
+}
+
 /* eslint-disable no-unused-vars*/
 const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   Program(body) {
     return new ast.Program(body.ast())
   },
+  //Stmt =  SimpleStmt terminate		                          -- simple
+  Stmt_simple(statement, _terminate) {
+    return statement.ast()
+  },
+  ///Dec =  ( VarDec | ArrDec | DictDec ) terminate          -- variable
+  Dec_variable(declaration, _terminate) {
+    return declaration.ast()
+  },
   //ingredient Type id "=" Exp
   VarDec(_ingredient, type, id, _eq, initializers) {
     return new ast.VariableDeclaration(type.ast(), id.ast(), initializers.ast())
   },
-  //  ArrDec          =  ingredient ArrType id "=" Array
-  // ????
-  ArrDec(_ingredient, type, id, _eq, initializers) {
-    return new ast.ArrayDeclaration(type.ast(), id.ast(), initializers.ast())
-  },
   // ArrType         =  ArrType "(@)"
   // |  Type "(@)"
-  ArrType(type, _array) {
+  Type_array(type, _symbol) {
     return new ast.ArrayType(type.ast())
   },
-  //   DictDec         =  ingredient DictType id "=" Dict
-  DictDec(_ingredient, type, id, _eq, initializers) {
-    return new ast.DictionaryDeclaration(type.ast(), id.ast, initializers.ast())
-  },
-  // DictType        =  DictType "[#]"
-  // |  Type "[#]"
-  DictType(type, _dictionary) {
-    return new ast.DictionaryType(type.ast())
+  Type_dict(type, _symbol) {
+    return new ast.DictType(type.ast())
   },
   // Array           =  "(@)" ListOf<Exp, ","> "(@)"                     -- array
-  Array_array(_left, expressions, _right) {
-    return new ast.Array(expressions.ast())
+  Array(_left, expressions, _right) {
+    return new ast.ArrayLiteral(expressions.asIteration().ast())
+  },
+  //  Var "[#]" Exp "[#]"                       -- dictionary
+  Var_dictionary(variable, _left, key, _right) {
+    return new ast.DictAccess(variable.ast(), key.ast())
+  },
+  //Var "(@)" Exp "(@)"                -- array
+  Var_array(variable, _left, index, _right) {
+    return new ast.ArrayAccess(variable.ast(), index.ast())
   },
   // Dict            =  "[#]" ListOf< DictEl, ","> "[#]"                 -- dict
-  Dict_dict(_left, expressions, _right) {
-    return new ast.Dict(expressions.ast())
+  Dict(_left, expressions, _right) {
+    return new ast.DictLiteral(expressions.asIteration().ast())
+  },
+  //  DictEl          =  stringlit ":" Exp,
+  DictEl(str, _colon, expression) {
+    return new ast.DictEl(str.ast(), expression.ast())
   },
   //recipe (Type | bland) id Params Block
   FuncDec(_recipe, type, id, parameters, body) {
@@ -162,21 +171,30 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   },
   //Increment  =  Var incop
   Increment(target, increment) {
-    return new ast.Increment(target.ast(), increment.ast())
+    return new ast.Increment(target.ast(), increment.sourceString)
   },
-  // Statement_if(_addAPinchOf, firstTest, firstBlock, _orSubstitute, secondTest, secondBlock, _dumpLeftovers, finalBlock) {
-  //   const tests = [firstTest.ast(), ...secondTest.ast()]
-  //   const consequents = [firstBlock.ast(), ...secondBlock.ast()]
-  //   const alternate = arrayToNullable(finalBlock.ast())
-  //   return new ast.IfStatement(tests, consequents, alternate)
-  // },
+  Stmt_if(
+    _addAPinchOf,
+    firstTest,
+    firstBlock,
+    _orSubstitute,
+    secondTest,
+    secondBlock,
+    _dumpLeftovers,
+    finalBlock
+  ) {
+    const tests = [firstTest.ast(), ...secondTest.ast()]
+    const consequents = [firstBlock.ast(), ...secondBlock.ast()]
+    const alternate = arrayToNullable(finalBlock.ast())
+    return new ast.IfStatement(tests, consequents, alternate)
+  },
   // |  stir until Exp Block                             -- while
-  Stmt_while(_stir, _until, test, body) {
+  Loop_while(_stir, _until, test, body) {
     return new ast.WhileLoop(test.ast(), body.ast())
   },
   //  |  bake (VarDec | id) until Exp (Increment)? Block  -- for
   // do we include increment if it's optional?
-  Stmt_for(_bake, iterator, _until, range, increment, body) {
+  Loop_for(_bake, iterator, _until, range, increment, body) {
     return new ast.ForLoop(
       iterator.ast(),
       range.ast(),
@@ -201,34 +219,37 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   //|  Exp "&&" Exp1                                    -- and
   //|  Exp1 is this right??
   Exp_or(left, op, right) {
-    return new ast.Expression(left.ast(), op.ast(), right.ast())
+    return new ast.Expression(left.ast(), op.sourceString, right.ast())
   },
   Exp_and(left, op, right) {
-    return new ast.Expression(left.ast(), op.ast(), right.ast())
+    return new ast.Expression(left.ast(), op.sourceString, right.ast())
   },
   Exp1_binary(left, op, right) {
-    return new ast.BinaryExpression(left.ast(), op.ast(), right.ast())
+    return new ast.BinaryExpression(left.ast(), op.sourceString, right.ast())
   },
   Exp2_binary(left, op, right) {
-    return new ast.BinaryExpression(left.ast(), op.ast(), right.ast())
+    return new ast.BinaryExpression(left.ast(), op.sourceString, right.ast())
   },
   Exp3_binary(left, op, right) {
-    return new ast.BinaryExpression(left.ast(), op.ast(), right.ast())
+    return new ast.BinaryExpression(left.ast(), op.sourceString, right.ast())
   },
   Exp4_unary(prefix, expression) {
-    return new ast.UnaryExpression(prefix.ast(), expression.ast())
+    return new ast.UnaryExpression(prefix.sourceString, expression.ast())
   },
   //Exp5            =  Exp6 "^" Exp5
   // why is this not binary?                             -- exponential
   // why not source string??
   Exp5_exponential(left, op, right) {
-    return new ast.BinaryExpression(left.ast(), op.ast(), right.ast())
+    return new ast.BinaryExpression(left.ast(), op.sourceString, right.ast())
   },
   Exp6_parens(_left, expression, _right) {
     return new ast.Expression(expression.ast())
   },
   Call(callee, _left, args, _right) {
-    return new ast.Call(callee, args)
+    return new ast.Call(callee.ast(), args.ast())
+  },
+  Args(args) {
+    return new ast.Args(args.asIteration().ast())
   },
   //  Block           =  "(^-^)~" Stmt* "~(^-^)"
   Block(_left, statements, _right) {
@@ -236,28 +257,44 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   },
 
   // types?????????????
-  SpicyType(_) {
-    return Type
-  },
-  BitterType(_) {
-    return Type
-  },
-  SaltyType(_) {
-    return Type
-  },
+  // Type(_) {
 
+  // },
   id(_first, _rest) {
     return new ast.IdentifierExpression(this.sourceString)
   },
-  numlit(digits) {
-    return Number(digits.sourceString)
+  // digit+ ("." digit+)? (("E"|"e") ("+"|"-")? digit+)?
+  numlit(digits, decimal, fractions, exponents, sign, digit2) {
+    return Number(+this.sourceString)
   },
   stringlit(_left, chars, _right) {
     return chars.sourceString
   },
-  Params(_left, params, _right) {
-    return ast.Parameter(params.asIteration().ast())
+  boollit(bool) {
+    return bool.sourceString
   },
+  Params(_left, params, _right) {
+    return new ast.Parameter(params.asIteration().ast())
+  },
+  //ParamEl         =  Type id
+  ParamEl(type, id) {
+    return new ast.ParamEl(type, id)
+  },
+  spicy(_) {
+    return new ast.NamedType("spicy")
+  },
+  salty(_) {
+    return new ast.NamedType("salty")
+  },
+  bitter(_) {
+    return new ast.NamedType("bitter")
+  },
+  bland(_) {
+    return new ast.NamedType("bland")
+  },
+  // _terminal() {
+  //   return this.sourceString
+  // },
 
   //Params =  "(" ListOf<ParamEl, ","> ")"
   //ParamEl =  Type id
