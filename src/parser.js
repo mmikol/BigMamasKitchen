@@ -136,7 +136,7 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   },
   //   DictDec         =  ingredient DictType id "=" Dict 
   DictDec(_ingredient, type, id, _eq, initializers) {
-    return new ast.DictionaryDeclaration(type.ast(), id.ast, initalizers.ast())
+    return new ast.DictionaryDeclaration(type.ast(), id.ast, initializers.ast())
   },
   // DictType        =  DictType "[#]" 
   // |  Type "[#]" 
@@ -152,7 +152,7 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     return new ast.Dict(expressions.ast())
   },
   //recipe (Type | bland) id Params Block
-  FuncDec(_recipe, _left, type, _right, id, parameters, body) {
+  FuncDec(_recipe, type, id, parameters, body) {
     return new ast.FunctionDeclaration(
       type.ast(),
       id.ast(),
@@ -169,19 +169,19 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     return new ast.Increment(target.ast(), increment.ast())
 
   },
-  Statement_if(_addAPinchOf, firstTest, firstBlock, _orSubstitute, secondTest, secondBlock, _dumpLeftovers, finalBlock) {
-    const tests = [firstTestError.ast(), ...secondTest.ast()]
-    const consequents = [firstBlock.ast(), ...secondBlock.ast()]
-    const alternate = arrayToNullable(finalBlock.ast())
-    return new IfStatement(tests, consequents, alternate)
-  }
+  // Statement_if(_addAPinchOf, firstTest, firstBlock, _orSubstitute, secondTest, secondBlock, _dumpLeftovers, finalBlock) {
+  //   const tests = [firstTest.ast(), ...secondTest.ast()]
+  //   const consequents = [firstBlock.ast(), ...secondBlock.ast()]
+  //   const alternate = arrayToNullable(finalBlock.ast())
+  //   return new ast.IfStatement(tests, consequents, alternate)
+  // },
   // |  stir until Exp Block                             -- while
-  Statement_while(_stir, _until, test, body) {
+  Stmt_while(_stir, _until, test, body) {
     return new ast.WhileLoop(test.ast(), body.ast())
   },
   //  |  bake (VarDec | id) until Exp (Increment)? Block  -- for
   // do we include increment if it's optional?
-  Statement_for(_bake, iterator, _until, range, increment, body) {
+  Stmt_for(_bake, iterator, _until, range, increment, body) {
     return new ast.ForLoop(iterator.ast(), range.ast(), increment.ast(), body.ast())
   },
 
@@ -201,10 +201,10 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   //  Exp             =  Exp "||" Exp1                                    -- or
   //|  Exp "&&" Exp1                                    -- and
   //|  Exp1 is this right??
-  Exp_or(left, _or, right) {
+  Exp_or(left, op, right) {
     return new ast.Expression(left.ast(), op.ast(), right.ast())
   },
-  Exp_and(left, _and, right) {
+  Exp_and(left, op, right) {
     return new ast.Expression(left.ast(), op.ast(), right.ast())
   },
   Exp1_binary(left, op, right) {
@@ -236,15 +236,15 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     return new ast.Block(statements.ast())
   },
   // types?????????????
-  spicy(_) {
-    return Type
-  },
-  bitter(_) {
-    return Type
-  },
-  salty(_) {
-    return Type
-  },
+  // spicy(_) {
+  //   return Type
+  // },
+  // bitter(_) {
+  //   return Type
+  // },
+  // salty(_) {
+  //   return Type
+  // },
   id(_first, _rest) {
     return new ast.IdentifierExpression(this.sourceString)
   },
@@ -301,7 +301,7 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
 // id(_firstChar, _restChars) {
 //   return new ast.IdentifierExpression(this.sourceString)
 // },
-// })
+})
 /* eslint-enable no-unused-vars*/
 
 export default function parse(sourceCode) {

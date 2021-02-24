@@ -104,17 +104,17 @@ describe("The syntax checker", () => {
   //can also use landing
 })
 
-// describe("The parser", () => {
-//   for (const program of goodPrograms) {
-//     it(`recognizes ${program}`, () => {
-//       assert.ok(parse(program))
-//     })
-//   }
+describe("The parser", () => {
+  for (const program of goodPrograms) {
+    it(`recognizes ${program}`, () => {
+      assert.ok(parse(program))
+    })
+  }
 
-//   for (const program of badPrograms) {
-//     it(`reject ${program}`, () => {
-//       assert.throws(()  => parse(program))
-//     })
-//   }
-//   //can also use landing
-// })
+  for (const program of badPrograms) {
+    it(`reject ${program}`, () => {
+      assert.throws(()  => parse(program))
+    })
+  }
+  //can also use landing
+})
