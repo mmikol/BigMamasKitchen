@@ -3,22 +3,22 @@ import parse, { syntaxIsOkay } from "../src/parser.js"
 
 const goodPrograms = [
   String.raw`mamaSays "make a muffin" ;)
---[=] Include more sugar
+  --[=] Include more sugar
 
-yay!
- [=]--`,
+  yay!
+   [=]--`,
   String.raw`recipe salty pudding (salty chocolate, spicy water) (^-^)~
 
- recipe salty cream (salty milk) (^-^)~
-     serve milk + "happiness" ;)
- ~(^-^)
+   recipe salty cream (salty milk) (^-^)~
+       serve milk + "happiness" ;)
+   ~(^-^)
 
- addAPinchOf water (^-^)~
-   serve cream(chocolate) ;)
- ~(^-^) dumpLeftovers (^-^)~
-   serve "no pudding today" ;)
- ~(^-^)
-~(^-^)`,
+   addAPinchOf water (^-^)~
+     serve cream(chocolate) ;)
+   ~(^-^) dumpLeftovers (^-^)~
+     serve "no pudding today" ;)
+   ~(^-^)
+  ~(^-^)`,
   String.raw`mamaSays 1+2*3 ;)`,
   String.raw`"oh no" ;)`,
   String.raw`mamaSays (  	123   ) ;)`,
@@ -83,6 +83,10 @@ mamaSays "test single line" ;)
 ~(=^..^) testing single line comment
 ~(^-^)
 stop ;)`,
+
+  String.raw`stir until cooked (^-^)~
+  mamaSays "infinite loop baby" ;)
+~(^-^)`,
 ]
 
 const badPrograms = [
@@ -109,13 +113,13 @@ describe("The syntax checker", () => {
       assert.ok(!syntaxIsOkay(program))
     })
   }
-  //can also use landing
 })
 
 describe("The parser", () => {
   for (const program of goodPrograms) {
     it(`recognizes ${program}`, () => {
       assert.ok(parse(program))
+      //console.log(parse(program))
     })
   }
 
@@ -124,5 +128,4 @@ describe("The parser", () => {
       assert.throws(() => parse(program))
     })
   }
-  //can also use landing
 })
