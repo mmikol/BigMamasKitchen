@@ -75,6 +75,14 @@ fruit = rollCake(@)2(@) ;)`,
 ingredient bitter fruit = rollCake[#]"strawberry"[#] ;)
 
 fruit = rollCake[#]"cake"[#] ;)`,
+
+  String.raw`addAPinchOf something (^-^)~
+serve raw ;)
+~(^-^) orSubstitute anotherOne (^-^)~
+mamaSays "test single line" ;)
+~(=^..^) testing single line comment
+~(^-^)
+stop ;)`,
 ]
 
 const badPrograms = [
@@ -113,7 +121,7 @@ describe("The parser", () => {
 
   for (const program of badPrograms) {
     it(`reject ${program}`, () => {
-      assert.throws(()  => parse(program))
+      assert.throws(() => parse(program))
     })
   }
   //can also use landing
