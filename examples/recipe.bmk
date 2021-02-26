@@ -1,13 +1,9 @@
-recipe bland triangle () (^-^)~
-serve ;)
---[=] 
-testing out 
-multiple line
-comments
-[=]--
-~(^-^)
-
 recipe salty pudding (salty chocolate, spicy water) (^-^)~
+    --[=] 
+    testing out 
+    multiple line
+    comments
+    [=]--
 
    recipe salty cream (salty milk) (^-^)~
        serve milk + "happiness" ;)
