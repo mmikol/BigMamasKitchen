@@ -87,6 +87,37 @@ stop ;)`,
   String.raw`stir until cooked (^-^)~
   mamaSays "infinite loop baby" ;)
 ~(^-^)`,
+String.raw`recipe bitter gcd (bitter a, bitter b) (^-^)~
+addAPinchOf a < 0 (^-^)~
+  a = -1 * a ;)
+~(^-^)
+
+addAPinchOf (b < 0) (^-^)~
+  b = -1 * b ;)
+~(^-^)
+
+addAPinchOf b > a (^-^)~
+  ingredient bitter temp = a ;)
+  a = b ;)
+  b = temp ;)
+~(^-^)
+
+stir until cooked (^-^)~
+
+  addAPinchOf b == 0 (^-^)~
+    serve a ;)
+  ~(^-^)
+
+  a = a % b ;)
+
+  addAPinchOf a == 0 (^-^)~
+    serve b ;)
+  ~(^-^)
+
+  b = b % a ;)
+~(^-^)
+~(^-^)`,
+String.raw`ingredient empty null = empty ;)`
 ]
 
 const badPrograms = [
@@ -119,7 +150,6 @@ describe("The parser", () => {
   for (const program of goodPrograms) {
     it(`recognizes ${program}`, () => {
       assert.ok(parse(program))
-      //console.log(parse(program))
     })
   }
 

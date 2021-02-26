@@ -23,18 +23,19 @@ BigMamasKitchen {
   Increment       =  Var incop  
   Dec             =  FuncDec 
                   |  VarDec terminate                                 -- variable
-  VarDec          =  ingredient Type id "=" Exp
   FuncDec         =  recipe (Type | bland) id Params Block 
+  VarDec          =  ingredient Type id "=" Exp
   Type            =  Type "(@)"	                                      -- array
                   |  Type "[#]"                                       -- dict 
                   |  spicy 
                   |  bitter
                   |  salty
+                  |  empty
   Array           =  "(@)" ListOf<Exp, ","> "(@)"                     
   Dict            =  "[#]" ListOf< DictEl, ","> "[#]"                 
   DictEl          =  stringlit ":" Exp
-  Params          =  "(" ListOf<ParamEl, ","> ")"
-  ParamEl         =  Type id
+  Params          =  "(" ListOf<Parameter, ","> ")"
+  Parameter       =  Type id
   Block           =  "(^-^)~" Stmt* "~(^-^)"
   Exp             =  Exp "||" Exp1                                    -- or
                   |  Exp "&&" Exp1                                    -- and
@@ -60,7 +61,7 @@ BigMamasKitchen {
                   |  Array
                   |  Dict
   Var             =  Var "(@)" Exp "(@)"                              -- array
-                  |  Var "[#]" Exp  "[#]"                       -- dictionary 
+                  |  Var "[#]" Exp  "[#]"                             -- dictionary 
                   |  Call
                   |  id
   Call            =  id "(" Args ")"
@@ -103,7 +104,7 @@ BigMamasKitchen {
   prefixop        =  ~"--" "-" | "!"
   incop           =  "++" | "--"
   space           :=  "\x20" | "\x09" | "\x0A" | "\x0D" | comment
-  comment         =  "--[=]" (~"[=]--" any)* "[=]--"                    -- multiLine
+  comment         =  "--[=]" (~"[=]--" any)* "[=]--"                     -- multiLine
                   | "~(=^..^)" (~"\n" any)*                              -- singleLine
 }`)
 
@@ -241,10 +242,10 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     return bool.sourceString
   },
   Params(_left, params, _right) {
-    return new ast.Parameter(params.asIteration().ast())
+    return params.asIteration().ast()
   },
-  ParamEl(type, id) {
-    return new ast.ParamEl(type, id)
+  Parameter(type, id) {
+    return new ast.Parameter(type.ast(), id.ast())
   },
   spicy(_) {
     return new ast.NamedType("spicy")
@@ -257,6 +258,9 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   },
   bland(_) {
     return new ast.NamedType("bland")
+  },
+  empty(_) {
+    return new ast.NamedType("empty")
   },
 })
 
