@@ -41,6 +41,7 @@ Cooked up by Bridget O'Connor, Sophia Mackin, Moriah Scott, Rachel Nguyen, Milia
 | salty           | String     |
 | (@)             | Array      |
 | [#]             | Map/Object |
+| empty           | null       |
 
 <br/>
 
@@ -63,7 +64,6 @@ Cooked up by Bridget O'Connor, Sophia Mackin, Moriah Scott, Rachel Nguyen, Milia
 | orSubstitute    | else if         |
 | dumpLeftovers   | else            |
 | mamaSays        | console.log("") |
-| null            | empty           |
 
 <br/>
 

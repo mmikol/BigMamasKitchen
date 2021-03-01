@@ -2,12 +2,13 @@ import util from "util"
 
 export class Program {
   constructor(statements) {
-    this.statments = statements
+    this.statements = statements
   }
   [util.inspect.custom]() {
     return prettied(this)
   }
 }
+
 export class Expression {
   constructor(expression) {
     this.expression = expression
@@ -15,8 +16,8 @@ export class Expression {
 }
 
 export class Assignment {
-  constructor(targets, sources) {
-    Object.assign(this, { targets, sources })
+  constructor(target, source) {
+    Object.assign(this, { target, source })
   }
 }
 
@@ -27,8 +28,8 @@ export class Increment {
 }
 
 export class VariableDeclaration {
-  constructor(type, variables, initializers) {
-    Object.assign(this, { type, variables, initializers })
+  constructor(type, variable, initializer) {
+    Object.assign(this, { type, variable, initializer })
   }
 }
 
@@ -80,25 +81,13 @@ export class FunctionDeclaration {
   }
 }
 
-// export class Type {
-//   constructor(id) {
-//     this.id = id
-//   }
-// }
-
-export class Parameter {
-  constructor(params) {
-    this.params = params
-  }
-}
-
 export class Args {
   constructor(args) {
     this.args = args
   }
 }
 
-export class ParamEl {
+export class Parameter {
   constructor(type, id) {
     Object.assign(this, { type, id })
   }
@@ -111,8 +100,8 @@ export class DictEl {
 }
 
 export class IfStatement {
-  constructor(tests, consequents, alternate) {
-    Object.assign(this, { tests, consequents, alternate })
+  constructor(test, consequents, alternate) {
+    Object.assign(this, { test, consequents, alternate })
   }
 }
 
@@ -172,7 +161,7 @@ export class Block {
   }
 }
 
-//Taken from Dr. Toal's AEL compiler
+// Taken from Dr. Toal's AEL compiler
 function prettied(node) {
   // Return a compact and pretty string representation of the node graph,
   // taking care of cycles. Written here from scratch because the built-in
