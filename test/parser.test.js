@@ -117,7 +117,7 @@ stir until cooked (^-^)~
   b = b % a ;)
 ~(^-^)
 ~(^-^)`,
-  String.raw`ingredient empty null = empty ;)`,
+  String.raw`ingredient bland x = empty ;)`,
 ]
 
 const badPrograms = [

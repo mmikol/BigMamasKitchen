@@ -1,6 +1,6 @@
 BigMamasKitchen {
   Program         =  Stmt*
-  Stmt            =  SimpleStmt terminate		                          -- simple
+  Stmt            =  SimpleStmt terminate                             -- simple
                   |  Dec                                              -- dec            
                   |  addAPinchOf Exp Block        
                       (orSubstitute Exp Block)*
@@ -19,14 +19,14 @@ BigMamasKitchen {
   Increment       =  Var incop  
   Dec             =  FuncDec 
                   |  VarDec terminate                                 -- variable
-  FuncDec         =  recipe (Type | bland) id Params Block 
+  FuncDec         =  recipe (Type) id Params Block 
   VarDec          =  ingredient Type id "=" Exp
   Type            =  Type "(@)"	                                      -- array
                   |  Type "[#]"                                       -- dict 
                   |  spicy 
                   |  bitter
                   |  salty
-                  |  empty
+                  |  bland
   Array           =  "(@)" ListOf<Exp, ","> "(@)"                     
   Dict            =  "[#]" ListOf< DictEl, ","> "[#]"                 
   DictEl          =  stringlit ":" Exp

@@ -224,7 +224,7 @@ mamaSays "Hello world!" ;)
   <td>
 
 ```JavaScript
-console.log(“Hello world!”);
+console.log("Hello world!");
 ```
 
   </td>

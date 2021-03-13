@@ -4,7 +4,6 @@ import util from "util"
 
 /*
 src/bigMamasKitchen.js examples/hello.bmk ast*/
-
 const source1 = `mamaSays "make a muffin" ;)`
 
 const source2 = `recipe bitter gcd (bitter a, bitter b) (^-^)~
@@ -62,6 +61,8 @@ addAPinchOf water (^-^)~
 ~(^-^)`
 
 const source5 = `ingredient spicy(@) rawEggs = (@) raw, raw (@) ;)`
+
+const source6 = `ingredient bland x = empty ;)`
 
 const expectedAst1 = `   1 | Program statements=[#2]
    2 | PrintStatement argument='make a muffin'`
@@ -180,10 +181,27 @@ const expectedAst5 = `   1 | Program statements=[#2]
    5 | IdentifierExpression id='rawEggs'
    6 | ArrayLiteral expression=['raw','raw']`
 
+const expectedAst6 = `   1 | Program statements=[#2]
+   2 | VariableDeclaration type=#3 variable=#4 initializer='empty'
+   3 | NamedType name='bland'
+   4 | IdentifierExpression id='x'`
+
+const goodPrograms = [
+  { source: source1, expectedAst: expectedAst1 },
+  { source: source2, expectedAst: expectedAst2 },
+  { source: source3, expectedAst: expectedAst3 },
+  { source: source4, expectedAst: expectedAst4 },
+  { source: source5, expectedAst: expectedAst5 },
+  { source: source6, expectedAst: expectedAst6 },
+]
+
 describe("The Ast Generation", () => {
-  assert.deepStrictEqual(util.format(parse(source1)), expectedAst1)
-  assert.deepStrictEqual(util.format(parse(source2)), expectedAst2)
-  assert.deepStrictEqual(util.format(parse(source3)), expectedAst3)
-  assert.deepStrictEqual(util.format(parse(source4)), expectedAst4)
-  assert.deepStrictEqual(util.format(parse(source5)), expectedAst5)
+  for (const program of goodPrograms) {
+    it(`recognizes ${program}`, () => {
+      assert.deepStrictEqual(
+        util.format(parse(program.source)),
+        program.expectedAst
+      )
+    })
+  }
 })
