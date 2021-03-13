@@ -41,7 +41,7 @@ Cooked up by Bridget O'Connor, Sophia Mackin, Moriah Scott, Rachel Nguyen, Milia
 | salty           | String     |
 | (@)             | Array      |
 | [#]             | Map/Object |
-| empty           | null       |
+| bland           | null/void  |
 
 <br/>
 
@@ -56,7 +56,7 @@ Cooked up by Bridget O'Connor, Sophia Mackin, Moriah Scott, Rachel Nguyen, Milia
 | until condition | (condition)     |
 | ingredient      | let             |
 | recipe          | func            |
-| bland           | void            |
+| empty           | null literal    |
 | stop            | break           |
 | stir            | while           |
 | bake            | for             |
