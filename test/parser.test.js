@@ -87,7 +87,7 @@ stop ;)`,
   String.raw`stir until cooked (^-^)~
   mamaSays "infinite loop baby" ;)
 ~(^-^)`,
-String.raw`recipe bitter gcd (bitter a, bitter b) (^-^)~
+  String.raw`recipe bitter gcd (bitter a, bitter b) (^-^)~
 addAPinchOf a < 0 (^-^)~
   a = -1 * a ;)
 ~(^-^)
@@ -117,7 +117,7 @@ stir until cooked (^-^)~
   b = b % a ;)
 ~(^-^)
 ~(^-^)`,
-String.raw`ingredient empty null = empty ;)`
+  String.raw`ingredient bland x = empty ;)`,
 ]
 
 const badPrograms = [

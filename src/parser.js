@@ -1,112 +1,8 @@
+import fs from "fs"
 import ohm from "ohm-js"
 import * as ast from "./ast.js"
 
-const bmkGrammar = ohm.grammar(String.raw`
-BigMamasKitchen {
-  Program         =  Stmt*
-  Stmt            =  SimpleStmt terminate		                          -- simple
-                  |  Dec                                              -- dec            
-                  |  addAPinchOf Exp Block        
-                      (orSubstitute Exp Block)*
-                      (dumpLeftovers Block)?                          -- if    
-                  |  Loop
-  SimpleStmt      =  Assignment                                       -- assignment
-                  |  Call                                             -- call
-                  |  stop                                             -- break
-                  |  serve Exp?                                       -- return
-                  |  mamaSays Exp                                     -- print
-                  |  Exp                                              -- expression
-  Loop            =  stir until Exp Block                             -- while
-                  |  bake (VarDec | id) until Exp (Increment)? Block  -- for
-  Assignment      =  Increment                                        
-                  |  Var "=" Exp                                      -- assign
-  Increment       =  Var incop  
-  Dec             =  FuncDec 
-                  |  VarDec terminate                                 -- variable
-  FuncDec         =  recipe (Type | bland) id Params Block 
-  VarDec          =  ingredient Type id "=" Exp
-  Type            =  Type "(@)"	                                      -- array
-                  |  Type "[#]"                                       -- dict 
-                  |  spicy 
-                  |  bitter
-                  |  salty
-                  |  empty
-  Array           =  "(@)" ListOf<Exp, ","> "(@)"                     
-  Dict            =  "[#]" ListOf< DictEl, ","> "[#]"                 
-  DictEl          =  stringlit ":" Exp
-  Params          =  "(" ListOf<Parameter, ","> ")"
-  Parameter       =  Type id
-  Block           =  "(^-^)~" Stmt* "~(^-^)"
-  Exp             =  Exp "||" Exp1                                    -- or
-                  |  Exp "&&" Exp1                                    -- and
-                  |  Exp1
-  Exp1            =  Exp2 relop Exp2                                  -- binary
-                  |  Exp2
-  Exp2            =  Exp2 addop Exp3                                  -- binary
-                  |  Exp3
-  Exp3            =  Exp3 mulop Exp4                                  -- binary
-                  |  Exp4
-  Exp4            =  prefixop Exp5                                    -- unary
-                  |  Exp5
-  Exp5            =  Exp6 "^" Exp5                                    -- exponential
-                  |  Exp6
-  Exp6            =  Literal
-                  |  Increment
-                  |  Var
-                  |  "(" Exp ")"                                      -- parens
-  Literal         =  empty
-                  |  boollit
-                  |  numlit
-                  |  stringlit
-                  |  Array
-                  |  Dict
-  Var             =  Var "(@)" Exp "(@)"                              -- array
-                  |  Var "[#]" Exp  "[#]"                             -- dictionary 
-                  |  Call
-                  |  id
-  Call            =  id "(" Args ")"
-  Args            =  ListOf<Exp, ",">
-  
-  spicy           = "spicy" ~idrest
-  bitter          = "bitter" ~idrest
-  salty           = "salty" ~idrest
-  stop            = "stop" ~idrest
-  addAPinchOf     = "addAPinchOf" ~idrest
-  orSubstitute    = "orSubstitute" ~idrest
-  dumpLeftovers   = "dumpLeftovers" ~idrest
-  raw             = "raw" ~idrest
-  cooked          = "cooked" ~idrest
-  bake            = "bake" ~idrest
-  empty           = "empty" ~idrest
-  mamaSays        = "mamaSays" ~idrest
-  serve           = "serve" ~idrest
-  bland           = "bland" ~idrest
-  stir            = "stir" ~idrest
-  ingredient      = "ingredient" ~idrest
-  recipe          = "recipe" ~idrest
-  until           = "until" ~idrest
-  terminate       =  ";)" ~idrest
-  keyword         =  spicy | addAPinchOf | stop | dumpLeftovers 
-                  | bitter | bake | serve | empty | stir | cooked 
-                  | salty | bland | raw | mamaSays | until | orSubstitute 
-                  | ingredient | terminate | recipe
-  id              =  ~keyword letter idrest*
-  idrest          =  "_" | alnum
-  numlit          =  digit+ ("." digit+)? (("E"|"e") ("+"|"-")? digit+)?
-  boollit         =  raw | cooked
-  h               =  hexDigit
-  escape          =  "\\\\" | "\\\"" | "\\'" | "\\n" | "\\t" | hexseq
-  hexseq          =  "\\" h h? h? h? h? h? h? h? ";"
-  stringlit       =  "\"" (~"\\" ~"\"" ~"\n" any | escape)* "\""
-  addop           =  "+" | "-"
-  relop           =  "<=" | "<" | "==" | "!=" | ">=" | ">"
-  mulop           =  "*" | "/" | "%"
-  prefixop        =  ~"--" "-" | "!"
-  incop           =  "++" | "--"
-  space           :=  "\x20" | "\x09" | "\x0A" | "\x0D" | comment
-  comment         =  "--[=]" (~"[=]--" any)* "[=]--"                     -- multiLine
-                  | "~(=^..^)" (~"\n" any)*                              -- singleLine
-}`)
+const bmkGrammar = ohm.grammar(fs.readFileSync("src/bigMamasKitchen.ohm"))
 
 function arrayToNullable(a) {
   return a.length === 0 ? null : a[0]
@@ -241,6 +137,9 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   boollit(bool) {
     return bool.sourceString
   },
+  empty(empty) {
+    return empty.sourceString
+  },
   Params(_left, params, _right) {
     return params.asIteration().ast()
   },
@@ -258,9 +157,6 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   },
   bland(_) {
     return new ast.NamedType("bland")
-  },
-  empty(_) {
-    return new ast.NamedType("empty")
   },
 })
 
