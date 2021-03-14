@@ -20,7 +20,7 @@ recipe bitter gcd (bitter a, bitter b) (^-^)~
     ~(^-^)
 
     a = a % b ;)
-
+a
     addAPinchOf a == 0 (^-^)~
       serve b ;)
     ~(^-^)
