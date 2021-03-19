@@ -27,6 +27,7 @@ BigMamasKitchen {
                   |  bitter
                   |  salty
                   |  bland
+                  |  empty
   Array           =  "(@)" ListOf<Exp, ","> "(@)"                     
   Dict            =  "[#]" ListOf< DictEl, ","> "[#]"                 
   DictEl          =  stringlit ":" Exp
@@ -50,7 +51,7 @@ BigMamasKitchen {
                   |  Increment
                   |  Var
                   |  "(" Exp ")"                                      -- parens
-  Literal         =  empty
+  Literal         =  nothing
                   |  boollit
                   |  numlit
                   |  stringlit
@@ -64,6 +65,7 @@ BigMamasKitchen {
   Args            =  ListOf<Exp, ",">
   
   spicy           = "spicy" ~idrest
+  nothing         = "nothing" ~idrest
   bitter          = "bitter" ~idrest
   salty           = "salty" ~idrest
   stop            = "stop" ~idrest
@@ -83,7 +85,7 @@ BigMamasKitchen {
   until           = "until" ~idrest
   terminate       =  ";)" ~idrest
   keyword         =  spicy | addAPinchOf | stop | dumpLeftovers 
-                  | bitter | bake | serve | empty | stir | cooked 
+                  | bitter | bake | serve | empty | nothing | stir | cooked
                   | salty | bland | raw | mamaSays | until | orSubstitute 
                   | ingredient | terminate | recipe
   id              =  ~keyword letter idrest*

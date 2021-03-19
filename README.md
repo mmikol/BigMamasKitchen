@@ -41,7 +41,7 @@ Cooked up by Bridget O'Connor, Sophia Mackin, Moriah Scott, Rachel Nguyen, Milia
 | salty           | String     |
 | (@)             | Array      |
 | [#]             | Map/Object |
-| bland           | null/void  |
+| bland           | null       |
 
 <br/>
 
@@ -55,8 +55,9 @@ Cooked up by Bridget O'Connor, Sophia Mackin, Moriah Scott, Rachel Nguyen, Milia
 | ;)              | ;               |
 | until condition | (condition)     |
 | ingredient      | let             |
+| empty           | void            |
 | recipe          | func            |
-| empty           | null literal    |
+| nothing         | null literal    |
 | stop            | break           |
 | stir            | while           |
 | bake            | for             |
@@ -92,9 +93,11 @@ taco = 4 ;)
 cake = "vanilla" ;)
 egg = cooked ;)
 ```
+
 <br/>
 
 ## Control Flow
+
 ### If Statement:
 
 ```
@@ -122,6 +125,7 @@ bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~
   mamaSays egg ;)
  ~(^-^)
 ```
+
 <br/>
 
 ## Comments
@@ -145,7 +149,7 @@ bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~
 
 ## Array
 
-### Declaration: 
+### Declaration:
 
 ```
 ingredient spicy(@) rawEggs = (@)raw, raw(@) ;)
@@ -154,11 +158,12 @@ ingredient spicy(@) rawEggs = (@)raw, raw(@) ;)
 ### Array of Array:
 
 ```
-ingredient spicy(@)(@) boolArrArr = 
+ingredient spicy(@)(@) boolArrArr =
 (@) (@)raw(@), (@)raw, cooked(@) (@) ;)
 ```
 
-### Array Access: 
+### Array Access:
+
 ```
 ingredient salty(@) rollCake = (@)"strawberry", "sugar", "cake"(@) ;)
 
@@ -166,6 +171,7 @@ ingredient salty fruit = rollCake(@)0(@) ;)
 
 fruit = rollCake(@)2(@) ;)
 ```
+
 <br/>
 
 ## Dictionary
@@ -180,10 +186,10 @@ salty[#] basicDict = [#] "key" : "value" [#] ;)
 ### Dictionary of Dictionaries:
 
 ```
-ingredient bitter[#][#] dictDict= 
-[#] 
-    "key1" : [#] "inner1" : 5 [#] , 
-    "key2" : [#] "inner2" : 2 [#]  
+ingredient bitter[#][#] dictDict=
+[#]
+    "key1" : [#] "inner1" : 5 [#] ,
+    "key2" : [#] "inner2" : 2 [#]
 [#] ;)
 ```
 
@@ -191,7 +197,7 @@ ingredient bitter[#][#] dictDict=
 
 ```
 ingredient bitter[#] rollCake = [#]
-  "strawberry": 0, 
+  "strawberry": 0,
   "sugar": 1,
   "cake": 2
 [#] ;)

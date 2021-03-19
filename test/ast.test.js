@@ -62,7 +62,7 @@ addAPinchOf water (^-^)~
 
 const source5 = `ingredient spicy(@) rawEggs = (@) raw, raw (@) ;)`
 
-const source6 = `ingredient bland x = empty ;)`
+const source6 = `ingredient bland x = nothing ;)`
 
 const expectedAst1 = `   1 | Program statements=[#2]
    2 | PrintStatement argument='make a muffin'`
@@ -182,7 +182,7 @@ const expectedAst5 = `   1 | Program statements=[#2]
    6 | ArrayLiteral expression=['raw','raw']`
 
 const expectedAst6 = `   1 | Program statements=[#2]
-   2 | VariableDeclaration type=#3 variable=#4 initializer='empty'
+   2 | VariableDeclaration type=#3 variable=#4 initializer='nothing'
    3 | NamedType name='bland'
    4 | IdentifierExpression id='x'`
 

@@ -137,8 +137,8 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   boollit(bool) {
     return bool.sourceString
   },
-  empty(empty) {
-    return empty.sourceString
+  nothing(nothing) {
+    return nothing.sourceString
   },
   Params(_left, params, _right) {
     return params.asIteration().ast()
@@ -157,6 +157,9 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   },
   bland(_) {
     return new ast.NamedType("bland")
+  },
+  empty(_) {
+    return new ast.NamedType("empty")
   },
 })
 

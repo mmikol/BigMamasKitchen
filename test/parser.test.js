@@ -117,8 +117,10 @@ stir until cooked (^-^)~
   b = b % a ;)
 ~(^-^)
 ~(^-^)`,
-  String.raw`ingredient bland x = empty ;)`,
-]
+  String.raw`ingredient bland x = nothing ;)`,
+  String.raw`recipe empty printTemperature (bitter temperature) (^-^)~
+    mamaSays temperature ;)
+  ~(^-^)`]
 
 const badPrograms = [
   String.raw`ingredient bitter g = 5 * 10 ;);)`,
