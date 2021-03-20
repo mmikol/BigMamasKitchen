@@ -20,7 +20,7 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     return declaration.ast()
   },
   VarDec(_ingredient, type, id, _eq, initializers) {
-    return new ast.VariableDeclaration(type.ast(), id.ast(), initializers.ast())
+    return new ast.VariableDeclaration(type.ast(), id.sourceString, initializers.ast())
   },
   Type_array(type, _symbol) {
     return new ast.ArrayType(type.ast())
@@ -46,7 +46,7 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   FuncDec(_recipe, type, id, parameters, body) {
     return new ast.FunctionDeclaration(
       type.ast(),
-      id.ast(),
+      id.sourceString,
       parameters.ast(),
       body.ast()
     )
@@ -135,31 +135,32 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     return chars.sourceString
   },
   boollit(bool) {
-    return bool.sourceString
+    return bool.sourceString === 'cooked'
   },
+  // deal with null later
   nothing(nothing) {
-    return nothing.sourceString
+    return new ast.NullLiteral()
   },
   Params(_left, params, _right) {
     return params.asIteration().ast()
   },
   Parameter(type, id) {
-    return new ast.Parameter(type.ast(), id.ast())
+    return new ast.Parameter(type.ast(), id.sourceString)
   },
   spicy(_) {
-    return new ast.NamedType("spicy")
+    return new ast.TypeIdentifier("spicy")
   },
   salty(_) {
-    return new ast.NamedType("salty")
+    return new ast.TypeIdentifier("salty")
   },
   bitter(_) {
-    return new ast.NamedType("bitter")
+    return new ast.TypeIdentifier("bitter")
   },
   bland(_) {
-    return new ast.NamedType("bland")
+    return new ast.TypeIdentifier("bland")
   },
   empty(_) {
-    return new ast.NamedType("empty")
+    return new ast.TypeIdentifier("empty")
   },
 })
 

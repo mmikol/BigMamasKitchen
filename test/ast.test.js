@@ -68,123 +68,113 @@ const expectedAst1 = `   1 | Program statements=[#2]
    2 | PrintStatement argument='make a muffin'`
 
 const expectedAst2 = `   1 | Program statements=[#2]
-   2 | FunctionDeclaration type=#3 id=#4 parameters=[#5,#8] body=#11
-   3 | NamedType name='bitter'
-   4 | IdentifierExpression id='gcd'
-   5 | Parameter type=#6 id=#7
-   6 | NamedType name='bitter'
-   7 | IdentifierExpression id='a'
-   8 | Parameter type=#9 id=#10
-   9 | NamedType name='bitter'
-  10 | IdentifierExpression id='b'
-  11 | Block statements=[#12,#21,#31,#46]
-  12 | IfStatement test=[#13] consequents=[#15] alternate=null
-  13 | BinaryExpression left=#14 op='<' right=0
+   2 | FunctionDeclaration type=#3 id='gcd' parameters=[#4,#6] body=#8
+   3 | TypeIdentifier name='bitter'
+   4 | Parameter type=#5 id='a'
+   5 | TypeIdentifier name='bitter'
+   6 | Parameter type=#7 id='b'
+   7 | TypeIdentifier name='bitter'
+   8 | Block statements=[#9,#18,#28,#42]
+   9 | IfStatement test=[#10] consequents=[#12] alternate=null
+  10 | BinaryExpression left=#11 op='<' right=0
+  11 | IdentifierExpression id='a'
+  12 | Block statements=[#13]
+  13 | Assignment target=#14 source=#15
   14 | IdentifierExpression id='a'
-  15 | Block statements=[#16]
-  16 | Assignment target=#17 source=#18
+  15 | BinaryExpression left=#16 op='*' right=#17
+  16 | UnaryExpression prefix='-' expression=1
   17 | IdentifierExpression id='a'
-  18 | BinaryExpression left=#19 op='*' right=#20
-  19 | UnaryExpression prefix='-' expression=1
-  20 | IdentifierExpression id='a'
-  21 | IfStatement test=[#22] consequents=[#25] alternate=null
-  22 | Expression expression=#23
-  23 | BinaryExpression left=#24 op='<' right=0
+  18 | IfStatement test=[#19] consequents=[#22] alternate=null
+  19 | Expression expression=#20
+  20 | BinaryExpression left=#21 op='<' right=0
+  21 | IdentifierExpression id='b'
+  22 | Block statements=[#23]
+  23 | Assignment target=#24 source=#25
   24 | IdentifierExpression id='b'
-  25 | Block statements=[#26]
-  26 | Assignment target=#27 source=#28
+  25 | BinaryExpression left=#26 op='*' right=#27
+  26 | UnaryExpression prefix='-' expression=1
   27 | IdentifierExpression id='b'
-  28 | BinaryExpression left=#29 op='*' right=#30
-  29 | UnaryExpression prefix='-' expression=1
+  28 | IfStatement test=[#29] consequents=[#32] alternate=null
+  29 | BinaryExpression left=#30 op='>' right=#31
   30 | IdentifierExpression id='b'
-  31 | IfStatement test=[#32] consequents=[#35] alternate=null
-  32 | BinaryExpression left=#33 op='>' right=#34
-  33 | IdentifierExpression id='b'
-  34 | IdentifierExpression id='a'
-  35 | Block statements=[#36,#40,#43]
-  36 | VariableDeclaration type=#37 variable=#38 initializer=#39
-  37 | NamedType name='bitter'
-  38 | IdentifierExpression id='temp'
-  39 | IdentifierExpression id='a'
-  40 | Assignment target=#41 source=#42
-  41 | IdentifierExpression id='a'
-  42 | IdentifierExpression id='b'
-  43 | Assignment target=#44 source=#45
-  44 | IdentifierExpression id='b'
-  45 | IdentifierExpression id='temp'
-  46 | WhileLoop test='cooked' body=#47
-  47 | Block statements=[#48,#54,#59,#65]
-  48 | IfStatement test=[#49] consequents=[#51] alternate=null
-  49 | BinaryExpression left=#50 op='==' right=0
-  50 | IdentifierExpression id='b'
-  51 | Block statements=[#52]
-  52 | Return returnValue=[#53]
+  31 | IdentifierExpression id='a'
+  32 | Block statements=[#33,#36,#39]
+  33 | VariableDeclaration type=#34 name='temp' initializer=#35
+  34 | TypeIdentifier name='bitter'
+  35 | IdentifierExpression id='a'
+  36 | Assignment target=#37 source=#38
+  37 | IdentifierExpression id='a'
+  38 | IdentifierExpression id='b'
+  39 | Assignment target=#40 source=#41
+  40 | IdentifierExpression id='b'
+  41 | IdentifierExpression id='temp'
+  42 | WhileLoop test=true body=#43
+  43 | Block statements=[#44,#50,#55,#61]
+  44 | IfStatement test=[#45] consequents=[#47] alternate=null
+  45 | BinaryExpression left=#46 op='==' right=0
+  46 | IdentifierExpression id='b'
+  47 | Block statements=[#48]
+  48 | Return returnValue=[#49]
+  49 | IdentifierExpression id='a'
+  50 | Assignment target=#51 source=#52
+  51 | IdentifierExpression id='a'
+  52 | BinaryExpression left=#53 op='%' right=#54
   53 | IdentifierExpression id='a'
-  54 | Assignment target=#55 source=#56
-  55 | IdentifierExpression id='a'
-  56 | BinaryExpression left=#57 op='%' right=#58
+  54 | IdentifierExpression id='b'
+  55 | IfStatement test=[#56] consequents=[#58] alternate=null
+  56 | BinaryExpression left=#57 op='==' right=0
   57 | IdentifierExpression id='a'
-  58 | IdentifierExpression id='b'
-  59 | IfStatement test=[#60] consequents=[#62] alternate=null
-  60 | BinaryExpression left=#61 op='==' right=0
-  61 | IdentifierExpression id='a'
-  62 | Block statements=[#63]
-  63 | Return returnValue=[#64]
+  58 | Block statements=[#59]
+  59 | Return returnValue=[#60]
+  60 | IdentifierExpression id='b'
+  61 | Assignment target=#62 source=#63
+  62 | IdentifierExpression id='b'
+  63 | BinaryExpression left=#64 op='%' right=#65
   64 | IdentifierExpression id='b'
-  65 | Assignment target=#66 source=#67
-  66 | IdentifierExpression id='b'
-  67 | BinaryExpression left=#68 op='%' right=#69
-  68 | IdentifierExpression id='b'
-  69 | IdentifierExpression id='a'`
+  65 | IdentifierExpression id='a'`
 
 const expectedAst3 = `   1 | Program statements=[#2]
-   2 | WhileLoop test='cooked' body=#3
+   2 | WhileLoop test=true body=#3
    3 | Block statements=[#4]
    4 | PrintStatement argument='infinite loop baby'`
 
 const expectedAst4 = `   1 | Program statements=[#2]
-   2 | FunctionDeclaration type=#3 id=#4 parameters=[#5,#8] body=#11
-   3 | NamedType name='salty'
-   4 | IdentifierExpression id='pudding'
-   5 | Parameter type=#6 id=#7
-   6 | NamedType name='salty'
-   7 | IdentifierExpression id='chocolate'
-   8 | Parameter type=#9 id=#10
-   9 | NamedType name='spicy'
-  10 | IdentifierExpression id='water'
-  11 | Block statements=[#12,#22]
-  12 | FunctionDeclaration type=#13 id=#14 parameters=[#15] body=#18
-  13 | NamedType name='salty'
-  14 | IdentifierExpression id='cream'
-  15 | Parameter type=#16 id=#17
-  16 | NamedType name='salty'
-  17 | IdentifierExpression id='milk'
-  18 | Block statements=[#19]
-  19 | Return returnValue=[#20]
-  20 | BinaryExpression left=#21 op='+' right='happiness'
-  21 | IdentifierExpression id='milk'
-  22 | IfStatement test=[#23] consequents=[#24] alternate=#30
-  23 | IdentifierExpression id='water'
-  24 | Block statements=[#25]
-  25 | Return returnValue=[#26]
-  26 | Call callee=#27 args=#28
-  27 | IdentifierExpression id='cream'
-  28 | Args args=[#29]
-  29 | IdentifierExpression id='chocolate'
-  30 | Block statements=[#31]
-  31 | Return returnValue=['no pudding today']`
+   2 | FunctionDeclaration type=#3 id='pudding' parameters=[#4,#6] body=#8
+   3 | TypeIdentifier name='salty'
+   4 | Parameter type=#5 id='chocolate'
+   5 | TypeIdentifier name='salty'
+   6 | Parameter type=#7 id='water'
+   7 | TypeIdentifier name='spicy'
+   8 | Block statements=[#9,#17]
+   9 | FunctionDeclaration type=#10 id='cream' parameters=[#11] body=#13
+  10 | TypeIdentifier name='salty'
+  11 | Parameter type=#12 id='milk'
+  12 | TypeIdentifier name='salty'
+  13 | Block statements=[#14]
+  14 | Return returnValue=[#15]
+  15 | BinaryExpression left=#16 op='+' right='happiness'
+  16 | IdentifierExpression id='milk'
+  17 | IfStatement test=[#18] consequents=[#19] alternate=#25
+  18 | IdentifierExpression id='water'
+  19 | Block statements=[#20]
+  20 | Return returnValue=[#21]
+  21 | Call callee=#22 args=#23
+  22 | IdentifierExpression id='cream'
+  23 | Args args=[#24]
+  24 | IdentifierExpression id='chocolate'
+  25 | Block statements=[#26]
+  26 | Return returnValue=['no pudding today']`
 
 const expectedAst5 = `   1 | Program statements=[#2]
-   2 | VariableDeclaration type=#3 variable=#5 initializer=#6
+   2 | VariableDeclaration type=#3 name='rawEggs' initializer=#5
    3 | ArrayType type=#4
-   4 | NamedType name='spicy'
-   5 | IdentifierExpression id='rawEggs'
-   6 | ArrayLiteral expression=['raw','raw']`
+   4 | TypeIdentifier name='spicy'
+   5 | ArrayLiteral expression=[false,false]`
 
 const expectedAst6 = `   1 | Program statements=[#2]
-   2 | VariableDeclaration type=#3 variable=#4 initializer='nothing'
-   3 | NamedType name='bland'
-   4 | IdentifierExpression id='x'`
+   2 | VariableDeclaration type=#3 name='x' initializer=#4
+   3 | TypeIdentifier name='bland'
+   4 | NullLiteral`
 
 const goodPrograms = [
   { source: source1, expectedAst: expectedAst1 },

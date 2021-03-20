@@ -28,8 +28,14 @@ export class Increment {
 }
 
 export class VariableDeclaration {
-  constructor(type, variable, initializer) {
-    Object.assign(this, { type, variable, initializer })
+  constructor(type, name, initializer) {
+    Object.assign(this, { type, name, initializer })
+  }
+}
+
+export class Variable{
+  constructor(type, name) {
+    Object.assign(this, { type, name})
   }
 }
 
@@ -69,10 +75,26 @@ export class DictAccess {
   }
 }
 
-export class NamedType {
+export class TypeIdentifier {
   constructor(name) {
     Object.assign(this, { name })
   }
+}
+
+export class Type {
+  constructor(name) {
+    this.name = name
+  }
+  
+  static BOOLEAN = new Type('boolean');
+  static NUMBER = new Type('number');
+  static STRING = new Type('string');
+  static NULL= new Type('nulltype');
+  static VOID = new Type('void');
+}
+
+export class NullLiteral {
+  //intentionally empty
 }
 
 export class FunctionDeclaration {
