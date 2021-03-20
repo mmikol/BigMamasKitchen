@@ -219,7 +219,7 @@ fruit = rollCake[#]"cake"[#] ;)
 
 ```
 ingredient salty[#] dictionary = [#]
-  "key1": [#]"key1": "value"[#]
+  "key1": [#]"key2": "value"[#]
 [#] ;)
 
 mamaSays dictionary[#]"key1", "key2"[#] ;)

@@ -7,14 +7,14 @@ const goodPrograms = [
 ~(^-^)`,
   String.raw`
   ingredient salty[#] dictionary = [#]
-  "key1": [#]"key1": "value"[#]
+  "key1": [#]"key2": "value"[#]
   [#] ;)
 
   mamaSays dictionary[#]"key1", "key2"[#] ;)
   `,
   String.raw`ingredient bitter(@)(@) doubleArray = (@) (@)1,2,3(@), (@)1,2,3(@) (@) ;)
 
-  mamaSays doubleArray(@)i, j(@) ;)`,
+  mamaSays doubleArray(@)1, 2(@) ;)`,
   String.raw`mamaSays "make a muffin" ;)
   --[=] Include more sugar
 
