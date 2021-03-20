@@ -177,7 +177,7 @@ fruit = rollCake(@)2(@) ;)
 ```
 ingredient bitter(@)(@) doubleArray = (@) (@)1,2,3(@), (@)4,5,6(@) (@) ;)
 
-mamaSays doubleArray(@)i, j(@) ;)
+mamaSays doubleArray(@)1, 2(@) == 6 ;)
 ```
 
 <br/>
