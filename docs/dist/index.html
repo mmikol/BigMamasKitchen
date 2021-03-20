@@ -52,7 +52,7 @@
             <!-- Examples-->
             <section class="resume-section" id="examples">
                 <div class="resume-section-content">
-                    <h2 class="mb-5">Example Programs</h2>
+                    <h2 class="mb-5">Examples</h2>
                     <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
                             <h3 class="mb-0">Hello World</h3>
@@ -102,6 +102,39 @@ recipe bitter gcd (bitter a, bitter b) (^-^)~
                             <pre><code>
 recipe bitter Add (bitter a, bitter b) (^-^)~ 
     serve a + b ;) 
+~(^-^)</code></pre>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Access Value from Dictionary</h3>
+                            <pre><code>
+recipe salty getCertainValue (salty[#] basicDict, salty key) (^-^)~ 
+    serve basicDict[#]key[#] ;) 
+~(^-^)</code></pre>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                        <div class="flex-grow-1">
+                            <h3 class="mb-0">Does 2D Array Contain a zero</h3>
+                            <pre><code>
+recipe spicy containsZero (bitter(@)(@) doubleArray, bitter rows, bitter columns) (^-^)~ 
+    ingredient spicy hasZero =  raw ;) 
+    
+    bake ingredient bitter i = 0 until i < rows i++ (^-^)~
+        addAPinchOf hasZero == cooked (^-^)~
+                stop ;)
+        ~(^-^)
+        bake ingredient bitter j = 0 until j < columns j++ (^-^)~
+            addAPinchOf doubleArray(@)i, j(@) == 0 (^-^)~
+                hasZero = cooked ;)
+                stop ;)
+            ~(^-^) 
+       ~(^-^) 
+   ~(^-^)
+
+   serve hasZero ;)
+    
 ~(^-^)</code></pre>
                         </div>
                     </div>
