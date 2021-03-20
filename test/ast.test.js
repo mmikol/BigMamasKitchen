@@ -64,6 +64,26 @@ const source5 = `ingredient spicy(@) rawEggs = (@) raw, raw (@) ;)`
 
 const source6 = `ingredient bland x = nothing ;)`
 
+const source7 = `recipe spicy containsZero (bitter(@)(@) doubleArray, bitter rows, bitter columns) (^-^)~ 
+ingredient spicy hasZero =  raw ;) 
+bake ingredient bitter i = 0 until i < rows i++ (^-^)~
+  addAPinchOf hasZero == cooked (^-^)~
+    stop ;)
+  ~(^-^)
+  bake ingredient bitter j = 0 until j < columns j++ (^-^)~
+    addAPinchOf doubleArray(@)i, j(@) == 0 (^-^)~
+      hasZero = cooked ;)
+      stop ;)
+    ~(^-^) 
+  ~(^-^) 
+~(^-^)
+serve hasZero ;)
+~(^-^)`
+
+const source8 = `recipe salty getCertainValue (salty[#] basicDict, salty key) (^-^)~ 
+serve basicDict[#]key[#] ;) 
+~(^-^)`
+
 const expectedAst1 = `   1 | Program statements=[#2]
    2 | PrintStatement argument='make a muffin'`
 
@@ -176,6 +196,71 @@ const expectedAst6 = `   1 | Program statements=[#2]
    3 | TypeIdentifier name='bland'
    4 | NullLiteral`
 
+const expectedAst7 = `   1 | Program statements=[#2]
+   2 | FunctionDeclaration type=#3 id='containsZero' parameters=[#4,#8,#10] body=#12
+   3 | TypeIdentifier name='spicy'
+   4 | Parameter type=#5 id='doubleArray'
+   5 | ArrayType type=#6
+   6 | ArrayType type=#7
+   7 | TypeIdentifier name='bitter'
+   8 | Parameter type=#9 id='rows'
+   9 | TypeIdentifier name='bitter'
+  10 | Parameter type=#11 id='columns'
+  11 | TypeIdentifier name='bitter'
+  12 | Block statements=[#13,#15,#48]
+  13 | VariableDeclaration type=#14 name='hasZero' initializer=false
+  14 | TypeIdentifier name='spicy'
+  15 | ForLoop iterator=#16 range=#18 increment=[#21] body=#23
+  16 | VariableDeclaration type=#17 name='i' initializer=0
+  17 | TypeIdentifier name='bitter'
+  18 | BinaryExpression left=#19 op='<' right=#20
+  19 | IdentifierExpression id='i'
+  20 | IdentifierExpression id='rows'
+  21 | Increment target=#22 increment='++'
+  22 | IdentifierExpression id='i'
+  23 | Block statements=[#24,#29]
+  24 | IfStatement test=[#25] consequents=[#27] alternate=null
+  25 | BinaryExpression left=#26 op='==' right=true
+  26 | IdentifierExpression id='hasZero'
+  27 | Block statements=[#28]
+  28 | Break
+  29 | ForLoop iterator=#30 range=#32 increment=[#35] body=#37
+  30 | VariableDeclaration type=#31 name='j' initializer=0
+  31 | TypeIdentifier name='bitter'
+  32 | BinaryExpression left=#33 op='<' right=#34
+  33 | IdentifierExpression id='j'
+  34 | IdentifierExpression id='columns'
+  35 | Increment target=#36 increment='++'
+  36 | IdentifierExpression id='j'
+  37 | Block statements=[#38]
+  38 | IfStatement test=[#39] consequents=[#44] alternate=null
+  39 | BinaryExpression left=#40 op='==' right=0
+  40 | ArrayAccess name=#41 indices=[#42,#43]
+  41 | IdentifierExpression id='doubleArray'
+  42 | IdentifierExpression id='i'
+  43 | IdentifierExpression id='j'
+  44 | Block statements=[#45,#47]
+  45 | Assignment target=#46 source=true
+  46 | IdentifierExpression id='hasZero'
+  47 | Break
+  48 | Return returnValue=[#49]
+  49 | IdentifierExpression id='hasZero'`
+
+const expectedAst8 = `   1 | Program statements=[#2]
+   2 | FunctionDeclaration type=#3 id='getCertainValue' parameters=[#4,#7] body=#9
+   3 | TypeIdentifier name='salty'
+   4 | Parameter type=#5 id='basicDict'
+   5 | DictType type=#6
+   6 | TypeIdentifier name='salty'
+   7 | Parameter type=#8 id='key'
+   8 | TypeIdentifier name='salty'
+   9 | Block statements=[#10]
+  10 | Return returnValue=[#11]
+  11 | DictAccess name=#12 keys=[#13]
+  12 | IdentifierExpression id='basicDict'
+  13 | IdentifierExpression id='key'`
+
+  
 const goodPrograms = [
   { source: source1, expectedAst: expectedAst1 },
   { source: source2, expectedAst: expectedAst2 },
@@ -183,6 +268,8 @@ const goodPrograms = [
   { source: source4, expectedAst: expectedAst4 },
   { source: source5, expectedAst: expectedAst5 },
   { source: source6, expectedAst: expectedAst6 },
+  { source: source7, expectedAst: expectedAst7 },
+  { source: source8, expectedAst: expectedAst8 },
 ]
 
 describe("The Ast Generation", () => {

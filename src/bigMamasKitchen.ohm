@@ -57,8 +57,8 @@ BigMamasKitchen {
                   |  stringlit
                   |  Array
                   |  Dict
-  Var             =  Var "(@)" Exp "(@)"                              -- array
-                  |  Var "[#]" Exp  "[#]"                             -- dictionary 
+  Var             =  Var "(@)" NonemptyListOf<Exp, ","> "(@)"                              -- array
+                  |  Var "[#]" NonemptyListOf<Exp, ",">  "[#]"                             -- dictionary 
                   |  Call
                   |  id
   Call            =  id "(" Args ")"

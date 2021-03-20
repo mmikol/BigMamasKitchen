@@ -35,7 +35,7 @@ export class VariableDeclaration {
 
 export class Variable{
   constructor(type, name) {
-    Object.assign(this, { type, name})
+    Object.assign(this, { type, name })
   }
 }
 
@@ -64,14 +64,14 @@ export class DictLiteral {
 }
 
 export class ArrayAccess {
-  constructor(variable, index) {
-    Object.assign(this, { variable, index })
+  constructor(name, indices) {
+    Object.assign(this, { name, indices })
   }
 }
 
 export class DictAccess {
-  constructor(variable, key) {
-    Object.assign(this, { variable, key })
+  constructor(name, keys) {
+    Object.assign(this, { name, keys })
   }
 }
 

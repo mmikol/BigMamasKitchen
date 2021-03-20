@@ -172,6 +172,14 @@ ingredient salty fruit = rollCake(@)0(@) ;)
 fruit = rollCake(@)2(@) ;)
 ```
 
+### Array of Array Access:
+
+```
+ingredient bitter(@)(@) doubleArray = (@) (@)1,2,3(@), (@)4,5,6(@) (@) ;)
+
+mamaSays doubleArray(@)i, j(@) ;)
+```
+
 <br/>
 
 ## Dictionary
@@ -205,6 +213,16 @@ ingredient bitter[#] rollCake = [#]
 ingredient bitter fruit = rollCake[#]"strawberry"[#] ;)
 
 fruit = rollCake[#]"cake"[#] ;)
+```
+
+### Dictionary of Dictionary Access:
+
+```
+ingredient salty[#] dictionary = [#]
+  "key1": [#]"key1": "value"[#]
+[#] ;)
+
+mamaSays dictionary[#]"key1", "key2"[#] ;)
 ```
 
 <br/>

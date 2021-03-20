@@ -2,6 +2,19 @@ import assert from "assert"
 import parse, { syntaxIsOkay } from "../src/parser.js"
 
 const goodPrograms = [
+  String.raw`recipe salty getCertainValue (salty[#] basicDict, salty key) (^-^)~ 
+  serve basicDict[#]key[#] ;) 
+~(^-^)`,
+  String.raw`
+  ingredient salty[#] dictionary = [#]
+  "key1": [#]"key1": "value"[#]
+  [#] ;)
+
+  mamaSays dictionary[#]"key1", "key2"[#] ;)
+  `,
+  String.raw`ingredient bitter(@)(@) doubleArray = (@) (@)1,2,3(@), (@)1,2,3(@) (@) ;)
+
+  mamaSays doubleArray(@)i, j(@) ;)`,
   String.raw`mamaSays "make a muffin" ;)
   --[=] Include more sugar
 
@@ -120,7 +133,24 @@ stir until cooked (^-^)~
   String.raw`ingredient bland x = nothing ;)`,
   String.raw`recipe empty printTemperature (bitter temperature) (^-^)~
     mamaSays temperature ;)
-  ~(^-^)`]
+  ~(^-^)`,
+  String.raw`
+  recipe spicy containsZero (bitter(@)(@) doubleArray, bitter rows, bitter columns) (^-^)~ 
+    ingredient spicy hasZero =  raw ;) 
+    bake ingredient bitter i = 0 until i < rows i++ (^-^)~
+      addAPinchOf hasZero == cooked (^-^)~
+        stop ;)
+      ~(^-^)
+      bake ingredient bitter j = 0 until j < columns j++ (^-^)~
+        addAPinchOf doubleArray(@)i, j(@) == 0 (^-^)~
+          hasZero = cooked ;)
+          stop ;)
+        ~(^-^) 
+      ~(^-^) 
+    ~(^-^)
+    serve hasZero ;)
+  ~(^-^)`
+]
 
 const badPrograms = [
   String.raw`ingredient bitter g = 5 * 10 ;);)`,

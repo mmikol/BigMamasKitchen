@@ -1,0 +1,9 @@
+ingredient bitter(@)(@) doubleArray = (@) (@)1,2,3(@), (@)4,5,6(@) (@) ;)
+
+mamaSays doubleArray(@)i, j(@) ;)
+
+ingredient salty[#] dictionary = [#]
+  "key1": [#]"key1": "value"[#]
+[#] ;)
+
+mamaSays dictionary[#]"key1", "key2"[#] ;)

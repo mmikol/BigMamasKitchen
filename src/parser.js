@@ -31,11 +31,11 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   Array(_left, expressions, _right) {
     return new ast.ArrayLiteral(expressions.asIteration().ast())
   },
-  Var_dictionary(variable, _left, key, _right) {
-    return new ast.DictAccess(variable.ast(), key.ast())
+  Var_dictionary(name, _left, keys, _right) {
+    return new ast.DictAccess(name.ast(), keys.asIteration().ast())
   },
-  Var_array(variable, _left, index, _right) {
-    return new ast.ArrayAccess(variable.ast(), index.ast())
+  Var_array(name, _left, indices, _right) {
+    return new ast.ArrayAccess(name.ast(), indices.asIteration().ast())
   },
   Dict(_left, expressions, _right) {
     return new ast.DictLiteral(expressions.asIteration().ast())

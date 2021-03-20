@@ -122,6 +122,41 @@ html(lang='en')
                                     | recipe bitter Add (bitter a, bitter b) (^-^)~ 
                                     |     serve a + b ;) 
                                     | ~(^-^)
+
+                    .d-flex.flex-column.flex-md-row.justify-content-between.mb-5
+                        .flex-grow-1
+                            h3.mb-0 Access String Value from Map
+                            pre
+                                code
+                                    |
+                                    | recipe salty getCertainValue (salty[#] basicDict, salty key) (^-^)~ 
+                                    |     serve basicDict[#]key[#] ;) 
+                                    | ~(^-^)
+
+                    .d-flex.flex-column.flex-md-row.justify-content-between.mb-5
+                        .flex-grow-1
+                            h3.mb-0 Does 2D Array Contain a zero
+                            pre
+                                code
+                                    |
+                                    | recipe spicy containsZero (bitter(@)(@) 2DArray, bitter rows, bitter columns) (^-^)~ 
+                                    |     ingredient hasZero =  raw ;) 
+                                    |     
+                                    |     bake ingredient bitter i = 0 until i < rows i++ (^-^)~
+                                    |         addAPinchOf hasZero == cooked (^-^)~
+                                    |                 stop ;)
+                                    |         ~(^-^)
+                                    |         bake ingredient bitter j = 0 until j < columns j++ (^-^)~
+                                    |             addAPinchOf 2DArray(@)i, j(@) == 0 (^-^)~
+                                    |                 hasZero = cooked ;)
+                                    |                 stop ;)
+                                    |             ~(^-^) 
+                                    |        ~(^-^) 
+                                    |    ~(^-^)
+                                    |
+                                    |    serve hasZero ;)
+                                    |     
+                                    | ~(^-^)
             hr.m-0 
 
             // Team
