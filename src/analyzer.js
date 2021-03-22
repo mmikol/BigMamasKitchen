@@ -54,6 +54,7 @@ const check = (self) => ({
     )
   },
   isNumber() {
+    console.log(self.type)
     must(
       self.type === Type.NUMBER,
       `Expected an number, found ${self.type.name}`
@@ -243,7 +244,7 @@ FunctionDeclaration.prototype.analyze = function (context) {
     return p
   }
   Increment(s) {
-    s.variable = this.analyze(s.variable)
+    s.variable = this.analyze(s.target)
     check(s.variable).isNumber()
     return s
   }
@@ -307,12 +308,18 @@ FunctionDeclaration.prototype.analyze = function (context) {
     // how can we declare the variable for the iterator???
     // s.iterator has all the information and is formatted like a variable declaration
 
-    console.log(s.iterator)
+    //console.log(s.iterator)
+    s.iterator = this.analyze(s.iterator)
     check(s.iterator).isNumber()
+    console.log("its not the iterator")
     s.test = this.analyze(s.test)
     check(s.test).isBoolean()
-
+    console.log("its not the test")
+    s.increment = this.analyze(s.increment)
+    console.log(s.increment)
+    check(s.increment).isNumber()
     //we need to add the increment
+    console.log("the problem is the child")
     s.body = this.newChild({ inLoop: true }).analyze(s.body)
     return s
   }

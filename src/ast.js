@@ -91,6 +91,10 @@ export class Type {
   static STRING = new Type("string")
   static NULL = new Type("nulltype")
   static VOID = new Type("void")
+
+  isEquivalentTo(target) {
+    return this == target
+  }
 }
 
 export class NullLiteral {
