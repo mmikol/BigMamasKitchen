@@ -134,7 +134,7 @@ const expectedAst2 = `   1 | Program statements=[#2]
   45 | BinaryExpression left=#46 op='==' right=0
   46 | IdentifierExpression id='b'
   47 | Block statements=[#48]
-  48 | Return returnValue=[#49]
+  48 | Return returnValue=#49
   49 | IdentifierExpression id='a'
   50 | Assignment target=#51 source=#52
   51 | IdentifierExpression id='a'
@@ -145,7 +145,7 @@ const expectedAst2 = `   1 | Program statements=[#2]
   56 | BinaryExpression left=#57 op='==' right=0
   57 | IdentifierExpression id='a'
   58 | Block statements=[#59]
-  59 | Return returnValue=[#60]
+  59 | Return returnValue=#60
   60 | IdentifierExpression id='b'
   61 | Assignment target=#62 source=#63
   62 | IdentifierExpression id='b'
@@ -171,19 +171,19 @@ const expectedAst4 = `   1 | Program statements=[#2]
   11 | Parameter type=#12 id='milk'
   12 | TypeIdentifier name='salty'
   13 | Block statements=[#14]
-  14 | Return returnValue=[#15]
+  14 | Return returnValue=#15
   15 | BinaryExpression left=#16 op='+' right='happiness'
   16 | IdentifierExpression id='milk'
   17 | IfStatement test=[#18] consequents=[#19] alternate=#25
   18 | IdentifierExpression id='water'
   19 | Block statements=[#20]
-  20 | Return returnValue=[#21]
+  20 | Return returnValue=#21
   21 | Call callee=#22 args=#23
   22 | IdentifierExpression id='cream'
   23 | Args args=[#24]
   24 | IdentifierExpression id='chocolate'
   25 | Block statements=[#26]
-  26 | Return returnValue=['no pudding today']`
+  26 | Return returnValue='no pudding today'`
 
 const expectedAst5 = `   1 | Program statements=[#2]
    2 | VariableDeclaration type=#3 name='rawEggs' initializer=#5
@@ -210,7 +210,7 @@ const expectedAst7 = `   1 | Program statements=[#2]
   12 | Block statements=[#13,#15,#48]
   13 | VariableDeclaration type=#14 name='hasZero' initializer=false
   14 | TypeIdentifier name='spicy'
-  15 | ForLoop iterator=#16 range=#18 increment=[#21] body=#23
+  15 | ForLoop iterator=#16 test=#18 increment=[#21] body=#23
   16 | VariableDeclaration type=#17 name='i' initializer=0
   17 | TypeIdentifier name='bitter'
   18 | BinaryExpression left=#19 op='<' right=#20
@@ -224,7 +224,7 @@ const expectedAst7 = `   1 | Program statements=[#2]
   26 | IdentifierExpression id='hasZero'
   27 | Block statements=[#28]
   28 | Break
-  29 | ForLoop iterator=#30 range=#32 increment=[#35] body=#37
+  29 | ForLoop iterator=#30 test=#32 increment=[#35] body=#37
   30 | VariableDeclaration type=#31 name='j' initializer=0
   31 | TypeIdentifier name='bitter'
   32 | BinaryExpression left=#33 op='<' right=#34
@@ -243,7 +243,7 @@ const expectedAst7 = `   1 | Program statements=[#2]
   45 | Assignment target=#46 source=true
   46 | IdentifierExpression id='hasZero'
   47 | Break
-  48 | Return returnValue=[#49]
+  48 | Return returnValue=#49
   49 | IdentifierExpression id='hasZero'`
 
 const expectedAst8 = `   1 | Program statements=[#2]
@@ -255,12 +255,11 @@ const expectedAst8 = `   1 | Program statements=[#2]
    7 | Parameter type=#8 id='key'
    8 | TypeIdentifier name='salty'
    9 | Block statements=[#10]
-  10 | Return returnValue=[#11]
+  10 | Return returnValue=#11
   11 | DictAccess name=#12 keys=[#13]
   12 | IdentifierExpression id='basicDict'
   13 | IdentifierExpression id='key'`
 
-  
 const goodPrograms = [
   { source: source1, expectedAst: expectedAst1 },
   { source: source2, expectedAst: expectedAst2 },

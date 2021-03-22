@@ -33,7 +33,7 @@ export class VariableDeclaration {
   }
 }
 
-export class Variable{
+export class Variable {
   constructor(type, name) {
     Object.assign(this, { type, name })
   }
@@ -85,12 +85,12 @@ export class Type {
   constructor(name) {
     this.name = name
   }
-  
-  static BOOLEAN = new Type('boolean');
-  static NUMBER = new Type('number');
-  static STRING = new Type('string');
-  static NULL= new Type('nulltype');
-  static VOID = new Type('void');
+
+  static BOOLEAN = new Type("boolean")
+  static NUMBER = new Type("number")
+  static STRING = new Type("string")
+  static NULL = new Type("nulltype")
+  static VOID = new Type("void")
 }
 
 export class NullLiteral {
@@ -102,6 +102,36 @@ export class FunctionDeclaration {
     Object.assign(this, { type, id, parameters, body })
   }
 }
+
+export class Function {
+  constructor(name) {
+    this.name = name
+    // Other properties set after construction
+  }
+}
+
+// export class FunctionType extends Type {
+//   // Example: (boolean,[string]?)->float
+//   constructor(parameterTypes, returnType) {
+//     super(
+//       `(${parameterTypes.map((t) => t.name).join(",")})->${returnType.name}`
+//     )
+//     Object.assign(this, { parameterTypes, returnType })
+//   }
+//   //function place(): string {          // function declaration
+//   //  return "world";
+//   //}
+//   isAssignableTo(target) {
+//     return (
+//       target.constructor === FunctionType &&
+//       this.returnType.isAssignableTo(target.returnType) &&
+//       this.parameterTypes.length === target.parameterTypes.length &&
+//       this.parameterTypes.every((t, i) =>
+//         target.parameterTypes[i].isAssignableTo(t)
+//       )
+//     )
+//   }
+// }
 
 export class Args {
   constructor(args) {
@@ -134,8 +164,8 @@ export class WhileLoop {
 }
 
 export class ForLoop {
-  constructor(iterator, range, increment, body) {
-    Object.assign(this, { iterator, range, increment, body })
+  constructor(iterator, test, increment, body) {
+    Object.assign(this, { iterator, test, increment, body })
   }
 }
 

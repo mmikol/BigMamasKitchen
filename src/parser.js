@@ -20,7 +20,11 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     return declaration.ast()
   },
   VarDec(_ingredient, type, id, _eq, initializers) {
-    return new ast.VariableDeclaration(type.ast(), id.sourceString, initializers.ast())
+    return new ast.VariableDeclaration(
+      type.ast(),
+      id.sourceString,
+      initializers.ast()
+    )
   },
   Type_array(type, _symbol) {
     return new ast.ArrayType(type.ast())
@@ -75,10 +79,10 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   Loop_while(_stir, _until, test, body) {
     return new ast.WhileLoop(test.ast(), body.ast())
   },
-  Loop_for(_bake, iterator, _until, range, increment, body) {
+  Loop_for(_bake, iterator, _until, test, increment, body) {
     return new ast.ForLoop(
       iterator.ast(),
-      range.ast(),
+      test.ast(),
       increment.ast(),
       body.ast()
     )
@@ -90,7 +94,7 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     return new ast.Break()
   },
   SimpleStmt_return(_serve, returnValue) {
-    return new ast.Return(returnValue.ast())
+    return new ast.Return(arrayToNullable(returnValue.ast()))
   },
   Exp_or(left, op, right) {
     return new ast.Expression(left.ast(), op.sourceString, right.ast())
@@ -135,7 +139,7 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     return chars.sourceString
   },
   boollit(bool) {
-    return bool.sourceString === 'cooked'
+    return bool.sourceString === "cooked"
   },
   // deal with null later
   nothing(nothing) {

@@ -1,2 +1,10 @@
-ingredient spicy boolean2 = cooked ;)
-mamaSays boolean2 ;)
+--[=] 
+recipe salty pudding (salty chocolate, spicy water) (^-^)~
+    serve chocolate ;)
+~(^-^)
+[=]--
+
+
+bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~
+  mamaSays egg ;)
+ ~(^-^)
