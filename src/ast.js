@@ -114,29 +114,6 @@ export class Function {
   }
 }
 
-// export class FunctionType extends Type {
-//   // Example: (boolean,[string]?)->float
-//   constructor(parameterTypes, returnType) {
-//     super(
-//       `(${parameterTypes.map((t) => t.name).join(",")})->${returnType.name}`
-//     )
-//     Object.assign(this, { parameterTypes, returnType })
-//   }
-//   //function place(): string {          // function declaration
-//   //  return "world";
-//   //}
-//   isAssignableTo(target) {
-//     return (
-//       target.constructor === FunctionType &&
-//       this.returnType.isAssignableTo(target.returnType) &&
-//       this.parameterTypes.length === target.parameterTypes.length &&
-//       this.parameterTypes.every((t, i) =>
-//         target.parameterTypes[i].isAssignableTo(t)
-//       )
-//     )
-//   }
-// }
-
 export class Args {
   constructor(args) {
     this.args = args

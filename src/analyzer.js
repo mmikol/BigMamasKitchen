@@ -217,6 +217,7 @@ class Context {
     // Add before analyzing the body to allow recursion
     this.add(f.name, f)
     d.body = childContext.analyze(d.body)
+    // How do we throw an error if they dont write a return statement????
     return d
   }
   /*
