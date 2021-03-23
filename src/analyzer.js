@@ -54,7 +54,6 @@ const check = (self) => ({
     )
   },
   isNumber() {
-    console.log(self.type)
     must(
       self.type === Type.NUMBER,
       `Expected an number, found ${self.type.name}`
@@ -182,7 +181,7 @@ class Context {
   }
   ArrayType(t) {
     // has
-    t.baseType = this.analyze(t.baseType)
+    t.type = this.analyze(t.type)
     return t
   }
   VariableDeclaration(d) {
@@ -214,16 +213,9 @@ class Context {
     const childContext = this.newChild({ inLoop: false, forFunction: f })
     //are we checking to see if we use the parameters here why are we doing this
     d.parameters = childContext.analyze(d.parameters)
-    //we need to analyze for the return if its not void and do a check
     f.returnType = d.type
-    // f.type = new FunctionType(
-    //   d.parameters.map((p) => p.type),
-    //   d.returnType
-    // )
     // Add before analyzing the body to allow recursion
     this.add(f.name, f)
-    console.log("body", d.body)
-    console.log("childContext", childContext)
     d.body = childContext.analyze(d.body)
     return d
   }
@@ -244,8 +236,9 @@ FunctionDeclaration.prototype.analyze = function (context) {
     return p
   }
   Increment(s) {
-    s.variable = this.analyze(s.target)
-    check(s.variable).isNumber()
+    s.target = this.analyze(s.target)
+    check(s.target).isNumber()
+    s.type = s.target.type
     return s
   }
   Decrement(s) {
@@ -267,15 +260,15 @@ FunctionDeclaration.prototype.analyze = function (context) {
   Return(s) {
     check(this).isInsideAFunction()
     check(this.function).returnsSomething()
-    s.expression = this.analyze(s.returnValue)
-    check(s.expression).isReturnableFrom(this.function)
+    s.returnValue = this.analyze(s.returnValue)
+    check(s.returnValue).isReturnableFrom(this.function)
     return s
   }
-  // ShortReturnStatement(s) {
-  //   check(this).isInsideAFunction()
-  //   check(this.function).returnsNothing()
-  //   return s
-  // }
+  ShortReturnStatement(s) {
+    check(this).isInsideAFunction()
+    check(this.function).returnsNothing()
+    return s
+  }
   IfStatement(s) {
     s.test = this.analyze(s.test)
     check(s.test).isBoolean()
@@ -289,12 +282,6 @@ FunctionDeclaration.prototype.analyze = function (context) {
     }
     return s
   }
-  // ShortIfStatement(s) {
-  //   s.test = this.analyze(s.test)
-  //   check(s.test).isBoolean()
-  //   s.consequent = this.newChild().analyze(s.consequent)
-  //   return s
-  // }
   WhileLoop(s) {
     s.test = this.analyze(s.test)
     check(s.test).isBoolean()
@@ -302,32 +289,12 @@ FunctionDeclaration.prototype.analyze = function (context) {
     return s
   }
   ForLoop(s) {
-    //console.log(s.iterator.type)
-    //s.iterator.type = this.analyze(s.iterator.type)
-
-    // how can we declare the variable for the iterator???
-    // s.iterator has all the information and is formatted like a variable declaration
-
-    //console.log(s.iterator)
     s.iterator = this.analyze(s.iterator)
     check(s.iterator).isNumber()
-    console.log("its not the iterator")
     s.test = this.analyze(s.test)
     check(s.test).isBoolean()
-    console.log("its not the test")
     s.increment = this.analyze(s.increment)
-    console.log(s.increment)
     check(s.increment).isNumber()
-    //we need to add the increment
-    console.log("the problem is the child")
-    s.body = this.newChild({ inLoop: true }).analyze(s.body)
-    return s
-  }
-  ForStatement(s) {
-    s.collection = this.analyze(s.collection)
-    check(s.collection).isAnArray()
-    s.iterator = new Variable(s.iterator, true)
-    s.iterator.type = s.collection.type.baseType
     s.body = this.newChild({ inLoop: true }).analyze(s.body)
     return s
   }
@@ -392,27 +359,15 @@ FunctionDeclaration.prototype.analyze = function (context) {
     }
     return e
   }
-  EmptyOptional(e) {
-    e.baseType = this.analyze(e.baseType)
-    e.type = new OptionalType(e.baseType)
-    return e
-  }
-  // SubscriptExpression(e) {
-  //   e.array = this.analyze(e.array)
-  //   e.type = e.array.type.baseType
-  //   e.index = this.analyze(e.index)
-  //   check(e.index).isNumber()
-  //   return e
-  // }
-  ArrayExpression(a) {
+  ArrayLiteral(a) {
     a.elements = this.analyze(a.elements)
     check(a.elements).allHaveSameType()
     a.type = new ArrayType(a.elements[0].type)
     return a
   }
   EmptyArray(e) {
-    e.baseType = this.analyze(e.baseType)
-    e.type = new ArrayType(e.baseType)
+    e.type = this.analyze(e.type)
+    e.type = new ArrayType(e.type)
     return e
   }
   MemberExpression(e) {
@@ -437,6 +392,10 @@ FunctionDeclaration.prototype.analyze = function (context) {
     t = this.lookup(t.name)
     check(t).isAType()
     return t
+  }
+  Block(s) {
+    s.statements = this.analyze(s.statements)
+    return s
   }
   PrintStatement(s) {
     s.argument = this.analyze(s.argument)

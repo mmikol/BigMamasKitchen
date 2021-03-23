@@ -83,7 +83,7 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     return new ast.ForLoop(
       iterator.ast(),
       test.ast(),
-      increment.ast(),
+      arrayToNullable(increment.ast()),
       body.ast()
     )
   },
@@ -94,7 +94,11 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     return new ast.Break()
   },
   SimpleStmt_return(_serve, returnValue) {
-    return new ast.Return(arrayToNullable(returnValue.ast()))
+    const returnValueTree = returnValue.ast()
+    if (returnValueTree.length === 0) {
+      return new ast.ShortReturnStatement()
+    }
+    return new ast.Return(arrayToNullable(returnValueTree))
   },
   Exp_or(left, op, right) {
     return new ast.Expression(left.ast(), op.sourceString, right.ast())

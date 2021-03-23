@@ -52,8 +52,8 @@ export class DictType {
 }
 
 export class ArrayLiteral {
-  constructor(expression) {
-    this.expression = expression
+  constructor(elements) {
+    this.elements = elements
   }
 }
 
@@ -215,6 +215,10 @@ export class Block {
   constructor(statements) {
     this.statements = statements
   }
+}
+
+export class ShortReturnStatement {
+  // Intentionally empty
 }
 
 // Taken from Dr. Toal's AEL compiler

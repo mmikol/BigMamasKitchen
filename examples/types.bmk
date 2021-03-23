@@ -1,10 +1,27 @@
---[=] 
 recipe salty pudding (salty chocolate, spicy water) (^-^)~
     serve chocolate ;)
 ~(^-^)
-[=]--
+
+--[=] this one should  throw an error but it doesnt [=]--
+recipe salty voidFunction () (^-^)~
+~(^-^)
 
 
+--[=] 
 bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~
   mamaSays egg ;)
+  stop ;)
  ~(^-^)
+
+ [=]--
+
+--[=] 
+ ingredient spicy(@) rawEggs = (@) raw, raw (@) ;)
+
+ ingredient spicy(@)(@) doubleRawEggs = (@) (@)cooked, cooked(@), (@)raw, cooked(@) (@) ;)
+
+[=]--
+--[=] 
+// new waffle?
+[#|   |#]
+ [=]--

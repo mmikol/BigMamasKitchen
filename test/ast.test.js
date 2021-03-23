@@ -189,7 +189,7 @@ const expectedAst5 = `   1 | Program statements=[#2]
    2 | VariableDeclaration type=#3 name='rawEggs' initializer=#5
    3 | ArrayType type=#4
    4 | TypeIdentifier name='spicy'
-   5 | ArrayLiteral expression=[false,false]`
+   5 | ArrayLiteral elements=[false,false]`
 
 const expectedAst6 = `   1 | Program statements=[#2]
    2 | VariableDeclaration type=#3 name='x' initializer=#4
@@ -210,7 +210,7 @@ const expectedAst7 = `   1 | Program statements=[#2]
   12 | Block statements=[#13,#15,#48]
   13 | VariableDeclaration type=#14 name='hasZero' initializer=false
   14 | TypeIdentifier name='spicy'
-  15 | ForLoop iterator=#16 test=#18 increment=[#21] body=#23
+  15 | ForLoop iterator=#16 test=#18 increment=#21 body=#23
   16 | VariableDeclaration type=#17 name='i' initializer=0
   17 | TypeIdentifier name='bitter'
   18 | BinaryExpression left=#19 op='<' right=#20
@@ -224,7 +224,7 @@ const expectedAst7 = `   1 | Program statements=[#2]
   26 | IdentifierExpression id='hasZero'
   27 | Block statements=[#28]
   28 | Break
-  29 | ForLoop iterator=#30 test=#32 increment=[#35] body=#37
+  29 | ForLoop iterator=#30 test=#32 increment=#35 body=#37
   30 | VariableDeclaration type=#31 name='j' initializer=0
   31 | TypeIdentifier name='bitter'
   32 | BinaryExpression left=#33 op='<' right=#34
