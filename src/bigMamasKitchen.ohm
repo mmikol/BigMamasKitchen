@@ -1,17 +1,20 @@
 BigMamasKitchen {
   Program         =  Stmt*
   Stmt            =  SimpleStmt terminate                             -- simple
-                  |  Dec                                              -- dec            
-                  |  addAPinchOf Exp Block        
-                      (orSubstitute Exp Block)*
-                      (dumpLeftovers Block)?                          -- if    
+                  |  Dec                                                             
                   |  Loop
-  SimpleStmt      =  Assignment                                       -- assignment
-                  |  Call                                             -- call
+                  |  IfStmt
+  SimpleStmt      =  Assignment                                       
+                  |  Call                                             
                   |  stop                                             -- break
                   |  serve Exp?                                       -- return
                   |  mamaSays Exp                                     -- print
-                  |  Exp                                              -- expression
+                  |  Exp                                              
+  IfStmt          =  addAPinchOf Exp Block (ElseStmt | ElseIfStmt)    -- long
+                  |  addAPinchOf Exp Block                            -- short
+  ElseIfStmt      =  orSubstitute Exp Block (ElseStmt | ElseIfStmt)   -- long
+                  |  orSubstitute Exp Block                           -- short         
+  ElseStmt        =  dumpLeftovers Block
   Loop            =  stir until Exp Block                             -- while
                   |  bake (VarDec | id) until Exp (Increment)? Block  -- for
   Assignment      =  Increment                                        

@@ -1,4 +1,4 @@
---[=] this one should  throw an error but it doesnt 
+--[=]  This is the commented out area
 
 
 recipe empty stringFunction () (^-^)~
@@ -7,31 +7,58 @@ recipe salty pudding (salty chocolate, spicy water) (^-^)~
     serve chocolate ;)
 ~(^-^)
 
-[=]--
-
---[=] 
 bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~
   mamaSays egg ;)
   stop ;)
  ~(^-^)
 
- [=]--
 
  ingredient bitter egg = 1 ;)
+  bake egg until egg < 40 egg++ (^-^)~
+  mamaSays egg ;)
+  stop ;)
+~(^-^)
 
-        bake egg until egg < 40 egg++ (^-^)~
-        mamaSays egg ;)
-        stop ;)
-    ~(^-^)
-     
-
---[=] 
  ingredient spicy(@) rawEggs = (@) raw, raw (@) ;)
 
  ingredient spicy(@)(@) doubleRawEggs = (@) (@)cooked, cooked(@), (@)raw, cooked(@) (@) ;)
 
-[=]--
---[=] 
-// new waffle?
+ // new waffle?
 [#|   |#]
- [=]--
+
+recipe salty pudding (salty chocolate, spicy water) (^-^)~
+    serve chocolate ;)
+~(^-^)
+
+addAPinchOf i < -35 (^-^)~
+  mamaSays "2: Single if" ;)
+~(^-^) 
+
+addAPinchOf i < -35 (^-^)~
+  mamaSays "3: If Else, If" ;)
+~(^-^)  dumpLeftovers (^-^)~
+  mamaSays "3: If Else, Else" ;)
+~(^-^)
+
+
+addAPinchOf i < -35 (^-^)~
+  mamaSays "4: If Else If Else If, If" ;)
+~(^-^) orSubstitute i > 35 (^-^)~
+  mamaSays "4: If Else If Else If, Else if 1" ;)
+~(^-^) orSubstitute i > 35 (^-^)~
+  mamaSays "4: If Else If Else If, Else if 2" ;)
+~(^-^)
+
+[=]--
+
+--[=] Put code you want to test below this [=]--
+
+addAPinchOf i < -35 (^-^)~
+  mamaSays "1: If Else If Else, If" ;)
+~(^-^) orSubstitute i > 35 (^-^)~
+  mamaSays "1: If Else If Else, Else if" ;)
+~(^-^) 
+dumpLeftovers (^-^)~
+  mamaSays "1: If Else If Else, Else" ;)
+~(^-^)
+

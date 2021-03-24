@@ -95,7 +95,7 @@ const expectedAst2 = `   1 | Program statements=[#2]
    6 | Parameter type=#7 id='b'
    7 | TypeIdentifier name='bitter'
    8 | Block statements=[#9,#18,#28,#42]
-   9 | IfStatement test=[#10] consequents=[#12] alternate=null
+   9 | ShortIfStatement test=#10 consequent=#12
   10 | BinaryExpression left=#11 op='<' right=0
   11 | IdentifierExpression id='a'
   12 | Block statements=[#13]
@@ -104,7 +104,7 @@ const expectedAst2 = `   1 | Program statements=[#2]
   15 | BinaryExpression left=#16 op='*' right=#17
   16 | UnaryExpression prefix='-' expression=1
   17 | IdentifierExpression id='a'
-  18 | IfStatement test=[#19] consequents=[#22] alternate=null
+  18 | ShortIfStatement test=#19 consequent=#22
   19 | Expression expression=#20
   20 | BinaryExpression left=#21 op='<' right=0
   21 | IdentifierExpression id='b'
@@ -114,7 +114,7 @@ const expectedAst2 = `   1 | Program statements=[#2]
   25 | BinaryExpression left=#26 op='*' right=#27
   26 | UnaryExpression prefix='-' expression=1
   27 | IdentifierExpression id='b'
-  28 | IfStatement test=[#29] consequents=[#32] alternate=null
+  28 | ShortIfStatement test=#29 consequent=#32
   29 | BinaryExpression left=#30 op='>' right=#31
   30 | IdentifierExpression id='b'
   31 | IdentifierExpression id='a'
@@ -130,7 +130,7 @@ const expectedAst2 = `   1 | Program statements=[#2]
   41 | IdentifierExpression id='temp'
   42 | WhileLoop test=true body=#43
   43 | Block statements=[#44,#50,#55,#61]
-  44 | IfStatement test=[#45] consequents=[#47] alternate=null
+  44 | ShortIfStatement test=#45 consequent=#47
   45 | BinaryExpression left=#46 op='==' right=0
   46 | IdentifierExpression id='b'
   47 | Block statements=[#48]
@@ -141,7 +141,7 @@ const expectedAst2 = `   1 | Program statements=[#2]
   52 | BinaryExpression left=#53 op='%' right=#54
   53 | IdentifierExpression id='a'
   54 | IdentifierExpression id='b'
-  55 | IfStatement test=[#56] consequents=[#58] alternate=null
+  55 | ShortIfStatement test=#56 consequent=#58
   56 | BinaryExpression left=#57 op='==' right=0
   57 | IdentifierExpression id='a'
   58 | Block statements=[#59]
@@ -174,7 +174,7 @@ const expectedAst4 = `   1 | Program statements=[#2]
   14 | Return returnValue=#15
   15 | BinaryExpression left=#16 op='+' right='happiness'
   16 | IdentifierExpression id='milk'
-  17 | IfStatement test=[#18] consequents=[#19] alternate=#25
+  17 | IfStatement test=#18 consequent=#19 alternate=#25
   18 | IdentifierExpression id='water'
   19 | Block statements=[#20]
   20 | Return returnValue=#21
@@ -219,7 +219,7 @@ const expectedAst7 = `   1 | Program statements=[#2]
   21 | Increment target=#22 increment='++'
   22 | IdentifierExpression id='i'
   23 | Block statements=[#24,#29]
-  24 | IfStatement test=[#25] consequents=[#27] alternate=null
+  24 | ShortIfStatement test=#25 consequent=#27
   25 | BinaryExpression left=#26 op='==' right=true
   26 | IdentifierExpression id='hasZero'
   27 | Block statements=[#28]
@@ -233,7 +233,7 @@ const expectedAst7 = `   1 | Program statements=[#2]
   35 | Increment target=#36 increment='++'
   36 | IdentifierExpression id='j'
   37 | Block statements=[#38]
-  38 | IfStatement test=[#39] consequents=[#44] alternate=null
+  38 | ShortIfStatement test=#39 consequent=#44
   39 | BinaryExpression left=#40 op='==' right=0
   40 | ArrayAccess name=#41 indices=[#42,#43]
   41 | IdentifierExpression id='doubleArray'

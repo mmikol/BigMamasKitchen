@@ -133,8 +133,28 @@ export class DictEl {
 }
 
 export class IfStatement {
-  constructor(test, consequents, alternate) {
-    Object.assign(this, { test, consequents, alternate })
+  constructor(test, consequent, alternate) {
+    Object.assign(this, { test, consequent, alternate })
+  }
+}
+
+export class ShortIfStatement {
+  // Example: if x < 3 { print(100); }
+  constructor(test, consequent) {
+    Object.assign(this, { test, consequent })
+  }
+}
+
+export class ElseIfStatement {
+  constructor(test, consequent, alternate) {
+    Object.assign(this, { test, consequent, alternate })
+  }
+}
+
+export class ShortElseIfStatement {
+  // Example: if x < 3 { print(100); }
+  constructor(test, consequent) {
+    Object.assign(this, { test, consequent })
   }
 }
 

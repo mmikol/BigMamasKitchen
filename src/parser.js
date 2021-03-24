@@ -61,20 +61,24 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   Increment(target, increment) {
     return new ast.Increment(target.ast(), increment.sourceString)
   },
-  Stmt_if(
-    _addAPinchOf,
-    firstTest,
-    firstBlock,
-    _orSubstitute,
-    secondTest,
-    secondBlock,
-    _dumpLeftovers,
-    finalBlock
-  ) {
-    const tests = [firstTest.ast(), ...secondTest.ast()]
-    const consequents = [firstBlock.ast(), ...secondBlock.ast()]
-    const alternate = arrayToNullable(finalBlock.ast())
-    return new ast.IfStatement(tests, consequents, alternate)
+  IfStmt_long(_addAPinchOf, test, consequent, alternate) {
+    return new ast.IfStatement(test.ast(), consequent.ast(), alternate.ast())
+  },
+  IfStmt_short(_addAPinchOf, test, consequent) {
+    return new ast.ShortIfStatement(test.ast(), consequent.ast())
+  },
+  ElseIfStmt_long(_orSubstitute, test, consequent, alternate) {
+    return new ast.ElseIfStatement(
+      test.ast(),
+      consequent.ast(),
+      alternate.ast()
+    )
+  },
+  ElseIfStmt_short(_orSubstitute, test, consequent) {
+    return new ast.ShortElseIfStatement(test.ast(), consequent.ast())
+  },
+  ElseStmt(_dumpLeftovers, consequent) {
+    return consequent.ast()
   },
   Loop_while(_stir, _until, test, body) {
     return new ast.WhileLoop(test.ast(), body.ast())

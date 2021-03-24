@@ -230,16 +230,6 @@ class Context {
     // How do we throw an error if they dont write a return statement????
     return d
   }
-  /*
-FunctionDeclaration.prototype.analyze = function (context) {
-  const bodyContext = context.createChildContextForFunctionBody(this);
-  this.params.forEach(p => p.analyze(bodyContext));
-  context.add(this.id, this);
-  this.type = this.type === 'leftOnRead' ? NoneType : this.type;
-  this.body.analyze(bodyContext);
-};
-
-*/
 
   Parameter(p) {
     p.type = this.analyze(p.type)
