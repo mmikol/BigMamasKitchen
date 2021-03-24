@@ -49,16 +49,26 @@ addAPinchOf i < -35 (^-^)~
   mamaSays "4: If Else If Else If, Else if 2" ;)
 ~(^-^)
 
+ingredient bitter i = 90 ;)
+
+addAPinchOf i < -35 (^-^)~
+  mamaSays "i is less than 35" ;)
+~(^-^) orSubstitute i > 35 (^-^)~
+  mamaSays "i is greater than 35" ;)
+~(^-^) 
+dumpLeftovers (^-^)~
+  mamaSays "i is equal to 35" ;)
+~(^-^)
+
 [=]--
 
 --[=] Put code you want to test below this [=]--
 
+ingredient bitter i = 90 ;)
+
 addAPinchOf i < -35 (^-^)~
-  mamaSays "1: If Else If Else, If" ;)
-~(^-^) orSubstitute i > 35 (^-^)~
-  mamaSays "1: If Else If Else, Else if" ;)
-~(^-^) 
-dumpLeftovers (^-^)~
-  mamaSays "1: If Else If Else, Else" ;)
+  addAPinchOf i < -35 (^-^)~
+   mamaSays "hello" ;)
+  ~(^-^)
 ~(^-^)
 

@@ -49,6 +49,52 @@ const semanticChecks = [
         ~(^-^)
      ~(^-^)`,
   ],
+  [
+    "Nested if blocks",
+    `
+  ingredient bitter i = 90 ;)
+
+  addAPinchOf i < -35 (^-^)~
+    addAPinchOf i < -35 (^-^)~
+     mamaSays "hello" ;)
+    ~(^-^)
+  ~(^-^)`,
+  ],
+  [
+    "Standard if else if else statement",
+    `
+  ingredient bitter i = 90 ;)
+
+  addAPinchOf i < -35 (^-^)~
+    mamaSays "i is less than 35" ;)
+  ~(^-^) orSubstitute i > 35 (^-^)~
+    mamaSays "i is greater than 35" ;)
+  ~(^-^) 
+  dumpLeftovers (^-^)~
+    mamaSays "i is equal to 35" ;)
+  ~(^-^)`,
+  ],
+  [
+    "If Else statment",
+    `ingredient bitter i = 90 ;)
+
+  addAPinchOf i < -35 (^-^)~
+    mamaSays "i is less than 35" ;)
+  ~(^-^)
+  dumpLeftovers (^-^)~
+    mamaSays "i is equal to 35" ;)
+  ~(^-^)`,
+  ],
+  [
+    "If Else If statement",
+    `ingredient bitter i = 90 ;)
+
+  addAPinchOf i < -35 (^-^)~
+    mamaSays "i is less than 35" ;)
+  ~(^-^) orSubstitute i > 35 (^-^)~
+    mamaSays "i is greater than 35" ;)
+  ~(^-^) `,
+  ],
 ]
 
 // Programs that are syntactically correct but have semantic errors
@@ -129,6 +175,24 @@ const semanticErrors = [
         mamaSays a ;)
      ~(^-^)`,
     /Error: Return can only appear in a function/,
+  ],
+  [
+    "If test must be a boolean",
+    `ingredient bitter i = 90 ;)
+addAPinchOf "string" (^-^)~
+  mamaSays "i is less than 35" ;)
+~(^-^) `,
+    /Error: Expected a boolean, found string/,
+  ],
+  [
+    "Else If test must be a boolean",
+    `ingredient bitter i = 90 ;)
+addAPinchOf i < 70 (^-^)~
+  mamaSays "i is less than 35" ;)
+~(^-^) orSubstitute 500 (^-^)~
+  mamaSays "i is greater than 35" ;)
+~(^-^) `,
+    /Error: Expected a boolean, found number/,
   ],
 ]
 

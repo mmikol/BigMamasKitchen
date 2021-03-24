@@ -151,6 +151,14 @@ stir until cooked (^-^)~
     ~(^-^)
     serve hasZero ;)
   ~(^-^)`,
+  `addAPinchOf i < -35 (^-^)~
+  mamaSays "i is less than 35" ;)
+~(^-^) orSubstitute i > 35 (^-^)~
+  mamaSays "i is greater than 35" ;)
+~(^-^) 
+dumpLeftovers (^-^)~
+  mamaSays "i is equal to 35" ;)
+~(^-^)`,
 ]
 
 const badPrograms = [
@@ -163,6 +171,11 @@ const badPrograms = [
     ~(^-^)`,
   String.raw`bake ingredient bitter egg = 1 until egg < 40 egg++ (^ -^)~
     ~(^-^)`,
+  String.raw`orSubstitute i > 35 (^-^)~
+    mamaSays "4: If Else If Else If, Else if 1" ;)
+  ~(^-^) orSubstitute i > 35 (^-^)~
+    mamaSays "4: If Else If Else If, Else if 2" ;)
+  ~(^-^)`,
 ]
 
 describe("The syntax checker", () => {

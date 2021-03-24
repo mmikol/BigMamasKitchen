@@ -278,9 +278,34 @@ class Context {
       // It's a block of statements, make a new context
       s.alternate = this.newChild().analyze(s.alternate)
     } else if (s.alternate) {
-      // It's a trailing if-statement, so same context
+      // It's a trailing if-statement, so same context what does this mean lol
       s.alternate = this.analyze(s.alternate)
     }
+    return s
+  }
+  ElseIfStatement(s) {
+    s.test = this.analyze(s.test)
+    check(s.test).isBoolean()
+    s.consequent = this.newChild().analyze(s.consequent)
+    if (s.alternate.constructor === Array) {
+      // It's a block of statements, make a new context
+      s.alternate = this.newChild().analyze(s.alternate)
+    } else if (s.alternate) {
+      // It's a trailing if-statement, so same context what does this mean lol
+      s.alternate = this.analyze(s.alternate)
+    }
+    return s
+  }
+  ShortIfStatement(s) {
+    s.test = this.analyze(s.test)
+    check(s.test).isBoolean()
+    s.consequent = this.newChild().analyze(s.consequent)
+    return s
+  }
+  ShortElseIfStatement(s) {
+    s.test = this.analyze(s.test)
+    check(s.test).isBoolean()
+    s.consequent = this.newChild().analyze(s.consequent)
     return s
   }
   WhileLoop(s) {
@@ -291,7 +316,6 @@ class Context {
   }
   ForLoop(s) {
     s.iterator = this.analyze(s.iterator)
-    console.log(s.iterator)
     check(s.iterator).isNumber()
     s.test = this.analyze(s.test)
     check(s.test).isBoolean()
