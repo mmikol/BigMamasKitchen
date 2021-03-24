@@ -133,6 +133,7 @@ stir until cooked (^-^)~
   String.raw`ingredient bland x = nothing ;)`,
   String.raw`recipe empty printTemperature (bitter temperature) (^-^)~
     mamaSays temperature ;)
+    serve ;)
   ~(^-^)`,
   String.raw`
   recipe spicy containsZero (bitter(@)(@) doubleArray, bitter rows, bitter columns) (^-^)~ 
@@ -149,7 +150,7 @@ stir until cooked (^-^)~
       ~(^-^) 
     ~(^-^)
     serve hasZero ;)
-  ~(^-^)`
+  ~(^-^)`,
 ]
 
 const badPrograms = [

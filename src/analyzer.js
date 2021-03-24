@@ -1,3 +1,7 @@
+// create checks for:
+// "Function does not contain serve",
+// "Can only increment the iterator"
+
 import { Type, Variable, Function, VariableDeclaration } from "./ast.js"
 //import * as stdlib from "./stdlib.js"
 
@@ -35,6 +39,12 @@ function must(condition, errorMessage) {
 }
 
 const check = (self) => ({
+  isSameVariable(other) {
+    must(
+      self.name === other.name && self.type.isEquivalentTo(other.type),
+      `Expected ${self.name} and ${other.name} to be the same variable, but they are not`
+    )
+  },
   isNumeric() {
     must(
       [Type.NUMBER].includes(self.type),
@@ -56,7 +66,7 @@ const check = (self) => ({
   isNumber() {
     must(
       self.type === Type.NUMBER,
-      `Expected an number, found ${self.type.name}`
+      `Expected a number, found ${self.type.name}`
     )
   },
   isAType() {
@@ -291,11 +301,15 @@ FunctionDeclaration.prototype.analyze = function (context) {
   }
   ForLoop(s) {
     s.iterator = this.analyze(s.iterator)
+    console.log(s.iterator)
     check(s.iterator).isNumber()
     s.test = this.analyze(s.test)
     check(s.test).isBoolean()
     s.increment = this.analyze(s.increment)
     check(s.increment).isNumber()
+    check(
+      s.iterator.variable ? s.iterator.variable : s.iterator
+    ).isSameVariable(s.increment.target)
     s.body = this.newChild({ inLoop: true }).analyze(s.body)
     return s
   }
