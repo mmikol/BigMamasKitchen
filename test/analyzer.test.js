@@ -121,6 +121,26 @@ const semanticChecks = [
     mamaSays "i is greater than 35" ;)
   ~(^-^) `,
   ],
+  [
+    "Simple and expression",
+    `addAPinchOf raw && raw (^-^)~ mamaSays "it's raw" ;) ~(^-^)`,
+  ],
+  [
+    "Chained and expression",
+    `
+  ingredient spicy pancakes = cooked ;)
+  ingredient spicy syrup = raw ;) 
+  ingredient spicy bacon = raw ;) 
+  addAPinchOf pancakes && syrup && bacon (^-^)~ mamaSays "breakfast is served" ;) ~(^-^) dumpLeftovers  (^-^)~ mamaSays "we were missing ingredients" ;) ~(^-^)`,
+  ],
+  [
+    "Chained or expression",
+    `
+  ingredient spicy pancakes = 8 > 9 ;)
+  ingredient spicy syrup = raw ;) 
+  ingredient spicy bacon = 700 / 2 < 10 ;) 
+  addAPinchOf pancakes || syrup || bacon (^-^)~ mamaSays "breakfast is served" ;) ~(^-^) dumpLeftovers  (^-^)~ mamaSays "we were missing ingredients" ;) ~(^-^)`,
+  ],
 ]
 
 // Programs that are syntactically correct but have semantic errors
@@ -226,6 +246,16 @@ addAPinchOf i < 70 (^-^)~
   counter++ ;)
 ~(^-^)`,
     /Error: Expected a boolean, found number/,
+  ],
+  [
+    "And expression expressions must be booleans",
+    `addAPinchOf 22 && 500 (^-^)~ mamaSays "this is wrong" ;) ~(^-^)`,
+    /Error: Expected a boolean, found number/,
+  ],
+  [
+    "Or expression expressions must be booleans",
+    `addAPinchOf "raw" || "cooked" (^-^)~ mamaSays "this is wrong" ;) ~(^-^)`,
+    /Error: Expected a boolean, found string/,
   ],
 ]
 

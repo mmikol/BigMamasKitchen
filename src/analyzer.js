@@ -230,7 +230,6 @@ class Context {
     // How do we throw an error if they dont write a return statement????
     return d
   }
-
   Parameter(p) {
     p.type = this.analyze(p.type)
     this.add(p.id, p)
@@ -329,14 +328,14 @@ class Context {
     return s
   }
   OrExpression(e) {
-    e.disjuncts = this.analyze(e.disjuncts)
-    e.disjuncts.forEach((disjunct) => check(disjunct).isBoolean())
+    e.expressions = this.analyze(e.expressions)
+    e.expressions.forEach((expression) => check(expression).isBoolean())
     e.type = Type.BOOLEAN
     return e
   }
   AndExpression(e) {
-    e.conjuncts = this.analyze(e.conjuncts)
-    e.conjuncts.forEach((conjunct) => check(conjunct).isBoolean())
+    e.expressions = this.analyze(e.expressions)
+    e.expressions.forEach((expression) => check(expression).isBoolean())
     e.type = Type.BOOLEAN
     return e
   }
@@ -431,10 +430,3 @@ class Context {
     return e
   }
 }
-
-//   export default function analyze(node) {
-//     // Allow primitives to be automatically typed
-
-//}
-//     return initialContext.analyze(node)
-//   }

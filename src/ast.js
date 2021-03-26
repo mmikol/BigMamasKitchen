@@ -224,6 +224,20 @@ export class ShortReturnStatement {
   // Intentionally empty
 }
 
+export class OrExpression {
+  // Example: openDoor() || tryTheWindow() || breakTheDoorDown()
+  constructor(expressions) {
+    this.expressions = expressions
+  }
+}
+
+export class AndExpression {
+  // Example: swim && bike && run
+  constructor(expressions) {
+    this.expressions = expressions
+  }
+}
+
 // Taken from Dr. Toal's AEL compiler
 function prettied(node) {
   // Return a compact and pretty string representation of the node graph,

@@ -106,11 +106,11 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     }
     return new ast.Return(arrayToNullable(returnValueTree))
   },
-  Exp_or(left, op, right) {
-    return new ast.Expression(left.ast(), op.sourceString, right.ast())
+  Exp_or(first, _op, rest) {
+    return new ast.OrExpression([first.ast(), ...rest.ast()])
   },
-  Exp_and(left, op, right) {
-    return new ast.Expression(left.ast(), op.sourceString, right.ast())
+  Exp_and(first, _op, rest) {
+    return new ast.AndExpression([first.ast(), ...rest.ast()])
   },
   Exp1_binary(left, op, right) {
     return new ast.BinaryExpression(left.ast(), op.sourceString, right.ast())

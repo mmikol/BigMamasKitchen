@@ -37,8 +37,8 @@ BigMamasKitchen {
   Params          =  "(" ListOf<Parameter, ","> ")"
   Parameter       =  Type id
   Block           =  "(^-^)~" Stmt* "~(^-^)"
-  Exp             =  Exp "||" Exp1                                    -- or
-                  |  Exp "&&" Exp1                                    -- and
+  Exp             =  Exp1 ("||" Exp1)+                                    -- or
+                  |  Exp1 ("&&" Exp1)+                                    -- and
                   |  Exp1
   Exp1            =  Exp2 relop Exp2                                  -- binary
                   |  Exp2

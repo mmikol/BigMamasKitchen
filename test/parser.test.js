@@ -57,8 +57,8 @@ const goodPrograms = [
   String.raw`serve -8 < 9 ;)`,
   String.raw`serve -(-(-(-(-(-(-5)))))) ;)`,
   String.raw`serve 4 || 9 ;)`,
-  String.raw`serve 3 && 5 || 2 ;)`,
-  String.raw`serve 3 || 5 && 2 * 5 + (5 - 1) ;)`,
+  String.raw`serve 3 && (5 || 2) ;)`,
+  String.raw`serve 3 || (5 && 2 * 5 + (5 - 1)) ;)`,
   String.raw`addAPinchOf grand (^-^)~
 serve cooked ;)
 ~(^-^) orSubstitute another (^-^)~
@@ -159,6 +159,8 @@ stir until cooked (^-^)~
 dumpLeftovers (^-^)~
   mamaSays "i is equal to 35" ;)
 ~(^-^)`,
+  String.raw`mamaSays swim && bike && run ;)`,
+  String.raw`mamaSays 12 || egg || peanut ;)`,
 ]
 
 const badPrograms = [
@@ -176,6 +178,8 @@ const badPrograms = [
   ~(^-^) orSubstitute i > 35 (^-^)~
     mamaSays "4: If Else If Else If, Else if 2" ;)
   ~(^-^)`,
+  String.raw`mamaSays 3 && 5 || 2 ;)`,
+  String.raw`mamaSays 3 || 5 && 2 * 5 + (5 - 1) ;)`,
 ]
 
 describe("The syntax checker", () => {
