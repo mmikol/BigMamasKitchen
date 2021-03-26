@@ -303,7 +303,7 @@ function10("correct", 100, "imanextraparam") ;)`,
   ],
   [
     "! expression must be a boolean",
-    `mamaSays !"this is wrong" ;)`,
+    `!"this is wrong" ;)`,
     /Error: Expected a boolean, found string/,
   ],
 ]
