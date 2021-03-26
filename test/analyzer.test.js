@@ -301,6 +301,11 @@ serve chocolate ;)
 function10("correct", 100, "imanextraparam") ;)`,
     /Error: Identifier function10 not declared/,
   ],
+  [
+    "! expression must be a boolean",
+    `mamaSays !"this is wrong" ;)`,
+    /Error: Expected a boolean, found string/,
+  ],
 ]
 
 describe("The analyzer", () => {
