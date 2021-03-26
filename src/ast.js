@@ -22,8 +22,14 @@ export class Assignment {
 }
 
 export class Increment {
-  constructor(target, increment) {
-    Object.assign(this, { target, increment })
+  constructor(target) {
+    Object.assign(this, { target })
+  }
+}
+
+export class Decrement {
+  constructor(target) {
+    this.target = target
   }
 }
 

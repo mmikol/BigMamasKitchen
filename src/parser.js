@@ -59,7 +59,9 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     return new ast.Assignment(targets.ast(), sources.ast())
   },
   Increment(target, increment) {
-    return new ast.Increment(target.ast(), increment.sourceString)
+    return increment.sourceString === "++"
+      ? new ast.Increment(target.ast())
+      : new ast.Decrement(target.ast())
   },
   IfStmt_long(_addAPinchOf, test, consequent, alternate) {
     return new ast.IfStatement(test.ast(), consequent.ast(), alternate.ast())

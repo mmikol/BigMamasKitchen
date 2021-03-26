@@ -216,7 +216,7 @@ const expectedAst7 = `   1 | Program statements=[#2]
   18 | BinaryExpression left=#19 op='<' right=#20
   19 | IdentifierExpression id='i'
   20 | IdentifierExpression id='rows'
-  21 | Increment target=#22 increment='++'
+  21 | Increment target=#22
   22 | IdentifierExpression id='i'
   23 | Block statements=[#24,#29]
   24 | ShortIfStatement test=#25 consequent=#27
@@ -230,7 +230,7 @@ const expectedAst7 = `   1 | Program statements=[#2]
   32 | BinaryExpression left=#33 op='<' right=#34
   33 | IdentifierExpression id='j'
   34 | IdentifierExpression id='columns'
-  35 | Increment target=#36 increment='++'
+  35 | Increment target=#36
   36 | IdentifierExpression id='j'
   37 | Block statements=[#38]
   38 | ShortIfStatement test=#39 consequent=#44

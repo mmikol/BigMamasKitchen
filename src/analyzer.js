@@ -243,8 +243,9 @@ class Context {
     return s
   }
   Decrement(s) {
-    s.variable = this.analyze(s.variable)
-    check(s.variable).isNumber()
+    s.target = this.analyze(s.target)
+    check(s.target).isNumber()
+    s.type = s.target.type
     return s
   }
   Assignment(s) {
@@ -327,23 +328,6 @@ class Context {
     s.body = this.newChild({ inLoop: true }).analyze(s.body)
     return s
   }
-  Conditional(e) {
-    e.test = this.analyze(e.test)
-    check(e.test).isBoolean()
-    e.consequent = this.analyze(e.consequent)
-    e.alternate = this.analyze(e.alternate)
-    check(e.consequent).hasSameTypeAs(e.alternate)
-    e.type = e.consequent.type
-    return e
-  }
-  // UnwrapElse(e) {
-  //   e.optional = this.analyze(e.optional)
-  //   e.alternate = this.analyze(e.alternate)
-  //   check(e.optional).isAnOptional()
-  //   check(e.alternate).isAssignableTo(e.optional.type.baseType)
-  //   e.type = e.optional.type
-  //   return e
-  // }
   OrExpression(e) {
     e.disjuncts = this.analyze(e.disjuncts)
     e.disjuncts.forEach((disjunct) => check(disjunct).isBoolean())

@@ -64,11 +64,7 @@ dumpLeftovers (^-^)~
 
 --[=] Put code you want to test below this [=]--
 
-ingredient bitter i = 90 ;)
-
-addAPinchOf i < -35 (^-^)~
-  addAPinchOf i < -35 (^-^)~
-   mamaSays "hello" ;)
-  ~(^-^)
-~(^-^)
-
+bake ingredient bitter egg = 1 until egg < 40 egg-- (^-^)~
+  mamaSays egg ;)
+  stop ;)
+ ~(^-^)

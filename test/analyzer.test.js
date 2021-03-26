@@ -50,6 +50,32 @@ const semanticChecks = [
      ~(^-^)`,
   ],
   [
+    "For loop with decrement",
+    `bake ingredient bitter a = 0 until a < 10 a-- (^-^)~
+     ~(^-^)`,
+  ],
+  [
+    "While Loop",
+    `stir until cooked (^-^)~
+  mamaSays "infinite loop baby" ;)
+~(^-^)`,
+  ],
+  [
+    "While Loop incrementing a count",
+    `ingredient bitter counter = 1 ;) stir until counter > 100 (^-^)~
+  counter++ ;)
+~(^-^)`,
+  ],
+  [
+    "While Loop with a break",
+    `ingredient bitter counter = 1 ;) stir until counter > 100 (^-^)~
+  counter = counter + 20 ;) 
+  addAPinchOf counter == 81 (^-^)~
+     stop ;)
+  ~(^-^)
+~(^-^)`,
+  ],
+  [
     "Nested if blocks",
     `
   ingredient bitter i = 90 ;)
@@ -192,6 +218,13 @@ addAPinchOf i < 70 (^-^)~
 ~(^-^) orSubstitute 500 (^-^)~
   mamaSays "i is greater than 35" ;)
 ~(^-^) `,
+    /Error: Expected a boolean, found number/,
+  ],
+  [
+    "While Loop test must be Boolean",
+    `ingredient bitter counter = 1 ;) stir until 800 (^-^)~
+  counter++ ;)
+~(^-^)`,
     /Error: Expected a boolean, found number/,
   ],
 ]
