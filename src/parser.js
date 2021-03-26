@@ -131,10 +131,7 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     return new ast.Expression(expression.ast())
   },
   Call(callee, _left, args, _right) {
-    return new ast.Call(callee.ast(), args.ast())
-  },
-  Args(args) {
-    return new ast.Args(args.asIteration().ast())
+    return new ast.Call(callee.ast(), args.asIteration().ast())
   },
   Block(_left, statements, _right) {
     return new ast.Block(statements.ast())

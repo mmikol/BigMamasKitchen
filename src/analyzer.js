@@ -2,7 +2,7 @@
 // "Function does not contain serve",
 // "Can only increment the iterator"
 
-import { Type, Variable, Function, VariableDeclaration } from "./ast.js"
+import { Type, Variable, Function, FunctionType } from "./ast.js"
 //import * as stdlib from "./stdlib.js"
 
 export default function analyze(node) {
@@ -113,18 +113,21 @@ const check = (self) => ({
   },
   isCallable() {
     must(
-      self.type.constructor == FunctionType,
+      self.type.constructor === FunctionType,
       "Call of non-function or non-constructor"
     )
   },
   returnsNothing() {
-    must(self.returnType === Type.VOID, "Something should be returned here")
+    must(
+      self.type.returnType === Type.VOID,
+      "Something should be returned here"
+    )
   },
   returnsSomething() {
-    must(self.returnType !== Type.VOID, "Cannot return a value here")
+    must(self.type.returnType !== Type.VOID, "Cannot return a value here")
   },
   isReturnableFrom(f) {
-    check(self).isAssignableTo(f.returnType)
+    check(self).isAssignableTo(f.type.returnType)
   },
   match(targetTypes) {
     // self is the array of arguments
@@ -136,9 +139,6 @@ const check = (self) => ({
   },
   matchParametersOf(calleeType) {
     check(self).match(calleeType.parameterTypes)
-  },
-  matchFieldsOf(structType) {
-    check(self).match(structType.fields.map((f) => f.type))
   },
 })
 
@@ -223,7 +223,11 @@ class Context {
     const childContext = this.newChild({ inLoop: false, forFunction: f })
     //are we checking to see if we use the parameters here why are we doing this
     d.parameters = childContext.analyze(d.parameters)
-    f.returnType = d.type
+    //adding functiontype back in so we can check params function calls
+    f.type = new FunctionType(
+      d.parameters.map((p) => p.type),
+      d.type
+    )
     // Add before analyzing the body to allow recursion
     this.add(f.name, f)
     d.body = childContext.analyze(d.body)

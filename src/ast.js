@@ -120,10 +120,25 @@ export class Function {
   }
 }
 
-export class Args {
-  constructor(args) {
-    this.args = args
+export class FunctionType extends Type {
+  constructor(parameterTypes, returnType) {
+    //the name that the function type has
+    super(
+      `(${parameterTypes.map((t) => t.name).join(",")})=>${returnType.name}`
+    )
+    Object.assign(this, { parameterTypes, returnType })
   }
+  // isAssignableTo(target) {
+  //   // Functions are covariant on return types, contravariant on parameters.
+  //   return (
+  //     target.constructor === FunctionType &&
+  //     this.returnType.isAssignableTo(target.returnType) &&
+  //     this.parameterTypes.length === target.parameterTypes.length &&
+  //     this.parameterTypes.every((t, i) =>
+  //       target.parameterTypes[i].isAssignableTo(t)
+  //     )
+  //   )
+  // }
 }
 
 export class Parameter {

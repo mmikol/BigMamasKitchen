@@ -141,6 +141,17 @@ const semanticChecks = [
   ingredient spicy bacon = 700 / 2 < 10 ;) 
   addAPinchOf pancakes || syrup || bacon (^-^)~ mamaSays "breakfast is served" ;) ~(^-^) dumpLeftovers  (^-^)~ mamaSays "we were missing ingredients" ;) ~(^-^)`,
   ],
+  [
+    "Calling functions, nested call statements",
+    ` recipe salty function1 (salty chocolate, bitter num) (^-^)~
+serve chocolate ;)
+~(^-^)
+
+recipe bitter function2 (bitter num) (^-^)~
+serve num + 90 ;)
+~(^-^)
+function1("egg", function2(400)) ;)`,
+  ],
 ]
 
 // Programs that are syntactically correct but have semantic errors
@@ -256,6 +267,39 @@ addAPinchOf i < 70 (^-^)~
     "Or expression expressions must be booleans",
     `addAPinchOf "raw" || "cooked" (^-^)~ mamaSays "this is wrong" ;) ~(^-^)`,
     /Error: Expected a boolean, found string/,
+  ],
+  [
+    "Calling a non-function like a function is not allowed",
+    `ingredient bitter fakefunction = 10 ;)
+fakefunction(800) ;)`,
+    /Error: Call of non-function or non-constructor/,
+  ],
+  [
+    "Passing the wrong parameter types to a function call",
+    `recipe salty function1 (salty chocolate, bitter num) (^-^)~
+serve chocolate ;)
+~(^-^)
+
+function1("correct", raw) ;)`,
+    /Error: Cannot assign a boolean to a number/,
+  ],
+  [
+    "Passing the wrong number of parameters to a function call",
+    `recipe salty function1 (salty chocolate, bitter num) (^-^)~
+serve chocolate ;)
+~(^-^)
+
+function1("correct", 100, "imanextraparam") ;)`,
+    /Error: 2 argument\(s\) required but 3 passed/,
+  ],
+  [
+    "Calling a function that doesnt exist",
+    `recipe salty function1 (salty chocolate, bitter num) (^-^)~
+serve chocolate ;)
+~(^-^)
+
+function10("correct", 100, "imanextraparam") ;)`,
+    /Error: Identifier function10 not declared/,
   ],
 ]
 

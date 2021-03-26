@@ -60,11 +60,23 @@ dumpLeftovers (^-^)~
   mamaSays "i is equal to 35" ;)
 ~(^-^)
 
-[=]--
-
---[=] Put code you want to test below this [=]--
-
 bake ingredient bitter egg = 1 until egg < 40 egg-- (^-^)~
   mamaSays egg ;)
   stop ;)
  ~(^-^)
+
+ recipe empty voidFunction () (^-^)~ serve ;)
+  ~(^-^)
+[=]--
+
+--[=] Put code you want to test below this [=]--
+
+ recipe salty function1 (salty chocolate, bitter num) (^-^)~
+    serve chocolate ;)
+~(^-^)
+
+recipe bitter function2 (bitter num) (^-^)~
+    serve num + 90 ;)
+~(^-^)
+ function1("egg", function2(400)) ;)
+

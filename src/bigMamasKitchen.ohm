@@ -64,8 +64,7 @@ BigMamasKitchen {
                   |  Var "[#]" NonemptyListOf<Exp, ",">  "[#]"                             -- dictionary 
                   |  Call
                   |  id
-  Call            =  id "(" Args ")"
-  Args            =  ListOf<Exp, ",">
+  Call            =  id "(" ListOf<Exp, ","> ")"
   
   spicy           = "spicy" ~idrest
   nothing         = "nothing" ~idrest

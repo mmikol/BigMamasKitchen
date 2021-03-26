@@ -174,16 +174,15 @@ const expectedAst4 = `   1 | Program statements=[#2]
   14 | Return returnValue=#15
   15 | BinaryExpression left=#16 op='+' right='happiness'
   16 | IdentifierExpression id='milk'
-  17 | IfStatement test=#18 consequent=#19 alternate=#25
+  17 | IfStatement test=#18 consequent=#19 alternate=#24
   18 | IdentifierExpression id='water'
   19 | Block statements=[#20]
   20 | Return returnValue=#21
-  21 | Call callee=#22 args=#23
+  21 | Call callee=#22 args=[#23]
   22 | IdentifierExpression id='cream'
-  23 | Args args=[#24]
-  24 | IdentifierExpression id='chocolate'
-  25 | Block statements=[#26]
-  26 | Return returnValue='no pudding today'`
+  23 | IdentifierExpression id='chocolate'
+  24 | Block statements=[#25]
+  25 | Return returnValue='no pudding today'`
 
 const expectedAst5 = `   1 | Program statements=[#2]
    2 | VariableDeclaration type=#3 name='rawEggs' initializer=#5

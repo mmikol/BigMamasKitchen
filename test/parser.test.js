@@ -161,6 +161,7 @@ dumpLeftovers (^-^)~
 ~(^-^)`,
   String.raw`mamaSays swim && bike && run ;)`,
   String.raw`mamaSays 12 || egg || peanut ;)`,
+  String.raw`function(egg, function2(gege, didi, heheh)) ;)`,
 ]
 
 const badPrograms = [
