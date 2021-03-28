@@ -162,6 +162,7 @@ dumpLeftovers (^-^)~
   String.raw`mamaSays swim && bike && run ;)`,
   String.raw`mamaSays 12 || egg || peanut ;)`,
   String.raw`function(egg, function2(gege, didi, heheh)) ;)`,
+  String.raw`ingredient salty(@) emptyArray = (@ salty @) ;)`,
 ]
 
 const badPrograms = [
@@ -181,6 +182,9 @@ const badPrograms = [
   ~(^-^)`,
   String.raw`mamaSays 3 && 5 || 2 ;)`,
   String.raw`mamaSays 3 || 5 && 2 * 5 + (5 - 1) ;)`,
+  String.raw`ingredient salty(@) emptyArray = (@ @) ;)`,
+  String.raw`ingredient salty(@) emptyArray = (@ "hello" @) ;)`,
+  String.raw`ingredient salty(@) wrong parenthesis = (@ "hehe", "hhoohoh" @) ;)`,
 ]
 
 describe("The syntax checker", () => {

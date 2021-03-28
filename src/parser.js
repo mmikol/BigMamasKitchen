@@ -32,8 +32,11 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   Type_dict(type, _symbol) {
     return new ast.DictType(type.ast())
   },
-  Array(_left, expressions, _right) {
+  Array_array(_left, expressions, _right) {
     return new ast.ArrayLiteral(expressions.asIteration().ast())
+  },
+  Array_emptyarray(_left, type, _right) {
+    return new ast.EmptyArray(type.ast())
   },
   Var_dictionary(name, _left, keys, _right) {
     return new ast.DictAccess(name.ast(), keys.asIteration().ast())

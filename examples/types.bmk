@@ -67,11 +67,8 @@ bake ingredient bitter egg = 1 until egg < 40 egg-- (^-^)~
 
  recipe empty voidFunction () (^-^)~ serve ;)
   ~(^-^)
-[=]--
 
---[=] Put code you want to test below this [=]--
-
- recipe salty function1 (salty chocolate, bitter num) (^-^)~
+   recipe salty function1 (salty chocolate, bitter num) (^-^)~
     serve chocolate ;)
 ~(^-^)
 
@@ -80,3 +77,14 @@ recipe bitter function2 (bitter num) (^-^)~
 ~(^-^)
  function1("egg", function2(400)) ;)
 
+ ingredient spicy(@)(@) doubleRawEggs = (@) (@)cooked, cooked(@), (@)raw, cooked(@) (@) ;)
+
+ ingredient salty example = "ehehe" ;)
+
+ ingredient spicy(@) rawEggs2 = (@) "imstrgin", raw (@) ;)
+
+[=]--
+
+--[=] Put code you want to test below this [=]--
+
+ingredient spicy(@) rawEggs2 = (@) (@) cooked, cooked (@), (@) raw, cooked (@) (@) ;)

@@ -31,14 +31,15 @@ BigMamasKitchen {
                   |  salty
                   |  bland
                   |  empty
-  Array           =  "(@)" ListOf<Exp, ","> "(@)"                     
+  Array           =  "(@" Type "@)"                                   -- emptyarray
+                  |  "(@)" NonemptyListOf<Exp, ","> "(@)"             -- array
   Dict            =  "[#]" ListOf< DictEl, ","> "[#]"                 
   DictEl          =  stringlit ":" Exp
   Params          =  "(" ListOf<Parameter, ","> ")"
   Parameter       =  Type id
   Block           =  "(^-^)~" Stmt* "~(^-^)"
-  Exp             =  Exp1 ("||" Exp1)+                                    -- or
-                  |  Exp1 ("&&" Exp1)+                                    -- and
+  Exp             =  Exp1 ("||" Exp1)+                                -- or
+                  |  Exp1 ("&&" Exp1)+                                -- and
                   |  Exp1
   Exp1            =  Exp2 relop Exp2                                  -- binary
                   |  Exp2
@@ -60,8 +61,8 @@ BigMamasKitchen {
                   |  stringlit
                   |  Array
                   |  Dict
-  Var             =  Var "(@)" NonemptyListOf<Exp, ","> "(@)"                              -- array
-                  |  Var "[#]" NonemptyListOf<Exp, ",">  "[#]"                             -- dictionary 
+  Var             =  Var "(@)" NonemptyListOf<Exp, ","> "(@)"         -- array
+                  |  Var "[#]" NonemptyListOf<Exp, ",">  "[#]"        -- dictionary 
                   |  Call
                   |  id
   Call            =  id "(" ListOf<Exp, ","> ")"
@@ -104,6 +105,6 @@ BigMamasKitchen {
   prefixop        =  ~"--" "-" | "!"
   incop           =  "++" | "--"
   space           :=  "\x20" | "\x09" | "\x0A" | "\x0D" | comment
-  comment         =  "--[=]" (~"[=]--" any)* "[=]--"                     -- multiLine
-                  | "~(=^..^)" (~"\n" any)*                              -- singleLine
+  comment         =  "--[=]" (~"[=]--" any)* "[=]--"                  -- multiLine
+                  | "~(=^..^)" (~"\n" any)*                           -- singleLine
 }

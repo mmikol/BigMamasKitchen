@@ -2,7 +2,7 @@
 // "Function does not contain serve",
 // "Can only increment the iterator"
 
-import { Type, Variable, Function, FunctionType } from "./ast.js"
+import { Type, Variable, Function, FunctionType, ArrayType } from "./ast.js"
 //import * as stdlib from "./stdlib.js"
 
 export default function analyze(node) {
@@ -198,7 +198,14 @@ class Context {
     // Declarations generate brand new variable objects
     d.initializer = this.analyze(d.initializer)
     d.type = this.analyze(d.type)
-    check(d.initializer).isAssignableTo(d.type)
+    console.log("d.type", d.type)
+    console.log("d.initializer", d.initializer)
+    console.log("d", d)
+    if (d.type.constructor === ArrayType) {
+      check(d.initializer.type).isAssignableTo(d.type.type)
+    } else {
+      check(d.initializer).isAssignableTo(d.type)
+    }
     d.variable = new Variable(d.initializer.type, d.name)
     this.add(d.variable.name, d.variable)
     return d

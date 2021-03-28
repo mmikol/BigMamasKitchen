@@ -45,12 +45,6 @@ export class Variable {
   }
 }
 
-export class ArrayType {
-  constructor(type) {
-    Object.assign(this, { type })
-  }
-}
-
 export class DictType {
   constructor(type) {
     Object.assign(this, { type })
@@ -99,7 +93,19 @@ export class Type {
   static VOID = new Type("void")
 
   isEquivalentTo(target) {
-    return this == target
+    return this === target
+  }
+}
+
+export class ArrayType extends Type {
+  constructor(type) {
+    super(`[${type.name}]`), Object.assign(this, { type })
+  }
+}
+
+export class EmptyArray {
+  constructor(type) {
+    this.type = type
   }
 }
 
@@ -124,7 +130,7 @@ export class FunctionType extends Type {
   constructor(parameterTypes, returnType) {
     //the name that the function type has
     super(
-      `(${parameterTypes.map((t) => t.name).join(",")})=>${returnType.name}`
+      `(${parameterTypes.map((t) => t.name).join(",")}) => ${returnType.name}`
     )
     Object.assign(this, { parameterTypes, returnType })
   }

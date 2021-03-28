@@ -69,7 +69,7 @@ const semanticChecks = [
   [
     "While Loop with a break",
     `ingredient bitter counter = 1 ;) stir until counter > 100 (^-^)~
-  counter = counter + 20 ;) 
+  counter = counter + 20 ;)
   addAPinchOf counter == 81 (^-^)~
      stop ;)
   ~(^-^)
@@ -95,7 +95,7 @@ const semanticChecks = [
     mamaSays "i is less than 35" ;)
   ~(^-^) orSubstitute i > 35 (^-^)~
     mamaSays "i is greater than 35" ;)
-  ~(^-^) 
+  ~(^-^)
   dumpLeftovers (^-^)~
     mamaSays "i is equal to 35" ;)
   ~(^-^)`,
@@ -129,16 +129,16 @@ const semanticChecks = [
     "Chained and expression",
     `
   ingredient spicy pancakes = cooked ;)
-  ingredient spicy syrup = raw ;) 
-  ingredient spicy bacon = raw ;) 
+  ingredient spicy syrup = raw ;)
+  ingredient spicy bacon = raw ;)
   addAPinchOf pancakes && syrup && bacon (^-^)~ mamaSays "breakfast is served" ;) ~(^-^) dumpLeftovers  (^-^)~ mamaSays "we were missing ingredients" ;) ~(^-^)`,
   ],
   [
     "Chained or expression",
     `
   ingredient spicy pancakes = 8 > 9 ;)
-  ingredient spicy syrup = raw ;) 
-  ingredient spicy bacon = 700 / 2 < 10 ;) 
+  ingredient spicy syrup = raw ;)
+  ingredient spicy bacon = 700 / 2 < 10 ;)
   addAPinchOf pancakes || syrup || bacon (^-^)~ mamaSays "breakfast is served" ;) ~(^-^) dumpLeftovers  (^-^)~ mamaSays "we were missing ingredients" ;) ~(^-^)`,
   ],
   [
@@ -151,6 +151,21 @@ recipe bitter function2 (bitter num) (^-^)~
 serve num + 90 ;)
 ~(^-^)
 function1("egg", function2(400)) ;)`,
+  ],
+  [
+    "Initializing basic array",
+    `ingredient spicy(@) rawEggs = (@) raw, raw (@) ;)
+  `,
+  ],
+  [
+    "Initializing basic array with numbers",
+    `ingredient bitter(@) numbers = (@) 1, 2, 3, 4, 5 (@) ;)
+  `,
+  ],
+  [
+    "Empty array with type okay ",
+    `ingredient spicy(@) rawEggs = (@ spicy  @) ;)
+  `,
   ],
 ]
 
@@ -305,6 +320,17 @@ function10("correct", 100, "imanextraparam") ;)`,
     "! expression must be a boolean",
     `!"this is wrong" ;)`,
     /Error: Expected a boolean, found string/,
+  ],
+  [
+    "All Array elements must be the same",
+    `ingredient spicy(@) rawEggs2 = (@) "imstrgin", raw (@) ;)`,
+    /Error: Not all elements have the same type/,
+  ],
+  [
+    "Empty array type mismatch",
+    `ingredient spicy(@) rawEggs = (@ bitter @) ;)
+  `,
+    /Error: Cannot assign a number to a boolean/,
   ],
 ]
 
