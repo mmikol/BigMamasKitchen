@@ -384,8 +384,19 @@ class Context {
   }
   ArrayLiteral(a) {
     a.elements = this.analyze(a.elements)
+    console.log("a.elements", a.elements)
     check(a.elements).allHaveSameType()
-    a.type = new ArrayType(a.elements[0].type)
+    const newArrayType = new ArrayType(a.elements[0].type)
+    console.log("newarrayType.name", newArrayType.name)
+    const existingArrayType = this.sees(newArrayType.name)
+    console.log("existingArrayType", existingArrayType)
+    if (existingArrayType) {
+      a.type = this.lookup(newArrayType.name)
+    } else {
+      a.type = newArrayType
+      this.add(newArrayType.name, newArrayType)
+    }
+    console.log(this)
     return a
   }
   EmptyArray(e) {
