@@ -85,9 +85,14 @@ recipe bitter function2 (bitter num) (^-^)~
 
  ingredient spicy(@) rawEggs2 = (@) (@) cooked, cooked (@), (@) raw, cooked (@) (@) ;)
 
+ ingredient spicy(@) rawEggs2 = (@) raw, raw (@) ;)
+ingredient spicy(@) rawEggs1 = (@) raw, raw (@) ;)
+ingredient spicy(@)(@) rawEggs2 = (@) (@) cooked, cooked (@), (@) raw, cooked (@) (@) ;)
+
 [=]--
 
 --[=] Put code you want to test below this [=]--
 
-ingredient spicy(@) rawEggs2 = (@) raw, raw (@) ;)
-ingredient spicy(@) rawEggs1 = (@) raw, raw (@) ;)
+
+recipe salty pudding (salty chocolate, spicy water) (^-^)~
+~(^-^)

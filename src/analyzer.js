@@ -39,6 +39,12 @@ function must(condition, errorMessage) {
 }
 
 const check = (self) => ({
+  hasAReturnStatement() {
+    must(
+      self.find((item) => item.constructor === Return),
+      `Function must have a return statement`
+    )
+  },
   isSameVariable(other) {
     must(
       self.name === other.name && self.type.isEquivalentTo(other.type),
@@ -83,13 +89,13 @@ const check = (self) => ({
   },
   allHaveSameType() {
     must(
-      self.slice(1).every((e) => e.type === self[0].type),
+      self.slice(1).every((e) => e.type.isEquivalentTo(self[0].type)),
       "Not all elements have the same type"
     )
   },
   isAssignableTo(type) {
     must(
-      self.type === type,
+      self.type.isAssignableTo(type),
       `Cannot assign a ${self.type.name} to a ${type.name}`
     )
   },
@@ -201,11 +207,7 @@ class Context {
     console.log("d.type", d.type)
     console.log("d.initializer", d.initializer)
     console.log("d", d)
-    if (d.type.constructor === ArrayType) {
-      check(d.initializer.type).isAssignableTo(d.type.type)
-    } else {
-      check(d.initializer).isAssignableTo(d.type)
-    }
+    check(d.initializer).isAssignableTo(d.type)
     d.variable = new Variable(d.initializer.type, d.name)
     this.add(d.variable.name, d.variable)
     return d
@@ -239,6 +241,8 @@ class Context {
     this.add(f.name, f)
     d.body = childContext.analyze(d.body)
     // How do we throw an error if they dont write a return statement????
+    console.log(d.body)
+    check(d.body.statements).hasAReturnStatement()
     return d
   }
   Parameter(p) {
@@ -387,16 +391,17 @@ class Context {
     console.log("a.elements", a.elements)
     check(a.elements).allHaveSameType()
     const newArrayType = new ArrayType(a.elements[0].type)
-    console.log("newarrayType.name", newArrayType.name)
-    const existingArrayType = this.sees(newArrayType.name)
-    console.log("existingArrayType", existingArrayType)
-    if (existingArrayType) {
-      a.type = this.lookup(newArrayType.name)
-    } else {
-      a.type = newArrayType
-      this.add(newArrayType.name, newArrayType)
-    }
-    console.log(this)
+    a.type = newArrayType
+    //console.log("newarrayType.name", newArrayType.name)
+    //const existingArrayType = this.sees(newArrayType.name)
+    //console.log("existingArrayType", existingArrayType)
+    // if (existingArrayType) {
+    //   a.type = this.lookup(newArrayType.name)
+    // } else {
+    //   a.type = newArrayType
+    //   this.add(newArrayType.name, newArrayType)
+    // }
+    //console.log(this)
     return a
   }
   EmptyArray(e) {

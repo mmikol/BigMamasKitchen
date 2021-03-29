@@ -95,11 +95,24 @@ export class Type {
   isEquivalentTo(target) {
     return this === target
   }
+
+  isAssignableTo(target) {
+    return this.isEquivalentTo(target)
+  }
 }
 
 export class ArrayType extends Type {
   constructor(type) {
     super(`[${type.name}]`), Object.assign(this, { type })
+  }
+  isEquivalentTo(other) {
+    return (
+      other.constructor === ArrayType && this.type.isEquivalentTo(other.type)
+    )
+  }
+
+  isAssignableTo(other) {
+    return this.isEquivalentTo(other)
   }
 }
 
