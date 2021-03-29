@@ -89,10 +89,38 @@ recipe bitter function2 (bitter num) (^-^)~
 ingredient spicy(@) rawEggs1 = (@) raw, raw (@) ;)
 ingredient spicy(@)(@) rawEggs2 = (@) (@) cooked, cooked (@), (@) raw, cooked (@) (@) ;)
 
+recipe salty pudding (salty chocolate, spicy water) (^-^)~
+~(^-^)
+
+recipe salty stringFunction(salty dogName) (^-^)~ serve dogName ;)
+  ~(^-^)
+
+    recipe empty voidFunction () (^-^)~ serve ;)
+  ~(^-^)
+
+ingredient bitter(@)(@) doubleArray = (@) (@)1,2,3(@), (@)4,5,6(@) (@) ;)
+
+mamaSays doubleArray(@)1, 2(@) == 6 ;)
+
+
+
+ingredient salty(@) rollCake = (@)"strawberry", "sugar", "cake"(@) ;)
+
+ingredient salty fruit = rollCake(@)0(@) ;)
+
+fruit = rollCake(@)2(@) ;)
+
+
+ingredient bitter(@)(@) doubleArray = (@) (@)1,2,3(@), (@)4,5,6(@) (@) ;)
+
+mamaSays doubleArray(@)1, 2(@) == 6 ;)
+
 [=]--
 
 --[=] Put code you want to test below this [=]--
 
+ingredient salty(@) rollCake = (@)"strawberry", "sugar", "cake"(@) ;)
 
-recipe salty pudding (salty chocolate, spicy water) (^-^)~
-~(^-^)
+ingredient salty fruit = rollCake(@)0(@) ;)
+
+fruit = rollCake(@)2(@) ;)

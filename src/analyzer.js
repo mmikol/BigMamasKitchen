@@ -2,7 +2,15 @@
 // "Function does not contain serve",
 // "Can only increment the iterator"
 
-import { Type, Variable, Function, FunctionType, ArrayType } from "./ast.js"
+import {
+  Type,
+  Variable,
+  Function,
+  FunctionType,
+  ArrayType,
+  Return,
+  ShortReturnStatement,
+} from "./ast.js"
 //import * as stdlib from "./stdlib.js"
 
 export default function analyze(node) {
@@ -41,7 +49,11 @@ function must(condition, errorMessage) {
 const check = (self) => ({
   hasAReturnStatement() {
     must(
-      self.find((item) => item.constructor === Return),
+      self.find(
+        (item) =>
+          item.constructor === Return ||
+          item.constructor === ShortReturnStatement
+      ),
       `Function must have a return statement`
     )
   },
@@ -188,7 +200,6 @@ class Context {
     return new Context(this, configuration)
   }
   analyze(node) {
-    //console.log("analyze", this[node.constructor.name])
     return this[node.constructor.name](node)
   }
   Program(p) {
@@ -204,9 +215,6 @@ class Context {
     // Declarations generate brand new variable objects
     d.initializer = this.analyze(d.initializer)
     d.type = this.analyze(d.type)
-    console.log("d.type", d.type)
-    console.log("d.initializer", d.initializer)
-    console.log("d", d)
     check(d.initializer).isAssignableTo(d.type)
     d.variable = new Variable(d.initializer.type, d.name)
     this.add(d.variable.name, d.variable)
@@ -224,7 +232,6 @@ class Context {
   FunctionDeclaration(d) {
     d.type = this.analyze(d.type)
     //we need to analyze for the return if its not void and do a check
-
     // Declarations generate brand new function objects
     const f = (d.function = new Function(d.id))
     // When entering a function body, we must reset the inLoop setting,
@@ -241,7 +248,6 @@ class Context {
     this.add(f.name, f)
     d.body = childContext.analyze(d.body)
     // How do we throw an error if they dont write a return statement????
-    console.log(d.body)
     check(d.body.statements).hasAReturnStatement()
     return d
   }
@@ -388,25 +394,22 @@ class Context {
   }
   ArrayLiteral(a) {
     a.elements = this.analyze(a.elements)
-    console.log("a.elements", a.elements)
     check(a.elements).allHaveSameType()
     const newArrayType = new ArrayType(a.elements[0].type)
     a.type = newArrayType
-    //console.log("newarrayType.name", newArrayType.name)
-    //const existingArrayType = this.sees(newArrayType.name)
-    //console.log("existingArrayType", existingArrayType)
-    // if (existingArrayType) {
-    //   a.type = this.lookup(newArrayType.name)
-    // } else {
-    //   a.type = newArrayType
-    //   this.add(newArrayType.name, newArrayType)
-    // }
-    //console.log(this)
     return a
   }
   EmptyArray(e) {
     e.type = this.analyze(e.type)
     e.type = new ArrayType(e.type)
+    return e
+  }
+  ArrayAccess(e) {
+    e.array = this.analyze(e.array)
+    e.type = e.array.type.baseType
+    //should be indices
+    e.index = this.analyze(e.index)
+    check(e.index).isInteger()
     return e
   }
   MemberExpression(e) {

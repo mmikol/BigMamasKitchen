@@ -167,6 +167,10 @@ function1("egg", function2(400)) ;)`,
     `ingredient spicy(@) rawEggs = (@ spicy  @) ;)
   `,
   ],
+  [
+    "Declaring 2D boolean array",
+    `ingredient spicy(@)(@) rawEggs2 = (@) (@) cooked, cooked (@), (@) raw, cooked (@) (@) ;)`,
+  ],
 ]
 
 // Programs that are syntactically correct but have semantic errors
@@ -191,7 +195,7 @@ const semanticErrors = [
   [
     "missing return keyword in void function",
     `recipe empty voidFunction () (^-^)~~(^-^)`,
-    /Error: Function does not contain serve/,
+    /Error: Function must have a return statement/,
   ],
   [
     "returning a type in a void function",
@@ -206,7 +210,7 @@ const semanticErrors = [
   [
     "missing return keyword in string function",
     `recipe salty stringFunction () (^-^)~~(^-^)`,
-    /Error: Function does not contain serve/,
+    /Error: Function must have a return statement/,
   ],
   [
     "For loop with a non-boolean test condition",
@@ -328,9 +332,13 @@ function10("correct", 100, "imanextraparam") ;)`,
   ],
   [
     "Empty array type mismatch",
-    `ingredient spicy(@) rawEggs = (@ bitter @) ;)
-  `,
-    /Error: Cannot assign a number to a boolean/,
+    `ingredient spicy(@) rawEggs = (@ bitter @) ;)`,
+    /Error: Cannot assign a \[number\] to a \[spicy\]/,
+  ],
+  [
+    "Array dimension mismatch",
+    `ingredient spicy(@)(@) rawEggs = (@) raw (@) ;)`,
+    /Error: Cannot assign a \[boolean\] to a \[\[spicy\]\]/,
   ],
 ]
 

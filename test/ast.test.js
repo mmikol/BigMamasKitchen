@@ -186,7 +186,7 @@ const expectedAst4 = `   1 | Program statements=[#2]
 
 const expectedAst5 = `   1 | Program statements=[#2]
    2 | VariableDeclaration type=#3 name='rawEggs' initializer=#5
-   3 | ArrayType type=#4
+   3 | ArrayType name='[spicy]' type=#4
    4 | TypeIdentifier name='spicy'
    5 | ArrayLiteral elements=[false,false]`
 
@@ -199,8 +199,8 @@ const expectedAst7 = `   1 | Program statements=[#2]
    2 | FunctionDeclaration type=#3 id='containsZero' parameters=[#4,#8,#10] body=#12
    3 | TypeIdentifier name='spicy'
    4 | Parameter type=#5 id='doubleArray'
-   5 | ArrayType type=#6
-   6 | ArrayType type=#7
+   5 | ArrayType name='[[bitter]]' type=#6
+   6 | ArrayType name='[bitter]' type=#7
    7 | TypeIdentifier name='bitter'
    8 | Parameter type=#9 id='rows'
    9 | TypeIdentifier name='bitter'
