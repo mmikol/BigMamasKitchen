@@ -407,9 +407,8 @@ class Context {
   ArrayAccess(e) {
     e.array = this.analyze(e.array)
     e.type = e.array.type.type
-    //should be indices
     e.index = this.analyze(e.index)
-    check(e.index).isInteger()
+    check(e.index).isNumber()
     return e
   }
   MemberExpression(e) {

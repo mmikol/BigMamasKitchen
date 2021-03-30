@@ -115,12 +115,18 @@ ingredient bitter(@)(@) doubleArray = (@) (@)1,2,3(@), (@)4,5,6(@) (@) ;)
 
 mamaSays doubleArray(@)1, 2(@) == 6 ;)
 
-[=]--
-
---[=] Put code you want to test below this [=]--
-
 ingredient salty(@) rollCake = (@)"strawberry", "sugar", "cake"(@) ;)
 
 ingredient salty fruit = rollCake(@)0(@) ;)
 
-fruit = rollCake(@)2(@) ;)
+fruit = rollCake(@)4,4(@) ;)
+
+
+
+[=]--
+
+--[=] Put code you want to test below this [=]--
+
+
+ingredient bitter(@)(@) doubleArray = (@) (@)1,2,3(@), (@)4,5,6(@) (@) ;)
+mamaSays doubleArray(@)1(@)(@)2(@) == 6 ;)

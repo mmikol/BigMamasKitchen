@@ -64,8 +64,8 @@ export class DictLiteral {
 }
 
 export class ArrayAccess {
-  constructor(array, indices) {
-    Object.assign(this, { array, indices })
+  constructor(array, index) {
+    Object.assign(this, { array, index })
   }
 }
 

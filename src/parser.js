@@ -41,8 +41,8 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   Var_dictionary(name, _left, keys, _right) {
     return new ast.DictAccess(name.ast(), keys.asIteration().ast())
   },
-  Var_subscript(array, _left, indices, _right) {
-    return new ast.ArrayAccess(array.ast(), indices.asIteration().ast())
+  Var_subscript(array, _left, index, _right) {
+    return new ast.ArrayAccess(array.ast(), index.ast())
   },
   Dict(_left, expressions, _right) {
     return new ast.DictLiteral(expressions.asIteration().ast())
