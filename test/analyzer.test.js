@@ -502,7 +502,6 @@ const funDeclF = Object.assign(
     }),
   }
 )
-console.log(funDeclF)
 const graphChecks = [
   [
     "functions created & resolved",

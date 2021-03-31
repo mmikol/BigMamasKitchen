@@ -211,7 +211,6 @@ class Context {
   FunctionDeclaration(d) {
     d.type = this.analyze(d.type)
     const f = (d.function = new Function(d.id))
-    //console.log(f)
     const childContext = this.newChild({ inLoop: false, forFunction: f })
     d.parameters = childContext.analyze(d.parameters)
     f.type = new FunctionType(
