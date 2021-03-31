@@ -171,6 +171,48 @@ function1("egg", function2(400)) ;)`,
     "Declaring 2D boolean array",
     `ingredient spicy(@)(@) rawEggs2 = (@) (@) cooked, cooked (@), (@) raw, cooked (@) (@) ;)`,
   ],
+  [
+    "Can declare a basic string dictionary",
+    `ingredient salty[#] basicDict = [#] "key" : "value" [#] ;)`,
+  ],
+  [
+    "Can declare a basic boolean dictionary",
+    `ingredient spicy[#] basicDict = [#] "imthekey" : raw [#] ;)`,
+  ],
+  [
+    "Can declare a 2D dictionary",
+    `ingredient bitter[#][#] dictDict=
+    [#]
+        "key1" : [#] "inner1" : 5 [#] ,
+        "key2" : [#] "inner2" : 2 [#]
+    [#] ;)`,
+  ],
+  [
+    "Can access values from dictionary",
+    `
+  ingredient bitter[#] rollCake = [#]
+  "strawberry": 0,
+  "sugar": 1,
+  "cake": 2
+[#] ;)
+
+ingredient bitter fruit = rollCake[#]"strawberry"[#] ;)
+
+fruit = rollCake[#]"cake"[#] ;)
+  `,
+  ],
+  [
+    "Can access values from dictionary of dictionary",
+    `ingredient salty[#][#] dictionary = [#]
+"key1": [#]"key2": "value"[#]
+[#] ;)
+
+mamaSays dictionary[#]"key1"[#][#]"key2"[#] ;)`,
+  ],
+  [
+    "Can declare an empty dictionary",
+    `ingredient salty[#] dictionary = [# salty #] ;)`,
+  ],
 ]
 
 // Programs that are syntactically correct but have semantic errors
@@ -339,6 +381,48 @@ function10("correct", 100, "imanextraparam") ;)`,
     "Array dimension mismatch",
     `ingredient spicy(@)(@) rawEggs = (@) raw (@) ;)`,
     /Error: Cannot assign a \[boolean\] to a \[\[spicy\]\]/,
+  ],
+  [
+    "Cannot declare variables with the same name",
+    `ingredient spicy hehe = raw ;)
+    ingredient spicy hehe = cooked ;)`,
+    /Error: Identifier hehe already declared/,
+  ],
+  [
+    "Cannot declare duplicate keys in a dictionary",
+    `ingredient salty hehe = "same" ;)
+    ingredient spicy[#] basicDict = [#] "same" : raw, "same" : raw, hehe : cooked [#] ;)`,
+    /Error: No duplicate keys/,
+  ],
+  [
+    "Dictionary keys must be strings",
+    `ingredient bitter key1 = 24 ;)
+    ingredient salty key2 = "correct" ;)
+    ingredient spicy[#] basicDict = [#] key1 : raw, key2 : raw [#] ;)`,
+    /Error: Expected a string, found number/,
+  ],
+  [
+    "Dictionary values must all be the correct",
+    `ingredient spicy[#] basicDict = [#] "key1" : "raw", "key2" : raw [#] ;)`,
+    /Error: Cannot assign a {string} to a {spicy}/,
+  ],
+  [
+    "Dictionary dimension mismatch",
+    `ingredient spicy[#][#] basicDict = [#] "key1" : raw, "key2" : raw [#] ;)`,
+    /Error: Cannot assign a {boolean} to a {{spicy}}/,
+  ],
+  [
+    "Must access dicionary keys with a string",
+    `
+  ingredient bitter[#] rollCake = [#]
+  "strawberry": 0,
+  "sugar": 1,
+  "cake": 2
+[#] ;)
+
+ingredient bitter fruit = rollCake[#]45[#] ;)
+  `,
+    /Error: Expected a string, found number/,
   ],
 ]
 

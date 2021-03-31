@@ -45,21 +45,15 @@ export class Variable {
   }
 }
 
-export class DictType {
-  constructor(type) {
-    Object.assign(this, { type })
-  }
-}
-
 export class ArrayLiteral {
   constructor(elements) {
     this.elements = elements
   }
 }
 
-export class DictLiteral {
-  constructor(expression) {
-    this.expression = expression
+export class DictionaryLiteral {
+  constructor(entries) {
+    this.entries = entries
   }
 }
 
@@ -69,9 +63,9 @@ export class ArrayAccess {
   }
 }
 
-export class DictAccess {
-  constructor(name, keys) {
-    Object.assign(this, { name, keys })
+export class DictionaryAccess {
+  constructor(dictionary, key) {
+    Object.assign(this, { dictionary, key })
   }
 }
 
@@ -116,7 +110,29 @@ export class ArrayType extends Type {
   }
 }
 
+export class DictionaryType extends Type {
+  constructor(type) {
+    super(`{${type.name}}`), Object.assign(this, { type })
+  }
+  isEquivalentTo(other) {
+    return (
+      other.constructor === DictionaryType &&
+      this.type.isEquivalentTo(other.type)
+    )
+  }
+
+  isAssignableTo(other) {
+    return this.isEquivalentTo(other)
+  }
+}
+
 export class EmptyArray {
+  constructor(type) {
+    this.type = type
+  }
+}
+
+export class EmptyDictionary {
   constructor(type) {
     this.type = type
   }
@@ -166,9 +182,10 @@ export class Parameter {
   }
 }
 
-export class DictEl {
-  constructor(string, expression) {
-    Object.assign(this, { string, expression })
+export class DictionaryEl {
+  constructor(key, value) {
+    //keys must always be strings
+    Object.assign(this, { key, value })
   }
 }
 

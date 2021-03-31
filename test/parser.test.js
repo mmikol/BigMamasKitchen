@@ -10,11 +10,14 @@ const goodPrograms = [
   "key1": [#]"key2": "value"[#]
   [#] ;)
 
-  mamaSays dictionary[#]"key1", "key2"[#] ;)
+  mamaSays dictionary[#]"key1"[#][#]"key2"[#] ;)
+  `,
+  String.raw`
+  ingredient salty[#] dictionary = [# salty #] ;)
   `,
   String.raw`ingredient bitter(@)(@) doubleArray = (@) (@)1,2,3(@), (@)1,2,3(@) (@) ;)
 
-  mamaSays doubleArray(@)1, 2(@) ;)`,
+  mamaSays doubleArray(@)1(@)(@)2(@) ;)`,
   String.raw`mamaSays "make a muffin" ;)
   --[=] Include more sugar
 
@@ -143,7 +146,7 @@ stir until cooked (^-^)~
         stop ;)
       ~(^-^)
       bake ingredient bitter j = 0 until j < columns j++ (^-^)~
-        addAPinchOf doubleArray(@)i, j(@) == 0 (^-^)~
+        addAPinchOf doubleArray(@)i(@)(@)j(@) == 0 (^-^)~
           hasZero = cooked ;)
           stop ;)
         ~(^-^) 
@@ -185,6 +188,12 @@ const badPrograms = [
   String.raw`ingredient salty(@) emptyArray = (@ @) ;)`,
   String.raw`ingredient salty(@) emptyArray = (@ "hello" @) ;)`,
   String.raw`ingredient salty(@) wrong parenthesis = (@ "hehe", "hhoohoh" @) ;)`,
+  String.raw`
+  ingredient salty[#] dictionary = [#  #] ;)
+  `,
+  String.raw`
+  ingredient salty[#] dictionary = [# "not a type" #] ;)
+  `,
 ]
 
 describe("The syntax checker", () => {

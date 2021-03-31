@@ -8,6 +8,7 @@ import {
   Function,
   FunctionType,
   ArrayType,
+  DictionaryType,
   Return,
   ShortReturnStatement,
 } from "./ast.js"
@@ -69,6 +70,12 @@ const check = (self) => ({
       `Expected a number, found ${self.type.name}`
     )
   },
+  isString() {
+    must(
+      self.type === Type.STRING,
+      `Expected a string, found ${self.type.name}`
+    )
+  },
   isNumericOrString() {
     must(
       [Type.NUMBER, Type.STRING].includes(self.type),
@@ -99,6 +106,12 @@ const check = (self) => ({
       "Operands do not have the same type"
     )
   },
+  keysAreAllStrings() {
+    must(
+      self.slice(1).every((e) => e.key.type.isEquivalentTo(Type.STRING)),
+      "Not all elements have the same type"
+    )
+  },
   allHaveSameType() {
     must(
       self.slice(1).every((e) => e.type.isEquivalentTo(self[0].type)),
@@ -116,8 +129,8 @@ const check = (self) => ({
   },
   areAllDistinct() {
     must(
-      new Set(self.map((f) => f.name)).size === self.length,
-      "Fields must be distinct"
+      new Set(self.map((f) => f.key)).size === self.length,
+      "No duplicate keys"
     )
   },
   isInTheObject(object) {
@@ -206,11 +219,6 @@ class Context {
     p.statements = this.analyze(p.statements)
     return p
   }
-  ArrayType(t) {
-    // has
-    t.type = this.analyze(t.type)
-    return t
-  }
   VariableDeclaration(d) {
     // Declarations generate brand new variable objects
     d.initializer = this.analyze(d.initializer)
@@ -219,10 +227,6 @@ class Context {
     d.variable = new Variable(d.initializer.type, d.name)
     this.add(d.variable.name, d.variable)
     return d
-  }
-  Field(f) {
-    f.type = this.analyze(f.type)
-    return f
   }
   FunctionType(t) {
     t.parameterTypes = this.analyze(t.parameterTypes)
@@ -392,6 +396,41 @@ class Context {
     }
     return e
   }
+  DictionaryType(t) {
+    t.type = this.analyze(t.type)
+    return t
+  }
+  DictionaryLiteral(d) {
+    d.entries = this.analyze(d.entries)
+    //no duplicate keys and keys must be strings
+    check(d.entries).areAllDistinct()
+    const newDictionaryType = new DictionaryType(d.entries[0].type)
+    d.type = newDictionaryType
+    return d
+  }
+  DictionaryEl(e) {
+    e.key = this.analyze(e.key)
+    check(e.key).isString()
+    e.value = this.analyze(e.value)
+    e.type = e.value.type
+    return e
+  }
+  EmptyDictionary(e) {
+    e.type = this.analyze(e.type)
+    e.type = new DictionaryType(e.type)
+    return e
+  }
+  DictionaryAccess(e) {
+    e.dictionary = this.analyze(e.dictionary)
+    e.type = e.dictionary.type.type
+    e.key = this.analyze(e.key)
+    check(e.key).isString()
+    return e
+  }
+  ArrayType(t) {
+    t.type = this.analyze(t.type)
+    return t
+  }
   ArrayLiteral(a) {
     a.elements = this.analyze(a.elements)
     check(a.elements).allHaveSameType()
@@ -409,12 +448,6 @@ class Context {
     e.type = e.array.type.type
     e.index = this.analyze(e.index)
     check(e.index).isNumber()
-    return e
-  }
-  MemberExpression(e) {
-    e.object = this.analyze(e.object)
-    check(e.field).isInTheObject(e.object)
-    e.type = e.object.type.fields.find((f) => f.name === e.field).type
     return e
   }
   Call(c) {

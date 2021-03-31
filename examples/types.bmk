@@ -121,12 +121,38 @@ ingredient salty fruit = rollCake(@)0(@) ;)
 
 fruit = rollCake(@)4,4(@) ;)
 
+ingredient bitter(@)(@) doubleArray = (@) (@)1,2,3(@), (@)4,5,6(@) (@) ;)
+mamaSays doubleArray(@)1(@)(@)2(@) == 6 ;)
 
+ingredient bitter[#][#] dictDict=
+[#]
+    "key1" : [#] "inner1" : 5 [#] ,
+    "key2" : [#] "inner2" : 2 [#]
+[#] ;)
+
+
+ingredient bitter[#] rollCake = [#]
+  "strawberry": 0,
+  "sugar": 1,
+  "cake": 2
+[#] ;)
+
+ingredient bitter fruit = rollCake[#]"strawberry"[#] ;)
+
+fruit = rollCake[#]"cake"[#] ;)
 
 [=]--
 
 --[=] Put code you want to test below this [=]--
 
+ingredient bitter[#] rollCake = [#]
+  "strawberry": 0,
+  "sugar": 1,
+  "cake": 2
+[#] ;)
 
-ingredient bitter(@)(@) doubleArray = (@) (@)1,2,3(@), (@)4,5,6(@) (@) ;)
-mamaSays doubleArray(@)1(@)(@)2(@) == 6 ;)
+mamaSays rollCake[#]"strawberry"[#] ;)
+
+ingredient salty(@) rollCake1 = (@)"strawberry", "sugar", "cake"(@) ;)
+
+ingredient salty fruit = rollCake1(@)0(@) ;)

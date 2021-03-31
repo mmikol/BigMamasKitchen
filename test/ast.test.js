@@ -71,7 +71,7 @@ bake ingredient bitter i = 0 until i < rows i++ (^-^)~
     stop ;)
   ~(^-^)
   bake ingredient bitter j = 0 until j < columns j++ (^-^)~
-    addAPinchOf doubleArray(@)i, j(@) == 0 (^-^)~
+    addAPinchOf doubleArray(@)i(@)(@)j(@) == 0 (^-^)~
       hasZero = cooked ;)
       stop ;)
     ~(^-^) 
@@ -206,7 +206,7 @@ const expectedAst7 = `   1 | Program statements=[#2]
    9 | TypeIdentifier name='bitter'
   10 | Parameter type=#11 id='columns'
   11 | TypeIdentifier name='bitter'
-  12 | Block statements=[#13,#15,#48]
+  12 | Block statements=[#13,#15,#49]
   13 | VariableDeclaration type=#14 name='hasZero' initializer=false
   14 | TypeIdentifier name='spicy'
   15 | ForLoop iterator=#16 test=#18 increment=#21 body=#23
@@ -232,30 +232,31 @@ const expectedAst7 = `   1 | Program statements=[#2]
   35 | Increment target=#36
   36 | IdentifierExpression id='j'
   37 | Block statements=[#38]
-  38 | ShortIfStatement test=#39 consequent=#44
+  38 | ShortIfStatement test=#39 consequent=#45
   39 | BinaryExpression left=#40 op='==' right=0
-  40 | ArrayAccess name=#41 indices=[#42,#43]
-  41 | IdentifierExpression id='doubleArray'
-  42 | IdentifierExpression id='i'
-  43 | IdentifierExpression id='j'
-  44 | Block statements=[#45,#47]
-  45 | Assignment target=#46 source=true
-  46 | IdentifierExpression id='hasZero'
-  47 | Break
-  48 | Return returnValue=#49
-  49 | IdentifierExpression id='hasZero'`
+  40 | ArrayAccess array=#41 index=#44
+  41 | ArrayAccess array=#42 index=#43
+  42 | IdentifierExpression id='doubleArray'
+  43 | IdentifierExpression id='i'
+  44 | IdentifierExpression id='j'
+  45 | Block statements=[#46,#48]
+  46 | Assignment target=#47 source=true
+  47 | IdentifierExpression id='hasZero'
+  48 | Break
+  49 | Return returnValue=#50
+  50 | IdentifierExpression id='hasZero'`
 
 const expectedAst8 = `   1 | Program statements=[#2]
    2 | FunctionDeclaration type=#3 id='getCertainValue' parameters=[#4,#7] body=#9
    3 | TypeIdentifier name='salty'
    4 | Parameter type=#5 id='basicDict'
-   5 | DictType type=#6
+   5 | DictionaryType name='{salty}' type=#6
    6 | TypeIdentifier name='salty'
    7 | Parameter type=#8 id='key'
    8 | TypeIdentifier name='salty'
    9 | Block statements=[#10]
   10 | Return returnValue=#11
-  11 | DictAccess name=#12 keys=[#13]
+  11 | DictionaryAccess dictionary=#12 key=#13
   12 | IdentifierExpression id='basicDict'
   13 | IdentifierExpression id='key'`
 

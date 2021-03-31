@@ -30,7 +30,7 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     return new ast.ArrayType(type.ast())
   },
   Type_dict(type, _symbol) {
-    return new ast.DictType(type.ast())
+    return new ast.DictionaryType(type.ast())
   },
   Array_array(_left, expressions, _right) {
     return new ast.ArrayLiteral(expressions.asIteration().ast())
@@ -38,17 +38,20 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   Array_emptyarray(_left, type, _right) {
     return new ast.EmptyArray(type.ast())
   },
-  Var_dictionary(name, _left, keys, _right) {
-    return new ast.DictAccess(name.ast(), keys.asIteration().ast())
+  Var_dictionary(dictionary, _left, key, _right) {
+    return new ast.DictionaryAccess(dictionary.ast(), key.ast())
   },
   Var_subscript(array, _left, index, _right) {
     return new ast.ArrayAccess(array.ast(), index.ast())
   },
-  Dict(_left, expressions, _right) {
-    return new ast.DictLiteral(expressions.asIteration().ast())
+  Dict_dict(_left, entries, _right) {
+    return new ast.DictionaryLiteral(entries.asIteration().ast())
   },
-  DictEl(str, _colon, expression) {
-    return new ast.DictEl(str.ast(), expression.ast())
+  Dict_emptydict(_left, type, _right) {
+    return new ast.EmptyDictionary(type.ast())
+  },
+  DictEl(key, _colon, value) {
+    return new ast.DictionaryEl(key.ast(), value.ast())
   },
   FuncDec(_recipe, type, id, parameters, body) {
     return new ast.FunctionDeclaration(

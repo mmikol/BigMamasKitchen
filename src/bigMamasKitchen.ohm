@@ -33,8 +33,9 @@ BigMamasKitchen {
                   |  empty
   Array           =  "(@" Type "@)"                                   -- emptyarray
                   |  "(@)" NonemptyListOf<Exp, ","> "(@)"             -- array
-  Dict            =  "[#]" ListOf< DictEl, ","> "[#]"                 
-  DictEl          =  stringlit ":" Exp
+  Dict            =  "[#" Type "#]"                                   -- emptydict
+                  |  "[#]" ListOf< DictEl, ","> "[#]"                    -- dict           
+  DictEl          =  Exp ":" Exp
   Params          =  "(" ListOf<Parameter, ","> ")"
   Parameter       =  Type id
   Block           =  "(^-^)~" Stmt* "~(^-^)"
@@ -61,8 +62,8 @@ BigMamasKitchen {
                   |  stringlit
                   |  Array
                   |  Dict
-  Var             =  Var "(@)"Exp"(@)"         -- subscript
-                  |  Var "[#]" NonemptyListOf<Exp, ",">  "[#]"        -- dictionary 
+  Var             =  Var "(@)"Exp"(@)"                                -- subscript
+                  |  Var "[#]"Exp"[#]"                                -- dictionary 
                   |  Call
                   |  id
   Call            =  id "(" ListOf<Exp, ","> ")"
