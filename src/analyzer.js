@@ -1,7 +1,3 @@
-// create checks for:
-// "Function does not contain serve",
-// "Can only increment the iterator"
-
 import {
   Type,
   Variable,
@@ -18,12 +14,6 @@ export default function analyze(node) {
   Boolean.prototype.type = Type.BOOLEAN
   Number.prototype.type = Type.NUMBER
   String.prototype.type = Type.STRING
-  //Type.prototype.type = ast.Type.TYPE
-  //     const initialContext = new Context()
-
-  // Add in all the predefined identifiers from the stdlib module
-  //const library = { ...stdlib.types, ...stdlib.constants, ...stdlib.functions }
-  //for (const [name, type] of Object.entries(library)) {
 
   const initialContext = new Context()
 
@@ -33,11 +23,6 @@ export default function analyze(node) {
   initialContext.add("bland", Type.NULL)
   initialContext.add("empty", Type.VOID)
 
-  // Add in all the predefined identifiers from the stdlib module
-  // const library = { ...stdlib.types, ...stdlib.constants, ...stdlib.functions }
-  // for (const [name, type] of Object.entries(library)) {
-  //     initialContext.add(name, type)
-  // }
   return initialContext.analyze(node)
 }
 
@@ -192,7 +177,7 @@ class Context {
     return this.locals.has(name) || this.parent?.sees(name)
   }
   add(name, entity) {
-    // No shadowing! Prevent addition if id anywhere in scope chain!
+    // No shadowing!
     if (this.sees(name)) {
       throw new Error(`Identifier ${name} already declared`)
     }
@@ -208,8 +193,6 @@ class Context {
     throw new Error(`Identifier ${name} not declared`)
   }
   newChild(configuration = {}) {
-    // Create new (nested) context, which is just like the current context
-    // except that certain fields can be overridden
     return new Context(this, configuration)
   }
   analyze(node) {
@@ -220,7 +203,6 @@ class Context {
     return p
   }
   VariableDeclaration(d) {
-    // Declarations generate brand new variable objects
     d.initializer = this.analyze(d.initializer)
     d.type = this.analyze(d.type)
     check(d.initializer).isAssignableTo(d.type)
@@ -235,23 +217,15 @@ class Context {
   }
   FunctionDeclaration(d) {
     d.type = this.analyze(d.type)
-    //we need to analyze for the return if its not void and do a check
-    // Declarations generate brand new function objects
     const f = (d.function = new Function(d.id))
-    // When entering a function body, we must reset the inLoop setting,
-    // because it is possible to declare a function inside a loop!
     const childContext = this.newChild({ inLoop: false, forFunction: f })
-    //are we checking to see if we use the parameters here why are we doing this
     d.parameters = childContext.analyze(d.parameters)
-    //adding functiontype back in so we can check params function calls
     f.type = new FunctionType(
       d.parameters.map((p) => p.type),
       d.type
     )
-    // Add before analyzing the body to allow recursion
     this.add(f.name, f)
     d.body = childContext.analyze(d.body)
-    // How do we throw an error if they dont write a return statement????
     check(d.body.statements).hasAReturnStatement()
     return d
   }
