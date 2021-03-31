@@ -10,6 +10,8 @@ Welcome to the Kitchen!! Big Mama is strong, bold, loves cute things (such as he
 
 This language is for people who love to cook as it uses cooking/baking phrases. BigMamasKitchen serves to spice up statically typed/scoped languages.
 
+Check out our website here: https://mmikol.github.io/BigMamasKitchen/dist/index.html.
+
 Cooked up by Bridget O'Connor, Sophia Mackin, Moriah Scott, Rachel Nguyen, Miliano Mikol.
 
 <br/>
@@ -461,3 +463,16 @@ while (true) {
   </td>
   </tr>
 </table>
+
+## Static Semantic Errors
+
+- Type mismatch
+- Break can only appear in a loop
+- Return can only appear in a function
+- Cannot call something that is not a function or constructor
+- Cannot pass in wrong number of parameters to a function call
+- Cannot declare variables with names that have already been declared
+- Array elements cannot have different types than each other
+- No duplicate keys in a dictionary
+- Dimension mismatch
+- Cannot access an element that does not exist

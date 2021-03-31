@@ -141,10 +141,6 @@ ingredient bitter fruit = rollCake[#]"strawberry"[#] ;)
 
 fruit = rollCake[#]"cake"[#] ;)
 
-[=]--
-
---[=] Put code you want to test below this [=]--
-
 ingredient bitter[#] rollCake = [#]
   "strawberry": 0,
   "sugar": 1,
@@ -156,3 +152,37 @@ mamaSays rollCake[#]"strawberry"[#] ;)
 ingredient salty(@) rollCake1 = (@)"strawberry", "sugar", "cake"(@) ;)
 
 ingredient salty fruit = rollCake1(@)0(@) ;)
+
+
+ingredient bitter i = 0 ;)
+addAPinchOf i < -35 (^-^)~
+  addAPinchOf i < -35 (^-^)~
+    mamaSays "3: If Else, If" ;)
+  ~(^-^)
+~(^-^) 
+
+recipe empty stringFunction () (^-^)~
+serve ;)
+~(^-^)
+
+
+ingredient bitter i = 0 ;)
+
+addAPinchOf i < -35 (^-^)~
+  mamaSays "4: If Else If Else If, If" ;)
+  addAPinchOf i < -35 (^-^)~
+  mamaSays "4: If Else If Else If, If" ;)
+~(^-^)
+~(^-^) orSubstitute i > 35 (^-^)~
+  mamaSays "4: If Else If Else If, Else if 1" ;)
+~(^-^) orSubstitute i > 35 (^-^)~
+  mamaSays "4: If Else If Else If, Else if 2" ;)
+~(^-^)  
+
+[=]--
+
+--[=] Put code you want to test below this [=]--
+
+recipe empty stringFunction (bland heehee) (^-^)~
+serve ;)
+~(^-^)

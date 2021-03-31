@@ -43,6 +43,20 @@ const check = (self) => ({
       `Function must have a return statement`
     )
   },
+  isArrayOrType() {
+    must(
+      self.type?.constructor === ArrayType ||
+        [Type.NUMBER, Type.BOOLEAN, Type.STRING, Type.NULL].includes(self.type),
+      `Expected a type or an array type`
+    )
+  },
+  isDictionaryOrType() {
+    must(
+      self.type?.constructor === DictionaryType ||
+        [Type.NUMBER, Type.BOOLEAN, Type.STRING, Type.NULL].includes(self.type),
+      `Expected a type or a dictionary type`
+    )
+  },
   isSameVariable(other) {
     must(
       self.name === other.name && self.type.isEquivalentTo(other.type),
@@ -82,19 +96,10 @@ const check = (self) => ({
   isAType() {
     must([Type].includes(self.constructor), "Type expected")
   },
-  isAnArray() {
-    must(self.type.constructor === ArrayType, "Array expected")
-  },
   hasSameTypeAs(other) {
     must(
       self.type.isEquivalentTo(other.type),
       "Operands do not have the same type"
-    )
-  },
-  keysAreAllStrings() {
-    must(
-      self.slice(1).every((e) => e.key.type.isEquivalentTo(Type.STRING)),
-      "Not all elements have the same type"
     )
   },
   allHaveSameType() {
@@ -117,9 +122,6 @@ const check = (self) => ({
       new Set(self.map((f) => f.key)).size === self.length,
       "No duplicate keys"
     )
-  },
-  isInTheObject(object) {
-    must(object.type.fields.map((f) => f.name).includes(self), "No such field")
   },
   isInsideALoop() {
     must(self.inLoop, "Break can only appear in a loop")
@@ -160,24 +162,15 @@ const check = (self) => ({
 
 class Context {
   constructor(parent = null, configuration = {}) {
-    // Parent (enclosing scope) for static scope analysis
     this.parent = parent
-    // All local declarations. Names map to variable declarations, types, and
-    // function declarations
     this.locals = new Map()
-    // Whether we are in a loop, so that we know whether breaks and continues
-    // are legal here
     this.inLoop = configuration.inLoop ?? parent?.inLoop ?? false
-    // Whether we are in a function, so that we know whether a return
-    // statement can appear here, and if so, how we typecheck it
     this.function = configuration.forFunction ?? parent?.function ?? null
   }
   sees(name) {
-    // Search "outward" through enclosing scopes
     return this.locals.has(name) || this.parent?.sees(name)
   }
   add(name, entity) {
-    // No shadowing!
     if (this.sees(name)) {
       throw new Error(`Identifier ${name} already declared`)
     }
@@ -218,6 +211,7 @@ class Context {
   FunctionDeclaration(d) {
     d.type = this.analyze(d.type)
     const f = (d.function = new Function(d.id))
+    //console.log(f)
     const childContext = this.newChild({ inLoop: false, forFunction: f })
     d.parameters = childContext.analyze(d.parameters)
     f.type = new FunctionType(
@@ -273,26 +267,14 @@ class Context {
     s.test = this.analyze(s.test)
     check(s.test).isBoolean()
     s.consequent = this.newChild().analyze(s.consequent)
-    if (s.alternate.constructor === Array) {
-      // It's a block of statements, make a new context
-      s.alternate = this.newChild().analyze(s.alternate)
-    } else if (s.alternate) {
-      // It's a trailing if-statement, so same context what does this mean lol
-      s.alternate = this.analyze(s.alternate)
-    }
+    s.alternate = this.newChild().analyze(s.alternate)
     return s
   }
   ElseIfStatement(s) {
     s.test = this.analyze(s.test)
     check(s.test).isBoolean()
     s.consequent = this.newChild().analyze(s.consequent)
-    if (s.alternate.constructor === Array) {
-      // It's a block of statements, make a new context
-      s.alternate = this.newChild().analyze(s.alternate)
-    } else if (s.alternate) {
-      // It's a trailing if-statement, so same context what does this mean lol
-      s.alternate = this.analyze(s.alternate)
-    }
+    s.alternate = this.newChild().analyze(s.alternate)
     return s
   }
   ShortIfStatement(s) {
@@ -396,6 +378,7 @@ class Context {
   }
   DictionaryAccess(e) {
     e.dictionary = this.analyze(e.dictionary)
+    check(e.dictionary.type).isDictionaryOrType()
     e.type = e.dictionary.type.type
     e.key = this.analyze(e.key)
     check(e.key).isString()
@@ -419,6 +402,7 @@ class Context {
   }
   ArrayAccess(e) {
     e.array = this.analyze(e.array)
+    check(e.array.type).isArrayOrType()
     e.type = e.array.type.type
     e.index = this.analyze(e.index)
     check(e.index).isNumber()

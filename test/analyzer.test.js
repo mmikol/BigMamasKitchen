@@ -2,7 +2,7 @@
 import assert from "assert"
 import parse from "../src/parser.js"
 import analyze from "../src/analyzer.js"
-// import * as ast from "../src/ast.js"
+import * as ast from "../src/ast.js"
 
 // Programs that are semantically correct
 const semanticChecks = [
@@ -212,6 +212,29 @@ mamaSays dictionary[#]"key1"[#][#]"key2"[#] ;)`,
   [
     "Can declare an empty dictionary",
     `ingredient salty[#] dictionary = [# salty #] ;)`,
+  ],
+  [
+    "Can access element of 1D array",
+    `ingredient salty(@) rollCake = (@)"strawberry", "sugar", "cake"(@) ;)
+
+    ingredient salty fruit = rollCake(@)0(@) ;)
+    
+    fruit = rollCake(@)2(@) ;)`,
+  ],
+  [
+    "Can access element of 2D Array",
+    `ingredient bitter(@)(@) doubleArray = (@) (@)1,2,3(@), (@)4,5,6(@) (@) ;)
+
+  mamaSays doubleArray(@)1(@)(@)2(@) == 6 ;)`,
+  ],
+  [
+    "Function return types",
+    `recipe bitter square (bitter n) (^-^)~
+    serve n * n ;)
+    ~(^-^)
+    recipe bitter compose(bitter a) (^-^)~
+     serve square(a) ;)
+     ~(^-^)`,
   ],
 ]
 
@@ -424,6 +447,70 @@ ingredient bitter fruit = rollCake[#]45[#] ;)
   `,
     /Error: Expected a string, found number/,
   ],
+
+  [
+    "Must access element of 1D array with integer",
+    `ingredient salty(@) rollCake = (@)"strawberry", "sugar", "cake"(@) ;)
+
+    ingredient salty fruit = rollCake(@)"sugar"(@) ;)
+    
+    fruit = rollCake(@)2(@) ;)`,
+    /Error: Expected a number, found string/,
+  ],
+  [
+    "Accessing array element at dimension that doesnt exist",
+    `ingredient bitter(@)(@) doubleArray = (@) (@)1,2,3(@), (@)4,5,6(@) (@) ;)
+      ingredient bitter(@) array = doubleArray(@)1(@)(@)2(@)(@)1(@) ;)`,
+    /Error: Expected a type or an array type/,
+  ],
+  [
+    "Accessing dictionary element at dimension that doesnt exist",
+    `ingredient bitter[#][#] doubleDict = [#] "key" : [#]"key": 3[#], "key2" : [#]"key": 5[#] [#] ;)
+
+      ingredient bitter dict = doubleDict[#]"key"[#][#]"key"[#][#]"key"[#] ;)`,
+    /Error: Expected a type or a dictionary type/,
+  ],
+  [
+    "Function type mismatch",
+    `recipe bitter numFunction (bitter a) (^-^)~ serve 1 ;) ~(^-^)
+     recipe spicy g (spicy b) (^-^)~ serve 5 ;) ~(^-^)
+     numFunction(2, g) ;)`,
+    /Error: Cannot assign a number to a boolean/,
+  ],
+]
+
+const Void = ast.Type.VOID
+const Bland = ast.Type.NULL
+const parameters = new ast.Parameter(Bland, "heehee")
+const nothingToVoidType = new ast.FunctionType(
+  [parameters].map((p) => p.type),
+  Void
+)
+const shortReturnStatement = new ast.ShortReturnStatement()
+const blockStatements = new ast.Block([shortReturnStatement])
+
+const funDeclF = Object.assign(
+  new ast.FunctionDeclaration(
+    Void,
+    "stringFunction",
+    [parameters],
+    blockStatements
+  ),
+  {
+    function: Object.assign(new ast.Function("stringFunction"), {
+      type: nothingToVoidType,
+    }),
+  }
+)
+console.log(funDeclF)
+const graphChecks = [
+  [
+    "functions created & resolved",
+    `recipe empty stringFunction (bland heehee) (^-^)~
+  serve ;)
+  ~(^-^)`,
+    [funDeclF],
+  ],
 ]
 
 describe("The analyzer", () => {
@@ -437,9 +524,9 @@ describe("The analyzer", () => {
       assert.throws(() => analyze(parse(source)), errorMessagePattern)
     })
   }
-  //   for (const [scenario, source, graph] of graphChecks) {
-  //     it(`properly rewrites the AST for ${scenario}`, () => {
-  //       assert.deepStrictEqual(analyze(parse(source)), new ast.Program(graph))
-  //     })
-  //   }
+  for (const [scenario, source, graph] of graphChecks) {
+    it(`properly rewrites the AST for ${scenario}`, () => {
+      assert.deepStrictEqual(analyze(parse(source)), new ast.Program(graph))
+    })
+  }
 })
