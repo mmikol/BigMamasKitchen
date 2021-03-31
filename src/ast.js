@@ -151,29 +151,16 @@ export class FunctionDeclaration {
 export class Function {
   constructor(name) {
     this.name = name
-    // Other properties set after construction
   }
 }
 
 export class FunctionType extends Type {
   constructor(parameterTypes, returnType) {
-    //the name that the function type has
     super(
       `(${parameterTypes.map((t) => t.name).join(",")}) => ${returnType.name}`
     )
     Object.assign(this, { parameterTypes, returnType })
   }
-  // isAssignableTo(target) {
-  //   // Functions are covariant on return types, contravariant on parameters.
-  //   return (
-  //     target.constructor === FunctionType &&
-  //     this.returnType.isAssignableTo(target.returnType) &&
-  //     this.parameterTypes.length === target.parameterTypes.length &&
-  //     this.parameterTypes.every((t, i) =>
-  //       target.parameterTypes[i].isAssignableTo(t)
-  //     )
-  //   )
-  // }
 }
 
 export class Parameter {
@@ -184,7 +171,6 @@ export class Parameter {
 
 export class DictionaryEl {
   constructor(key, value) {
-    //keys must always be strings
     Object.assign(this, { key, value })
   }
 }
@@ -196,7 +182,6 @@ export class IfStatement {
 }
 
 export class ShortIfStatement {
-  // Example: if x < 3 { print(100); }
   constructor(test, consequent) {
     Object.assign(this, { test, consequent })
   }
@@ -209,7 +194,6 @@ export class ElseIfStatement {
 }
 
 export class ShortElseIfStatement {
-  // Example: if x < 3 { print(100); }
   constructor(test, consequent) {
     Object.assign(this, { test, consequent })
   }
@@ -276,24 +260,18 @@ export class ShortReturnStatement {
 }
 
 export class OrExpression {
-  // Example: openDoor() || tryTheWindow() || breakTheDoorDown()
   constructor(expressions) {
     this.expressions = expressions
   }
 }
 
 export class AndExpression {
-  // Example: swim && bike && run
   constructor(expressions) {
     this.expressions = expressions
   }
 }
 
-// Taken from Dr. Toal's AEL compiler
 function prettied(node) {
-  // Return a compact and pretty string representation of the node graph,
-  // taking care of cycles. Written here from scratch because the built-in
-  // inspect function, while nice, isn't nice enough.
   const tags = new Map()
 
   function tag(node) {

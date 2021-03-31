@@ -16,7 +16,7 @@ BigMamasKitchen {
                   |  orSubstitute Exp Block                           -- short         
   ElseStmt        =  dumpLeftovers Block
   Loop            =  stir until Exp Block                             -- while
-                  |  bake (VarDec | id) until Exp (Increment)? Block  -- for
+                  |  bake (VarDec | id) until Exp Increment Block  -- for
   Assignment      =  Increment                                        
                   |  Var "=" Exp                                      -- assign
   Increment       =  Var incop  

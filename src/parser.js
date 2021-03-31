@@ -4,10 +4,6 @@ import * as ast from "./ast.js"
 
 const bmkGrammar = ohm.grammar(fs.readFileSync("src/bigMamasKitchen.ohm"))
 
-function arrayToNullable(a) {
-  return a.length === 0 ? null : a[0]
-}
-
 /* eslint-disable no-unused-vars*/
 const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
   Program(body) {
@@ -95,7 +91,7 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     return new ast.ForLoop(
       iterator.ast(),
       test.ast(),
-      arrayToNullable(increment.ast()),
+      increment.ast(),
       body.ast()
     )
   },
@@ -110,7 +106,7 @@ const astBuilder = bmkGrammar.createSemantics().addOperation("ast", {
     if (returnValueTree.length === 0) {
       return new ast.ShortReturnStatement()
     }
-    return new ast.Return(arrayToNullable(returnValueTree))
+    return new ast.Return(returnValueTree[0])
   },
   Exp_or(first, _op, rest) {
     return new ast.OrExpression([first.ast(), ...rest.ast()])

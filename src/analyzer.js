@@ -8,7 +8,6 @@ import {
   Return,
   ShortReturnStatement,
 } from "./ast.js"
-//import * as stdlib from "./stdlib.js"
 
 export default function analyze(node) {
   Boolean.prototype.type = Type.BOOLEAN
@@ -148,7 +147,6 @@ const check = (self) => ({
     check(self).isAssignableTo(f.type.returnType)
   },
   match(targetTypes) {
-    // self is the array of arguments
     must(
       targetTypes.length === self.length,
       `${targetTypes.length} argument(s) required but ${self.length} passed`
@@ -202,11 +200,6 @@ class Context {
     d.variable = new Variable(d.initializer.type, d.name)
     this.add(d.variable.name, d.variable)
     return d
-  }
-  FunctionType(t) {
-    t.parameterTypes = this.analyze(t.parameterTypes)
-    t.returnType = this.analyze(t.returnType)
-    return t
   }
   FunctionDeclaration(d) {
     d.type = this.analyze(d.type)
@@ -416,7 +409,6 @@ class Context {
     return c
   }
   IdentifierExpression(e) {
-    // Id expressions get "replaced" with the variables they refer to
     return this.lookup(e.id)
   }
   TypeIdentifier(t) {
