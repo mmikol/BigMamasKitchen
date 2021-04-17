@@ -27,7 +27,7 @@ const fixtures = [
       `,
     expected: dedent`
         function Add (a_1, b_2) {
-          return a_1 + b_2;
+          return a_1 + b_2
         }
       `,
   },
@@ -40,7 +40,7 @@ const fixtures = [
       `,
     expected: dedent`
         function And_1 (a_1, b_2) {
-          return a_1 && b_2;
+          return a_1 && b_2
         }
       `,
   },
@@ -53,7 +53,7 @@ const fixtures = [
       `,
     expected: dedent`
         function Or_1 (a_1, b_2) {
-          return a_1 || b_2;
+          return a_1 || b_2
         }
       `,
   },
@@ -78,7 +78,7 @@ const fixtures = [
     `,
     expected: dedent`
       function evenOdd (a_1) {
-        return a_1 % 2 == 0;
+        return a_1 % 2 == 0
       }
     `,
   },
@@ -133,7 +133,7 @@ const fixtures = [
     `,
     expected: dedent`
       for (let egg_1 = 1; egg_1 < 40; egg++) {
-          console.log(egg);
+          console.log(egg)
       }
     `,
   },
@@ -175,12 +175,12 @@ const fixtures = [
       function gcd(a_1, b_2) {
         a_1 = Math.abs(a_1);
         b_2 = Math.abs(b_2);
-        if (b_2 > a_1) {var temp = a_1; a_1 = b_2; b_2 = temp;}
+        if (b_2 > a_1) {var temp = a_1; a_1 = b_2; b_2 = temp}
         while (true) {
-          if (b_2 === 0) return a_1;
-          a_1 %= b_2;
-          if (a_1 === 0) return b_2;
-          b_2 %= a_1;
+          if (b_2 === 0) return a_1
+          a_1 %= b_2
+          if (a_1 === 0) return b_2
+          b_2 %= a_1
         }
        }
     `,
