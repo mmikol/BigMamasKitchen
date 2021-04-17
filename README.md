@@ -161,7 +161,7 @@ ingredient spicy(@) rawEggs = (@)raw, raw(@) ;)
 
 ```
 ingredient spicy(@)(@) boolArrArr =
-(@) (@)raw(@), (@)raw, cooked(@) (@) ;)
+(@) (@)raw(@), (@)rtaw, cooked(@) (@) ;)
 ```
 
 ### Array Access:
@@ -373,10 +373,10 @@ function gcd(a,b) {
     b = Math.abs(b);
     if (b > a) {var temp = a; a = b; b = temp;}
     while (true) {
-        if (b === 0) return a;
-        a %= b;
-        if (a === 0) return b;
-        b %= a;
+      if (b === 0) return a;
+      a %= b;
+      if (a === 0) return b;
+      b %= a;
     }
 }
 

@@ -11,9 +11,8 @@ export default function compile(source, outputType) {
     return analyze(parse(source))
   } else if (outputType === "optimized") {
     return optimize(analyze(parse(source)))
-  } else if (["js", "c", "llvm"].includes(outputType)) {
-    // his only has js shoudl we change ours too?
-    return generate(outputType)(optimize(analyze(parse(source))))
+  } else if (outputType === "js") {
+    return generate(analyze(parse(source)))
   } else {
     return "Unknown output type"
   }
