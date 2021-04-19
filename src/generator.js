@@ -31,8 +31,8 @@ export default function generate(program) {
   })(new Map())
 
   const gen = (node) => {
-    console.log(node.constructor.name)
-    generators[node.constructor.name](node)
+    // console.log(node.constructor.name)
+    return generators[node.constructor.name](node)
   }
 
   const generators = {
@@ -47,7 +47,7 @@ export default function generate(program) {
       output.push(`let ${gen(d.variable)} = ${gen(d.initializer)};`)
     },
     FunctionDeclaration(d) {
-      console.log("function declaration", d)
+      // console.log("function declaration", d)
       output.push(
         `function ${gen(d.function)}(${gen(d.parameters).join(", ")}) {`
       )

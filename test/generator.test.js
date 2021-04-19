@@ -26,8 +26,8 @@ const fixtures = [
         ~(^-^)
       `,
     expected: dedent`
-        function Add (a_1, b_2) {
-          return a_1 + b_2
+        function Add_1(a_2, b_3) {
+          return (a_2 + b_3);
         }
       `,
   },
