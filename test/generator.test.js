@@ -31,32 +31,32 @@ const fixtures = [
         }
       `,
   },
-  {
-    name: "and expression",
-    source: `
-        recipe spicy And (spicy a, spicy b) (^-^)~
-          serve a && b ;)
-        ~(^-^)
-      `,
-    expected: dedent`
-        function And_1 (a_1, b_2) {
-          return a_1 && b_2
-        }
-      `,
-  },
-  {
-    name: "or expression",
-    source: `
-        recipe spicy Or (spicy a, spicy b) (^-^)~
-          serve a || b ;)
-        ~(^-^)
-      `,
-    expected: dedent`
-        function Or_1 (a_1, b_2) {
-          return a_1 || b_2
-        }
-      `,
-  },
+  // {
+  //   name: "and expression",
+  //   source: `
+  //       recipe spicy And (spicy a, spicy b) (^-^)~
+  //         serve a && b ;)
+  //       ~(^-^)
+  //     `,
+  //   expected: dedent`
+  //       function And_1 (a_1, b_2) {
+  //         return a_1 && b_2
+  //       }
+  //     `,
+  // },
+  // {
+  //   name: "or expression",
+  //   source: `
+  //       recipe spicy Or (spicy a, spicy b) (^-^)~
+  //         serve a || b ;)
+  //       ~(^-^)
+  //     `,
+  //   expected: dedent`
+  //       function Or_1 (a_1, b_2) {
+  //         return a_1 || b_2
+  //       }
+  //     `,
+  // },
 
   // {
   //   name: "array",
@@ -69,19 +69,19 @@ const fixtures = [
   //       console.log(rawEggs[0]);
   //     `,
   // },
-  {
-    name: "even or odd",
-    source: `
-      recipe spicy evenOdd (bitter a) (^-^)~
-        serve a % 2 == 0 ;)
-      ~(^-^)
-    `,
-    expected: dedent`
-      function evenOdd (a_1) {
-        return a_1 % 2 == 0
-      }
-    `,
-  },
+  // {
+  //   name: "even or odd",
+  //   source: `
+  //     recipe spicy evenOdd (bitter a) (^-^)~
+  //       serve a % 2 == 0 ;)
+  //     ~(^-^)
+  //   `,
+  //   expected: dedent`
+  //     function evenOdd (a_1) {
+  //       return a_1 % 2 == 0
+  //     }
+  //   `,
+  // },
   // {
   //   name: "dictionary access",
   //   source: `
@@ -111,90 +111,90 @@ const fixtures = [
   //   };
   //   `,
   // },
-  {
-    name: "while loop",
-    source: `
-      stir until cooked (^-^)~
-        mamaSays "infinite loop baby" ;)
-      ~(^-^)
-      `,
-    expected: dedent`
-        while (true) {
-            console.log("infinite loop baby")
-        }
-    `,
-  },
-  {
-    name: "for loop",
-    source: `
-    bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~
-       mamaSays egg ;)
-     ~(^-^)
-    `,
-    expected: dedent`
-      for (let egg_1 = 1; egg_1 < 40; egg++) {
-          console.log(egg)
-      }
-    `,
-  },
-  {
-    name: "gcd",
-    source: `
-      recipe bitter gcd (bitter a, bitter b) (^-^)~
-        addAPinchOf a < 0 (^-^)~
-          a = -1 * a ;)
-        ~(^-^)
+  // {
+  //   name: "while loop",
+  //   source: `
+  //     stir until cooked (^-^)~
+  //       mamaSays "infinite loop baby" ;)
+  //     ~(^-^)
+  //     `,
+  //   expected: dedent`
+  //       while (true) {
+  //           console.log("infinite loop baby")
+  //       }
+  //   `,
+  // },
+  // {
+  //   name: "for loop",
+  //   source: `
+  //   bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~
+  //      mamaSays egg ;)
+  //    ~(^-^)
+  //   `,
+  //   expected: dedent`
+  //     for (let egg_1 = 1; egg_1 < 40; egg++) {
+  //         console.log(egg)
+  //     }
+  //   `,
+  // },
+  // {
+  //   name: "gcd",
+  //   source: `
+  //     recipe bitter gcd (bitter a, bitter b) (^-^)~
+  //       addAPinchOf a < 0 (^-^)~
+  //         a = -1 * a ;)
+  //       ~(^-^)
 
-        addAPinchOf (b < 0) (^-^)~
-          b = -1 * b ;)
-        ~(^-^)
+  //       addAPinchOf (b < 0) (^-^)~
+  //         b = -1 * b ;)
+  //       ~(^-^)
 
-        addAPinchOf b > a (^-^)~
-          ingredient bitter temp = a ;)
-          a = b ;)
-          b = temp ;)
-        ~(^-^)
+  //       addAPinchOf b > a (^-^)~
+  //         ingredient bitter temp = a ;)
+  //         a = b ;)
+  //         b = temp ;)
+  //       ~(^-^)
 
-        stir until cooked (^-^)~
+  //       stir until cooked (^-^)~
 
-          addAPinchOf b == 0 (^-^)~
-            serve a ;)
-          ~(^-^)
+  //         addAPinchOf b == 0 (^-^)~
+  //           serve a ;)
+  //         ~(^-^)
 
-          a = a % b ;)
+  //         a = a % b ;)
 
-          addAPinchOf a == 0 (^-^)~
-            serve b ;)
-          ~(^-^)
+  //         addAPinchOf a == 0 (^-^)~
+  //           serve b ;)
+  //         ~(^-^)
 
-          b = b % a ;)
-        ~(^-^)
-      ~(^-^)
-    `,
-    expected: dedent`
-      function gcd(a_1, b_2) {
-        a_1 = Math.abs(a_1);
-        b_2 = Math.abs(b_2);
-        if (b_2 > a_1) {var temp = a_1; a_1 = b_2; b_2 = temp}
-        while (true) {
-          if (b_2 === 0) return a_1
-          a_1 %= b_2
-          if (a_1 === 0) return b_2
-          b_2 %= a_1
-        }
-       }
-    `,
-  },
-  {
-    name: "comments",
-    source: `
-    --[=] Include more sugar
-    if you want to 
-    lol
-    [=]--
-    ~(=^..^) We love Big Mama`,
-    expected: "",
-  },
+  //         b = b % a ;)
+  //       ~(^-^)
+  //     ~(^-^)
+  //   `,
+  //   expected: dedent`
+  //     function gcd(a_1, b_2) {
+  //       a_1 = Math.abs(a_1);
+  //       b_2 = Math.abs(b_2);
+  //       if (b_2 > a_1) {var temp = a_1; a_1 = b_2; b_2 = temp}
+  //       while (true) {
+  //         if (b_2 === 0) return a_1
+  //         a_1 %= b_2
+  //         if (a_1 === 0) return b_2
+  //         b_2 %= a_1
+  //       }
+  //      }
+  //   `,
+  // },
+  // {
+  //   name: "comments",
+  //   source: `
+  //   --[=] Include more sugar
+  //   if you want to
+  //   lol
+  //   [=]--
+  //   ~(=^..^) We love Big Mama`,
+  //   expected: "",
+  // },
 ]
 
 describe("The code generator", () => {

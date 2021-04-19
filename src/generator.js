@@ -30,7 +30,10 @@ export default function generate(program) {
     }
   })(new Map())
 
-  const gen = (node) => generators[node.constructor.name](node)
+  const gen = (node) => {
+    console.log(node.constructor.name)
+    generators[node.constructor.name](node)
+  }
 
   const generators = {
     // Key idea: when generating an expression, just return the JS string; when
@@ -46,9 +49,7 @@ export default function generate(program) {
     FunctionDeclaration(d) {
       console.log("function declaration", d)
       output.push(
-        `function ${gen(d.function)}(${gen(d.function.parameters).join(
-          ", "
-        )}) {`
+        `function ${gen(d.function)}(${gen(d.parameters).join(", ")}) {`
       )
       gen(d.body)
       output.push("}")
@@ -138,10 +139,6 @@ export default function generate(program) {
     UnaryExpression(e) {
       return `${e.prefix}(${gen(e.expression)})`
     },
-    //   DictionaryType(t) {
-    //     t.type = this.analyze(t.type)
-    //     return t
-    //   }
     //   DictionaryLiteral(d) {
     //     d.entries = this.analyze(d.entries)
     //     //no duplicate keys and keys must be strings
@@ -161,16 +158,14 @@ export default function generate(program) {
     //     return "{}"
     //   },
     //   DictionaryAccess(e) {
+    // use a map, like new Map(['y', 3],['x',5])
+    // Object.create(null)
     //     e.dictionary = this.analyze(e.dictionary)
     //     check(e.dictionary.type).isDictionaryOrType()
     //     e.type = e.dictionary.type.type
     //     e.key = this.analyze(e.key)
     //     check(e.key).isString()
     //     return e
-    //   }
-    //   ArrayType(t) {
-    //     t.type = this.analyze(t.type)
-    //     return t
     //   }
     //   ArrayLiteral(a) {
     //     a.elements = this.analyze(a.elements)
