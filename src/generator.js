@@ -2,16 +2,7 @@
 //
 // Invoke generate(program) with the program node to get back the JavaScript
 // translation as a string.
-import {
-  Type,
-  Variable,
-  Function,
-  FunctionType,
-  ArrayType,
-  DictionaryType,
-  Return,
-  ShortReturnStatement,
-} from "./ast.js"
+import { Type, ElseIfStatement } from "./ast.js"
 //import * as stdlib from "./stdlib.js"
 
 export default function generate(program) {
@@ -31,7 +22,7 @@ export default function generate(program) {
   })(new Map())
 
   const gen = (node) => {
-    // console.log(node.constructor.name)
+    //console.log(node.constructor.name)
     return generators[node.constructor.name](node)
   }
 
@@ -44,7 +35,11 @@ export default function generate(program) {
     VariableDeclaration(d) {
       // We don't care about const vs. let in the generated code! The analyzer has
       // already checked that we never updated a const, so let is always fine.
+      // console.log("variable declaration", d.variable, d.initializer)
       output.push(`let ${gen(d.variable)} = ${gen(d.initializer)};`)
+    },
+    Variable(d) {
+      return targetName(d)
     },
     FunctionDeclaration(d) {
       // console.log("function declaration", d)
@@ -69,13 +64,13 @@ export default function generate(program) {
     Assignment(s) {
       output.push(`${gen(s.target)} = ${gen(s.source)};`)
     },
-    Break(s) {
+    Break() {
       output.push("break;")
     },
     Return(s) {
       output.push(`return ${gen(s.returnValue)};`)
     },
-    ShortReturnStatement(s) {
+    ShortReturnStatement() {
       output.push("return;")
     },
     IfStatement(s) {
@@ -125,12 +120,10 @@ export default function generate(program) {
       output.push("}")
     },
     OrExpression(e) {
-      //needs test
-      return gen(e.expressions).join("||")
+      return `(${gen(e.expressions).join(" || ")})`
     },
     AndExpression(e) {
-      //needs test
-      return gen(e.expressions).join("&&")
+      return `(${gen(e.expressions).join(" && ")})`
     },
     BinaryExpression(e) {
       const op = { "==": "===", "!=": "!==" }[e.op] ?? e.op
@@ -139,24 +132,25 @@ export default function generate(program) {
     UnaryExpression(e) {
       return `${e.prefix}(${gen(e.expression)})`
     },
-    //   DictionaryLiteral(d) {
-    //     d.entries = this.analyze(d.entries)
-    //     //no duplicate keys and keys must be strings
-    //     check(d.entries).areAllDistinct()
-    //     const newDictionaryType = new DictionaryType(d.entries[0].type)
-    //     d.type = newDictionaryType
-    //     return d
-    //   }
-    //   DictionaryEl(e) {
-    //     e.key = this.analyze(e.key)
-    //     check(e.key).isString()
-    //     e.value = this.analyze(e.value)
-    //     e.type = e.value.type
-    //     return e
-    //   },
-    //   EmptyDictionary(e) {
-    //     return "{}"
-    //   },
+    DictionaryLiteral(d) {
+      // new Map(["y", 3], ["x", 5])
+      return `new Map(${gen(d.entries).join(", ")})`
+      // d.entries = this.analyze(d.entries)
+      // //no duplicate keys and keys must be strings
+      // check(d.entries).areAllDistinct()
+      // const newDictionaryType = new DictionaryType(d.entries[0].type)
+      // d.type = newDictionaryType
+      // return d
+    },
+    DictionaryAccess(e) {
+      return `${gen(e.dictionary)}[${gen(e.key)}]`
+    },
+    DictionaryEl(e) {
+      return `[${e.key}, ${e.value}]`
+    },
+    EmptyDictionary() {
+      return "new Map();"
+    },
     //   DictionaryAccess(e) {
     // use a map, like new Map(['y', 3],['x',5])
     // Object.create(null)
@@ -167,24 +161,17 @@ export default function generate(program) {
     //     check(e.key).isString()
     //     return e
     //   }
-    //   ArrayLiteral(a) {
-    //     a.elements = this.analyze(a.elements)
-    //     check(a.elements).allHaveSameType()
-    //     const newArrayType = new ArrayType(a.elements[0].type)
-    //     a.type = newArrayType
-    //     return a
-    //   }
-    //   EmptyArray(e) {
-    //     return "[]"
-    //   },
-    //   ArrayAccess(e) {
-    //     e.array = this.analyze(e.array)
-    //     check(e.array.type).isArrayOrType()
-    //     e.type = e.array.type.type
-    //     e.index = this.analyze(e.index)
-    //     check(e.index).isNumber()
-    //     return e
-    //   },
+    ArrayLiteral(e) {
+      // console.log("array literal", e.elements)
+      return `[${gen(e.elements).join(", ")}]`
+    },
+    EmptyArray() {
+      return "[]"
+    },
+    ArrayAccess(e) {
+      // console.log("in array access", e.array, e.index)
+      return `${gen(e.array)}[${gen(e.index)}]`
+    },
     Call(c) {
       const targetCode = `${gen(c.callee)}(${gen(c.args).join(", ")})`
       // Calls in expressions vs in statements are handled differently
@@ -209,7 +196,7 @@ export default function generate(program) {
     //     return `console.log(${this.expression.gen()})`;
     //   };
     PrintStatement(s) {
-      output.push(`console.log(${gen(s.argument)})`)
+      output.push(`console.log(${gen(s.argument)});`)
     },
     Number(e) {
       return e
@@ -223,7 +210,7 @@ export default function generate(program) {
     Array(a) {
       return a.map(gen)
     },
-    NullLiteral(e) {
+    NullLiteral() {
       return "null"
     },
   }

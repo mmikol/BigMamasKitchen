@@ -15,7 +15,20 @@ const fixtures = [
         mamaSays "Hello world";)
       `,
     expected: dedent`
-        console.log("Hello world")
+        console.log("Hello world");
+      `,
+  },
+  {
+    name: "variable dec",
+    source: `
+        ingredient spicy po = raw ;)
+        ingredient bitter pi = 3.14 ;)
+        ingredient salty pe = "pe!" ;)
+      `,
+    expected: dedent`
+        let po_1 = false;
+        let pi_2 = 3.14;
+        let pe_3 = "pe!";
       `,
   },
   {
@@ -31,44 +44,70 @@ const fixtures = [
         }
       `,
   },
-  // {
-  //   name: "and expression",
-  //   source: `
-  //       recipe spicy And (spicy a, spicy b) (^-^)~
-  //         serve a && b ;)
-  //       ~(^-^)
-  //     `,
-  //   expected: dedent`
-  //       function And_1 (a_1, b_2) {
-  //         return a_1 && b_2
-  //       }
-  //     `,
-  // },
-  // {
-  //   name: "or expression",
-  //   source: `
-  //       recipe spicy Or (spicy a, spicy b) (^-^)~
-  //         serve a || b ;)
-  //       ~(^-^)
-  //     `,
-  //   expected: dedent`
-  //       function Or_1 (a_1, b_2) {
-  //         return a_1 || b_2
-  //       }
-  //     `,
-  // },
-
-  // {
-  //   name: "array",
-  //   source: `
-  //     ingredient spicy(@) rawEggs = (@)raw, raw(@) ;)
-  //     mamaSays rawEggs(@)0(@) ;)
-  //   `,
-  //   expected: dedent`
-  //       const rawEggs = [false, false];
-  //       console.log(rawEggs[0]);
-  //     `,
-  // },
+  {
+    name: "and expression",
+    source: `
+        recipe spicy And (spicy a, spicy b) (^-^)~
+          serve a && b ;)
+        ~(^-^)
+      `,
+    expected: dedent`
+        function And_1(a_2, b_3) {
+          return (a_2 && b_3);
+        }
+      `,
+  },
+  {
+    name: "or expression",
+    source: `
+        recipe spicy Or (spicy a, spicy b) (^-^)~
+          serve a || b ;)
+        ~(^-^)
+      `,
+    expected: dedent`
+        function Or_1(a_2, b_3) {
+          return (a_2 || b_3);
+        }
+      `,
+  },
+  {
+    name: "basic arrays",
+    source: `
+      ingredient spicy(@) rawEggs = (@)raw, raw(@) ;)
+      ingredient salty(@) emptyArr = (@ salty @) ;)
+      mamaSays rawEggs(@)0(@) ;)
+      mamaSays emptyArr ;)
+    `,
+    expected: dedent`
+        let rawEggs_1 = [false, false];
+        let emptyArr_2 = [];
+        console.log(rawEggs_1[0]);
+        console.log(emptyArr_2);
+      `,
+  },
+  {
+    name: "declaring 2D array",
+    source: `ingredient spicy(@)(@) rawEggs2 = (@) (@) cooked, cooked (@), (@) raw, cooked (@) (@) ;)`,
+    expected: dedent`let rawEggs2_1 = [[true, true], [false, true]];`,
+  },
+  {
+    name: "Can access element of 2D Array",
+    source: `ingredient bitter(@)(@) doubleArray = (@) (@)1,2,3(@), (@)4,5,6(@) (@) ;)
+    mamaSays doubleArray(@)1(@)(@)2(@) == 6 ;)`,
+    expected: dedent`let doubleArray_1 = [[1, 2, 3], [4, 5, 6]];
+    console.log((doubleArray_1[1][2] === 6));`,
+  },
+  {
+    name: "Can access values from 2D dictionary",
+    source: `ingredient salty[#][#] dictionary = [#]
+    "key1": [#]"key2": "value"[#]
+    [#] ;)
+    mamaSays dictionary[#]"key1"[#][#]"key2"[#] ;)`,
+    expected: dedent`
+    let dictionary_1 = new Map(["key1", new Map(["key2", "value"])]);
+    console.log(dictionary_1["key1"]["key2"]);
+    `,
+  },
   // {
   //   name: "even or odd",
   //   source: `
@@ -78,7 +117,7 @@ const fixtures = [
   //   `,
   //   expected: dedent`
   //     function evenOdd (a_1) {
-  //       return a_1 % 2 == 0
+  //       return a_1 % 2 == 0;
   //     }
   //   `,
   // },

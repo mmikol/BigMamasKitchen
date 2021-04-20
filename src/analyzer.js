@@ -125,7 +125,7 @@ const check = (self) => ({
   isInsideALoop() {
     must(self.inLoop, "Break can only appear in a loop")
   },
-  isInsideAFunction(context) {
+  isInsideAFunction() {
     must(self.function, "Return can only appear in a function")
   },
   isCallable() {
