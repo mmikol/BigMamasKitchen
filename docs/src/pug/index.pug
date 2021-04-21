@@ -81,29 +81,28 @@ html(lang='en')
                             h3.mb-0 Greatest Common Denominator
                             pre
                                 code
-                                    |
+                                    | 
                                     | recipe bitter gcd (bitter a, bitter b) (^-^)~
-                                    |   addAPinchOf a < 0 (^-^)~
-                                    |       a = -1 * a ;)
-                                    |   ~(^-^)
+                                    |    addAPinchOf a < 0 (^-^)~
+                                    |        a = -1 * a ;)
+                                    |    ~(^-^)
+                                    |    
+                                    |    addAPinchOf b < 0 (^-^)~
+                                    |        b = -1 * b ;)
+                                    |    ~(^-^)
                                     |
-                                    |   addAPinchOf (b < 0) (^-^)~
-                                    |       b = -1 * b ;)
-                                    |   ~(^-^)
+                                    |    addAPinchOf b > a (^-^)~
+                                    |        ingredient bitter temp = a ;)
+                                    |        a = b ;)
+                                    |        b = temp ;)
+                                    |    ~(^-^)
                                     |
-                                    |   addAPinchOf b > a (^-^)~
-                                    |       ingredient bitter temp = a ;)
-                                    |       a = b ;)
-                                    |       b = temp ;)
-                                    |   ~(^-^)
+                                    |    stir until cooked (^-^)~
+                                    |        addAPinchOf b == 0 (^-^)~
+                                    |            serve a ;)
+                                    |        ~(^-^)
                                     |
-                                    |   stir until cooked (^-^)~
-                                    |
-                                    |       addAPinchOf b == 0 (^-^)~
-                                    |           serve a ;)
-                                    |       ~(^-^)
-                                    |
-                                    |        a = a % b ;)
+                                    |       a = a % b ;)
                                     |
                                     |        addAPinchOf a == 0 (^-^)~
                                     |            serve b ;)
@@ -111,6 +110,8 @@ html(lang='en')
                                     |
                                     |        b = b % a ;)
                                     |    ~(^-^)
+                                    |    
+                                    |    serve 0 ;)
                                     | ~(^-^)
 
                     .d-flex.flex-column.flex-md-row.justify-content-between.mb-5

@@ -1,3 +1,43 @@
-ingredient spicy hehe = raw ;)
-ingredient spicy(@) rawEggs = (@)raw, raw(@) ;)
-mamaSays rawEggs(@)0(@) ;)
+--[=]
+bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~
+    mamaSays egg ;)
+~(^-^)
+
+ingredient bitter leg = 1 ;)
+
+bake leg until leg < 40 leg-- (^-^)~
+    mamaSays leg ;)
+~(^-^)
+[=]--
+
+  recipe bitter gcd (bitter a, bitter b) (^-^)~
+      addAPinchOf a < 0 (^-^)~
+          a = -1 * a ;)
+      ~(^-^)
+
+      addAPinchOf b < 0 (^-^)~
+          b = -1 * b ;)
+      ~(^-^)
+
+      addAPinchOf b > a (^-^)~
+          ingredient bitter temp = a ;)
+          a = b ;)
+          b = temp ;)
+      ~(^-^)
+
+      stir until cooked (^-^)~
+          addAPinchOf b == 0 (^-^)~
+              serve a ;)
+          ~(^-^)
+
+          a = a % b ;)
+
+          addAPinchOf a == 0 (^-^)~
+              serve b ;)
+          ~(^-^)
+
+          b = b % a ;)
+      ~(^-^)
+      
+      serve 0 ;)
+    ~(^-^)

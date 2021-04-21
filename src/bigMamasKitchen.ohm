@@ -16,7 +16,7 @@ BigMamasKitchen {
                   |  orSubstitute Exp Block                           -- short         
   ElseStmt        =  dumpLeftovers Block
   Loop            =  stir until Exp Block                             -- while
-                  |  bake (VarDec | id) until Exp Increment Block  -- for
+                  |  bake (VarDec | id) until Exp Increment Block     -- for
   Assignment      =  Increment                                        
                   |  Var "=" Exp                                      -- assign
   Increment       =  Var incop  
@@ -34,7 +34,7 @@ BigMamasKitchen {
   Array           =  "(@" Type "@)"                                   -- emptyarray
                   |  "(@)" NonemptyListOf<Exp, ","> "(@)"             -- array
   Dict            =  "[#" Type "#]"                                   -- emptydict
-                  |  "[#]" ListOf< DictEl, ","> "[#]"                    -- dict           
+                  |  "[#]" ListOf< DictEl, ","> "[#]"                 -- dict           
   DictEl          =  Exp ":" Exp
   Params          =  "(" ListOf<Parameter, ","> ")"
   Parameter       =  Type id

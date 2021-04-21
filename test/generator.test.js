@@ -19,6 +19,14 @@ const fixtures = [
       `,
   },
   {
+    name: "identifier expression",
+    source: `ingredient spicy po = raw ;)
+    mamaSays po ;)
+    `,
+    expected: dedent`let po_1 = false;
+    console.log(po_1);`,
+  },
+  {
     name: "variable dec",
     source: `
         ingredient spicy po = raw ;)
@@ -32,11 +40,31 @@ const fixtures = [
       `,
   },
   {
+    name: "void function call",
+    source: `
+    recipe empty voidFunction () (^-^)~ 
+      mamaSays "This function returns nothing!" ;)
+      serve ;)
+    ~(^-^)
+
+    voidFunction();)
+    `,
+    expected: dedent`
+    function voidFunction_1() {
+      console.log("This function returns nothing!");
+      return;
+    }
+
+    voidFunction_1();
+    `,
+  },
+  {
     name: "sum",
     source: `
         recipe bitter Add (bitter a, bitter b) (^-^)~
           serve a + b ;)
         ~(^-^)
+        
       `,
     expected: dedent`
         function Add_1(a_2, b_3) {
@@ -71,6 +99,24 @@ const fixtures = [
       `,
   },
   {
+    name: "even or odd",
+    source: `
+      recipe spicy evenOdd (bitter a) (^-^)~
+        serve a % 2 == 0 ;)
+      ~(^-^)
+    `,
+    expected: dedent`
+      function evenOdd_1(a_2) {
+        return ((a_2 % 2) === 0);
+      }
+    `,
+  },
+  {
+    name: "null literal",
+    source: `ingredient bland x = nothing ;)`,
+    expected: dedent`let x_1 = null;`,
+  },
+  {
     name: "basic arrays",
     source: `
       ingredient spicy(@) rawEggs = (@)raw, raw(@) ;)
@@ -98,6 +144,28 @@ const fixtures = [
     console.log((doubleArray_1[1][2] === 6));`,
   },
   {
+    name: "empty dictionary",
+    source: `
+      ingredient bitter[#] rollCake = [# bitter #] ;)
+      `,
+    expected: dedent`
+      let rollCake_1 = new Map();
+    `,
+  },
+  {
+    name: "dictionary access",
+    source: `
+      ingredient bitter[#] rollCake = [#]"strawberry": 0,"sugar": 1,"cake": 2[#] ;)
+      ingredient bitter fruit = rollCake[#]"strawberry"[#] ;)
+      fruit = rollCake[#]"cake"[#] ;)
+      `,
+    expected: dedent`
+      let rollCake_1 = new Map(["strawberry", 0], ["sugar", 1], ["cake", 2]);
+      let fruit_2 = rollCake_1["strawberry"];
+      fruit_2 = rollCake_1["cake"];
+    `,
+  },
+  {
     name: "Can access values from 2D dictionary",
     source: `ingredient salty[#][#] dictionary = [#]
     "key1": [#]"key2": "value"[#]
@@ -108,139 +176,165 @@ const fixtures = [
     console.log(dictionary_1["key1"]["key2"]);
     `,
   },
-  // {
-  //   name: "even or odd",
-  //   source: `
-  //     recipe spicy evenOdd (bitter a) (^-^)~
-  //       serve a % 2 == 0 ;)
-  //     ~(^-^)
-  //   `,
-  //   expected: dedent`
-  //     function evenOdd (a_1) {
-  //       return a_1 % 2 == 0;
-  //     }
-  //   `,
-  // },
-  // {
-  //   name: "dictionary access",
-  //   source: `
-  //     ingredient bitter[#] rollCake = [#]"strawberry": 0,"sugar": 1,"cake": 2[#] ;)
-  //     ingredient bitter fruit = rollCake[#]"strawberry"[#] ;)
-  //     fruit = rollCake[#]"cake"[#] ;)
-  //     `,
-  //   expected: dedent`
-  //     let rollCake_1 = { "strawberry":0, "sugar":1, "cake":2 };
-  //     let fruit_2 = rollCake_1["strawberry"];
-  //     fruit_2 = rollCake_1["cake"];
-  //   `,
-  // },
-  // {
-  //   name: "dictionary of dictionary",
-  //   source: `
-  //   ingredient bitter[#][#] dictDict=
-  //   [#]
-  //   "key1" : [#] "inner1" : 5 [#] ,
-  //   "key2" : [#] "inner2" : 2 [#]
-  //   [#] ;)
-  //   `,
-  //   expected: dedent`
-  //   let dictDict_1={
-  //       "key1": { "inner1":5, },
-  //       "key2": { "inner2":2, },
-  //   };
-  //   `,
-  // },
-  // {
-  //   name: "while loop",
-  //   source: `
-  //     stir until cooked (^-^)~
-  //       mamaSays "infinite loop baby" ;)
-  //     ~(^-^)
-  //     `,
-  //   expected: dedent`
-  //       while (true) {
-  //           console.log("infinite loop baby")
-  //       }
-  //   `,
-  // },
-  // {
-  //   name: "for loop",
-  //   source: `
-  //   bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~
-  //      mamaSays egg ;)
-  //    ~(^-^)
-  //   `,
-  //   expected: dedent`
-  //     for (let egg_1 = 1; egg_1 < 40; egg++) {
-  //         console.log(egg)
-  //     }
-  //   `,
-  // },
-  // {
-  //   name: "gcd",
-  //   source: `
-  //     recipe bitter gcd (bitter a, bitter b) (^-^)~
-  //       addAPinchOf a < 0 (^-^)~
-  //         a = -1 * a ;)
-  //       ~(^-^)
+  {
+    name: "dictionary of dictionary",
+    source: `
+    ingredient bitter[#][#] dictDict=
+    [#]
+    "key1" : [#] "inner1" : 5 [#] ,
+    "key2" : [#] "inner2" : 2 [#]
+    [#] ;)
+    `,
+    expected: dedent`
+    let dictDict_1 = new Map(["key1", new Map(["inner1", 5])], ["key2", new Map(["inner2", 2])]);
+    `,
+  },
+  {
+    name: "while loop",
+    source: `
+      stir until cooked (^-^)~
+        mamaSays "infinite loop baby" ;)
+      ~(^-^)
+      `,
+    expected: dedent`
+        while (true) {
+            console.log("infinite loop baby");
+        }
+    `,
+  },
+  {
+    name: "for loop",
+    source: `
+    bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~
+       mamaSays egg ;)
+     ~(^-^)
+    `,
+    expected: dedent`
+      for (let egg_1 = 1; egg_1 < 40; egg_1++) {
+          console.log(egg_1);
+      }
+    `,
+  },
+  {
+    name: "gcd",
+    source: `
+    recipe bitter gcd (bitter a, bitter b) (^-^)~
+      addAPinchOf a < 0 (^-^)~
+        a = -1 * a ;)
+      ~(^-^)
 
-  //       addAPinchOf (b < 0) (^-^)~
-  //         b = -1 * b ;)
-  //       ~(^-^)
+      addAPinchOf b < 0 (^-^)~
+        b = -1 * b ;)
+      ~(^-^)
 
-  //       addAPinchOf b > a (^-^)~
-  //         ingredient bitter temp = a ;)
-  //         a = b ;)
-  //         b = temp ;)
-  //       ~(^-^)
+      addAPinchOf b > a (^-^)~
+        ingredient bitter temp = a ;)
+        a = b ;)
+        b = temp ;)
+      ~(^-^)
 
-  //       stir until cooked (^-^)~
+      stir until cooked (^-^)~
+        addAPinchOf b == 0 (^-^)~
+            serve a ;)
+        ~(^-^)
 
-  //         addAPinchOf b == 0 (^-^)~
-  //           serve a ;)
-  //         ~(^-^)
+        a = a % b ;)
 
-  //         a = a % b ;)
+        addAPinchOf a == 0 (^-^)~
+            serve b ;)
+        ~(^-^)
 
-  //         addAPinchOf a == 0 (^-^)~
-  //           serve b ;)
-  //         ~(^-^)
+        b = b % a ;)
+      ~(^-^)
+      
+      serve 0 ;)
+    ~(^-^)
+    `,
+    expected: dedent`
+    function gcd_1(a_2, b_3) {
+      if ((a_2 < 0)) {
+        a_2 = (-(1) * a_2);
+      }
+      if ((b_3 < 0)) {
+        b_3 = (-(1) * b_3);
+      }
+      if ((b_3 > a_2)) {
+        let temp_4 = a_2;
+        a_2 = b_3;
+        b_3 = temp_4;
+      }
+      while (true) {
+        if ((b_3 === 0)) {
+          return a_2;
+        }
+        a_2 = (a_2 % b_3);
+        if ((a_2 === 0)) {
+          return b_3;
+        }
+        b_3 = (b_3 % a_2);
+      }
+      return 0;
+    }
+    `,
+  },
+  {
+    name: "If else statement",
+    source: `ingredient bitter i = 90 ;)
+    addAPinchOf i < -35 (^-^)~
+      mamaSays "i is less than -35" ;)
+    ~(^-^)
+    dumpLeftovers (^-^)~
+      mamaSays "i is equal to 35" ;)
+    ~(^-^)
+    `,
+    expected: dedent`
+    let i_1 = 90;
+    if ((i_1 < -(35))) {
+      console.log("i is less than -35");
+    } else {
+      console.log("i is equal to 35");
+    }
+    `,
+  },
+  {
+    name: "short else if",
+    source: `
+    ingredient bitter i = 90 ;)
 
-  //         b = b % a ;)
-  //       ~(^-^)
-  //     ~(^-^)
-  //   `,
-  //   expected: dedent`
-  //     function gcd(a_1, b_2) {
-  //       a_1 = Math.abs(a_1);
-  //       b_2 = Math.abs(b_2);
-  //       if (b_2 > a_1) {var temp = a_1; a_1 = b_2; b_2 = temp}
-  //       while (true) {
-  //         if (b_2 === 0) return a_1
-  //         a_1 %= b_2
-  //         if (a_1 === 0) return b_2
-  //         b_2 %= a_1
-  //       }
-  //      }
-  //   `,
-  // },
-  // {
-  //   name: "comments",
-  //   source: `
-  //   --[=] Include more sugar
-  //   if you want to
-  //   lol
-  //   [=]--
-  //   ~(=^..^) We love Big Mama`,
-  //   expected: "",
-  // },
+    addAPinchOf i < 35 (^-^)~
+      mamaSays "i is less than 35" ;)
+    ~(^-^) orSubstitute i > 35 (^-^)~
+      mamaSays "i is greater than 35" ;)
+    ~(^-^)
+    `,
+    expected: dedent`
+    let i_1 = 90;
+    if ((i_1 < 35)) {
+      console.log("i is less than 35");
+    } else if ((i_1 > 35)) {
+      console.log("i is greater than 35");
+    }
+    `,
+  },
+  {
+    name: "comments",
+    source: `
+    --[=] Include more sugar
+    if you want to
+    lol
+    [=]--
+    mamaSays "in between the comments" ;)
+    ~(=^..^) We love Big Mama`,
+    expected: `console.log("in between the comments");`,
+  },
 ]
 
 describe("The code generator", () => {
   for (const fixture of fixtures) {
     it(`produces expected js output for the ${fixture.name} program`, () => {
       const actual = generate(analyze(parse(fixture.source)))
-      assert.deepEqual(actual, fixture.expected)
+      // JSON.parse(JSON.stringify(actual))
+      assert.deepEqual(JSON.parse(JSON.stringify(actual)), fixture.expected)
     })
   }
 })

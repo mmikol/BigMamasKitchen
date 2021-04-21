@@ -82,7 +82,7 @@ const semanticChecks = [
 
   addAPinchOf i < -35 (^-^)~
     addAPinchOf i < -35 (^-^)~
-     mamaSays "hello" ;)
+      mamaSays "hello" ;)
     ~(^-^)
   ~(^-^)`,
   ],
@@ -91,7 +91,7 @@ const semanticChecks = [
     `
   ingredient bitter i = 90 ;)
 
-  addAPinchOf i < -35 (^-^)~
+  addAPinchOf i < 35 (^-^)~
     mamaSays "i is less than 35" ;)
   ~(^-^) orSubstitute i > 35 (^-^)~
     mamaSays "i is greater than 35" ;)
@@ -105,7 +105,7 @@ const semanticChecks = [
     `ingredient bitter i = 90 ;)
 
   addAPinchOf i < -35 (^-^)~
-    mamaSays "i is less than 35" ;)
+    mamaSays "i is less than -35" ;)
   ~(^-^)
   dumpLeftovers (^-^)~
     mamaSays "i is equal to 35" ;)
@@ -116,7 +116,7 @@ const semanticChecks = [
     `ingredient bitter i = 90 ;)
 
   addAPinchOf i < -35 (^-^)~
-    mamaSays "i is less than 35" ;)
+    mamaSays "i is less than -35" ;)
   ~(^-^) orSubstitute i > 35 (^-^)~
     mamaSays "i is greater than 35" ;)
   ~(^-^) `,

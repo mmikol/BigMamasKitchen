@@ -2,7 +2,7 @@
 //
 // Invoke generate(program) with the program node to get back the JavaScript
 // translation as a string.
-import { Type, ElseIfStatement } from "./ast.js"
+import { Type, ElseIfStatement, Increment, VariableDeclaration } from "./ast.js"
 //import * as stdlib from "./stdlib.js"
 
 export default function generate(program) {
@@ -113,9 +113,30 @@ export default function generate(program) {
       output.push("}")
     },
     ForLoop(s) {
-      output.push(
-        `for (${gen(s.iterator)}; ${gen(s.test)}; ${gen(s.increment)}) {`
-      )
+      // console.log(
+      //   "inside forloop iterator: ",
+      //   s.iterator,
+      //   " test: ",
+      //   s.test,
+      //   "increment: ",
+      //   s.increment
+      // )
+      let variableName = targetName(s.iterator)
+      let iteratorStatement
+      if (s.iterator.constructor === VariableDeclaration) {
+        iteratorStatement = `let ${variableName} = ${gen(
+          s.iterator.initializer
+        )}`
+      } else {
+        iteratorStatement = variableName
+      }
+
+      const increment =
+        s.increment.constructor === Increment
+          ? `${variableName}++`
+          : `${variableName}--`
+
+      output.push(`for ( ${iteratorStatement}; ${gen(s.test)}; ${increment}) {`)
       gen(s.body)
       output.push("}")
     },
@@ -133,43 +154,24 @@ export default function generate(program) {
       return `${e.prefix}(${gen(e.expression)})`
     },
     DictionaryLiteral(d) {
-      // new Map(["y", 3], ["x", 5])
       return `new Map(${gen(d.entries).join(", ")})`
-      // d.entries = this.analyze(d.entries)
-      // //no duplicate keys and keys must be strings
-      // check(d.entries).areAllDistinct()
-      // const newDictionaryType = new DictionaryType(d.entries[0].type)
-      // d.type = newDictionaryType
-      // return d
     },
     DictionaryAccess(e) {
       return `${gen(e.dictionary)}[${gen(e.key)}]`
     },
     DictionaryEl(e) {
-      return `[${e.key}, ${e.value}]`
+      return `[${JSON.stringify(e.key)}, ${e.value}]`
     },
     EmptyDictionary() {
-      return "new Map();"
+      return "new Map()"
     },
-    //   DictionaryAccess(e) {
-    // use a map, like new Map(['y', 3],['x',5])
-    // Object.create(null)
-    //     e.dictionary = this.analyze(e.dictionary)
-    //     check(e.dictionary.type).isDictionaryOrType()
-    //     e.type = e.dictionary.type.type
-    //     e.key = this.analyze(e.key)
-    //     check(e.key).isString()
-    //     return e
-    //   }
     ArrayLiteral(e) {
-      // console.log("array literal", e.elements)
       return `[${gen(e.elements).join(", ")}]`
     },
     EmptyArray() {
       return "[]"
     },
     ArrayAccess(e) {
-      // console.log("in array access", e.array, e.index)
       return `${gen(e.array)}[${gen(e.index)}]`
     },
     Call(c) {
@@ -183,18 +185,9 @@ export default function generate(program) {
     IdentifierExpression(e) {
       return targetName(e)
     },
-    //   TypeIdentifier(t) {
-    //     t = this.lookup(t.name)
-    //     check(t).isAType()
-    //     return t
-    //   }
     Block(s) {
       gen(s.statements)
     },
-
-    // PrintStatement.prototype.gen = function () {
-    //     return `console.log(${this.expression.gen()})`;
-    //   };
     PrintStatement(s) {
       output.push(`console.log(${gen(s.argument)});`)
     },

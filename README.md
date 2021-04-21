@@ -310,7 +310,7 @@ recipe spicy evenOdd (bitter a) (^-^)~
 
 ```JavaScript
 function evenOdd (a) {
-    return a % 2 == 0;
+    return a % 2 === 0;
 }
 
 ```
@@ -333,33 +333,34 @@ function evenOdd (a) {
 ```
 recipe bitter gcd (bitter a, bitter b) (^-^)~
   addAPinchOf a < 0 (^-^)~
-    a = -1 * a ;)
+      a = -1 * a ;)
   ~(^-^)
 
-  addAPinchOf (b < 0) (^-^)~
-    b = -1 * b ;)
+  addAPinchOf b < 0 (^-^)~
+      b = -1 * b ;)
   ~(^-^)
 
   addAPinchOf b > a (^-^)~
-    ingredient bitter temp = a ;)
-    a = b ;)
-    b = temp ;)
+      ingredient bitter temp = a ;)
+      a = b ;)
+      b = temp ;)
   ~(^-^)
 
   stir until cooked (^-^)~
+      addAPinchOf b == 0 (^-^)~
+          serve a ;)
+      ~(^-^)
 
-    addAPinchOf b == 0 (^-^)~
-      serve a ;)
-    ~(^-^)
+      a = a % b ;)
 
-    a = a % b ;)
+      addAPinchOf a == 0 (^-^)~
+          serve b ;)
+      ~(^-^)
 
-    addAPinchOf a == 0 (^-^)~
-      serve b ;)
-    ~(^-^)
-
-    b = b % a ;)
+      b = b % a ;)
   ~(^-^)
+
+  serve 0 ;)
 ~(^-^)
 
 ```
@@ -378,6 +379,7 @@ function gcd(a,b) {
       if (a === 0) return b;
       b %= a;
     }
+    return 0;
 }
 
 
