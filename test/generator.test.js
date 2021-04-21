@@ -190,6 +190,28 @@ const fixtures = [
     `,
   },
   {
+    name: "increment and decrement",
+    source: `ingredient bitter minutes = 1 ;)
+      minutes++ ;)
+      minutes-- ;)`,
+    expected: dedent`
+      let minutes_1 = 1;
+      minutes_1++;
+      minutes_1--;
+    `,
+  },
+  {
+    name: "decrement",
+    source: `ingredient bitter minutes = 25 ;)
+      minutes-- ;)
+      minutes-- ;)`,
+    expected: dedent`
+      let minutes_1 = 25;
+      minutes_1--;
+      minutes_1--;
+    `,
+  },
+  {
     name: "while loop",
     source: `
       stir until cooked (^-^)~
@@ -203,7 +225,7 @@ const fixtures = [
     `,
   },
   {
-    name: "for loop",
+    name: "for loop increment",
     source: `
     bake ingredient bitter egg = 1 until egg < 40 egg++ (^-^)~
        mamaSays egg ;)
@@ -213,6 +235,32 @@ const fixtures = [
       for (let egg_1 = 1; (egg_1 < 40); egg_1++) {
           console.log(egg_1);
       }
+    `,
+  },
+  {
+    name: "for loop decrement",
+    source: `
+    bake ingredient bitter egg = 1 until egg < 40 egg-- (^-^)~
+       mamaSays egg ;)
+     ~(^-^)
+    `,
+    expected: dedent`
+      for (let egg_1 = 1; (egg_1 < 40); egg_1--) {
+          console.log(egg_1);
+      }
+    `,
+  },
+  {
+    name: "break statement",
+    source: `
+      stir until cooked (^-^)~
+        stop ;)
+      ~(^-^)
+      `,
+    expected: dedent`
+        while (true) {
+          break;
+        }
     `,
   },
   {
@@ -249,6 +297,7 @@ const fixtures = [
 
       serve 0 ;)
     ~(^-^)
+    ingredient bitter result = gcd (5, 20) ;)
     `,
     expected: dedent`
     function gcd_1(a_2, b_3) {
@@ -275,6 +324,7 @@ const fixtures = [
       }
       return 0;
     }
+    let result_5 = gcd_1(5, 20);
     `,
   },
   {
@@ -297,7 +347,7 @@ const fixtures = [
     `,
   },
   {
-    name: "short else if",
+    name: "short else if statement",
     source: `
     ingredient bitter i = 90 ;)
 
@@ -314,6 +364,31 @@ const fixtures = [
     }
     else if ((i_1 > 35)) {
       console.log("i is greater than 35");
+    }
+    `,
+  },
+  {
+    name: "if else if else statement",
+    source: `
+    ingredient bitter i = 90 ;)
+
+    addAPinchOf i < 35 (^-^)~
+      mamaSays "i is less than 35" ;)
+    ~(^-^) orSubstitute i > 35 (^-^)~
+      mamaSays "i is greater than 35" ;)
+    ~(^-^) dumpLeftovers (^-^)~
+      mamaSays "i is equal to 35" ;)
+    ~(^-^)
+    `,
+    expected: dedent`
+    let i_1 = 90;
+    if ((i_1 < 35)) {
+      console.log("i is less than 35");
+    }
+    else if ((i_1 > 35)) {
+      console.log("i is greater than 35");
+    } else {
+      console.log("i is equal to 35");
     }
     `,
   },

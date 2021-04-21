@@ -79,6 +79,11 @@ export default function generate(program) {
     ShortReturnStatement() {
       output.push("return;")
     },
+    ShortIfStatement(s) {
+      output.push(`if (${gen(s.test)}) {`)
+      gen(s.consequent)
+      output.push("}")
+    },
     IfStatement(s) {
       output.push(`if (${gen(s.test)}) {`)
       gen(s.consequent)
@@ -99,22 +104,14 @@ export default function generate(program) {
       output.push(`else if (${gen(s.test)}) {`)
       gen(s.consequent)
       if (
-        [ElseIfStatement, ShortElseIfStatement].includes(
+        ![ElseIfStatement, ShortElseIfStatement].includes(
           s.alternate.constructor
         )
       ) {
-        output.push("} ")
-        gen(s.alternate)
-      } else {
         output.push("} else {")
         gen(s.alternate)
         output.push("}")
       }
-    },
-    ShortIfStatement(s) {
-      output.push(`if (${gen(s.test)}) {`)
-      gen(s.consequent)
-      output.push("}")
     },
     ShortElseIfStatement(s) {
       output.push(`else if (${gen(s.test)}) {`)
@@ -127,22 +124,12 @@ export default function generate(program) {
       output.push("}")
     },
     ForLoop(s) {
-      // console.log(
-      //   "inside forloop iterator: ",
-      //   s.iterator,
-      //   " test: ",
-      //   s.test,
-      //   "increment: ",
-      //   s.increment
-      // )
       let variableName = targetName(s.iterator.variable)
       let iteratorStatement
       if (s.iterator.constructor === VariableDeclaration) {
         iteratorStatement = `let ${variableName} = ${gen(
           s.iterator.initializer
         )}`
-        // } else {
-        //   iteratorStatement = variableName
       }
 
       const increment =
