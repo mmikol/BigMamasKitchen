@@ -42,7 +42,7 @@ const fixtures = [
   {
     name: "void function call",
     source: `
-    recipe empty voidFunction () (^-^)~ 
+    recipe empty voidFunction () (^-^)~
       mamaSays "This function returns nothing!" ;)
       serve ;)
     ~(^-^)
@@ -64,7 +64,7 @@ const fixtures = [
         recipe bitter Add (bitter a, bitter b) (^-^)~
           serve a + b ;)
         ~(^-^)
-        
+
       `,
     expected: dedent`
         function Add_1(a_2, b_3) {
@@ -210,7 +210,7 @@ const fixtures = [
      ~(^-^)
     `,
     expected: dedent`
-      for (let egg_1 = 1; egg_1 < 40; egg_1++) {
+      for (let egg_1 = 1; (egg_1 < 40); egg_1++) {
           console.log(egg_1);
       }
     `,
@@ -246,7 +246,7 @@ const fixtures = [
 
         b = b % a ;)
       ~(^-^)
-      
+
       serve 0 ;)
     ~(^-^)
     `,
@@ -311,7 +311,8 @@ const fixtures = [
     let i_1 = 90;
     if ((i_1 < 35)) {
       console.log("i is less than 35");
-    } else if ((i_1 > 35)) {
+    }
+    else if ((i_1 > 35)) {
       console.log("i is greater than 35");
     }
     `,

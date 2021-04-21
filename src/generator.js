@@ -2,7 +2,13 @@
 //
 // Invoke generate(program) with the program node to get back the JavaScript
 // translation as a string.
-import { Type, ElseIfStatement, Increment, VariableDeclaration } from "./ast.js"
+import {
+  Type,
+  ElseIfStatement,
+  ShortElseIfStatement,
+  Increment,
+  VariableDeclaration,
+} from "./ast.js"
 //import * as stdlib from "./stdlib.js"
 
 export default function generate(program) {
@@ -76,7 +82,11 @@ export default function generate(program) {
     IfStatement(s) {
       output.push(`if (${gen(s.test)}) {`)
       gen(s.consequent)
-      if (s.alternate.constructor === ElseIfStatement) {
+      if (
+        [ElseIfStatement, ShortElseIfStatement].includes(
+          s.alternate.constructor
+        )
+      ) {
         output.push("}")
         gen(s.alternate)
       } else {
@@ -88,7 +98,11 @@ export default function generate(program) {
     ElseIfStatement(s) {
       output.push(`else if (${gen(s.test)}) {`)
       gen(s.consequent)
-      if (s.alternate.constructor === ElseIfStatement) {
+      if (
+        [ElseIfStatement, ShortElseIfStatement].includes(
+          s.alternate.constructor
+        )
+      ) {
         output.push("} ")
         gen(s.alternate)
       } else {
@@ -121,7 +135,7 @@ export default function generate(program) {
       //   "increment: ",
       //   s.increment
       // )
-      let variableName = targetName(s.iterator)
+      let variableName = targetName(s.iterator.variable)
       let iteratorStatement
       if (s.iterator.constructor === VariableDeclaration) {
         iteratorStatement = `let ${variableName} = ${gen(
@@ -136,7 +150,7 @@ export default function generate(program) {
           ? `${variableName}++`
           : `${variableName}--`
 
-      output.push(`for ( ${iteratorStatement}; ${gen(s.test)}; ${increment}) {`)
+      output.push(`for (${iteratorStatement}; ${gen(s.test)}; ${increment}) {`)
       gen(s.body)
       output.push("}")
     },
@@ -160,7 +174,7 @@ export default function generate(program) {
       return `${gen(e.dictionary)}[${gen(e.key)}]`
     },
     DictionaryEl(e) {
-      return `[${JSON.stringify(e.key)}, ${e.value}]`
+      return `[${JSON.stringify(e.key)}, ${gen(e.value)}]`
     },
     EmptyDictionary() {
       return "new Map()"
