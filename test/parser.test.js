@@ -194,6 +194,11 @@ const badPrograms = [
   String.raw`
   ingredient salty[#] dictionary = [# "not a type" #] ;)
   `,
+  String.raw`ingredient bitter egg = 1 ;)
+  bake egg until egg < 40 egg++ (^-^)~
+  mamaSays egg ;)
+  stop ;)
+  ~(^-^)`,
 ]
 
 describe("The syntax checker", () => {

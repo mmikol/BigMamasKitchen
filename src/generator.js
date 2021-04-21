@@ -125,19 +125,17 @@ export default function generate(program) {
     },
     ForLoop(s) {
       let variableName = targetName(s.iterator.variable)
-      let iteratorStatement
-      if (s.iterator.constructor === VariableDeclaration) {
-        iteratorStatement = `let ${variableName} = ${gen(
-          s.iterator.initializer
-        )}`
-      }
 
       const increment =
         s.increment.constructor === Increment
           ? `${variableName}++`
           : `${variableName}--`
 
-      output.push(`for (${iteratorStatement}; ${gen(s.test)}; ${increment}) {`)
+      output.push(
+        `for (let ${variableName} = ${gen(s.iterator.initializer)}; ${gen(
+          s.test
+        )}; ${increment}) {`
+      )
       gen(s.body)
       output.push("}")
     },

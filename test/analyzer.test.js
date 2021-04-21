@@ -34,14 +34,6 @@ const semanticChecks = [
      ~(^-^)`,
   ],
   [
-    "for loop with variable that has already been declared",
-    `ingredient bitter egg = 1 ;)
-        bake egg until egg < 40 egg++ (^-^)~
-        mamaSays egg ;)
-        stop ;)
-    ~(^-^)`,
-  ],
-  [
     "nested for loop",
     `bake ingredient bitter a = 0 until a < 10 a++ (^-^)~
         bake ingredient bitter b = 10 until b >= 0 b-- (^-^)~
