@@ -141,8 +141,8 @@ export default function generate(program) {
         iteratorStatement = `let ${variableName} = ${gen(
           s.iterator.initializer
         )}`
-      } else {
-        iteratorStatement = variableName
+        // } else {
+        //   iteratorStatement = variableName
       }
 
       const increment =
@@ -195,9 +195,6 @@ export default function generate(program) {
         return targetCode
       }
       output.push(`${targetCode};`)
-    },
-    IdentifierExpression(e) {
-      return targetName(e)
     },
     Block(s) {
       gen(s.statements)
