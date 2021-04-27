@@ -1,7 +1,7 @@
 import assert from "assert"
 import parse from "../src/parser.js"
 import analyze from "../src/analyzer.js"
-//import optimize from "../src/optimizer.js"
+// import optimize from "../src/optimizer.js"
 import generate from "../src/generator.js"
 
 function dedent(s) {
