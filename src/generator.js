@@ -7,7 +7,6 @@ import {
   ElseIfStatement,
   ShortElseIfStatement,
   Increment,
-  VariableDeclaration,
 } from "./ast.js"
 //import * as stdlib from "./stdlib.js"
 
@@ -146,7 +145,7 @@ export default function generate(program) {
       return `(${gen(e.expressions).join(" && ")})`
     },
     BinaryExpression(e) {
-      const op = { "==": "===", "!=": "!==" }[e.op] ?? e.op
+      const op = { "==": "===", "!=": "!==", "^": "**" }[e.op] ?? e.op
       return `(${gen(e.left)} ${op} ${gen(e.right)})`
     },
     UnaryExpression(e) {

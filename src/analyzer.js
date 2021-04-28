@@ -287,30 +287,6 @@ class Context {
     s.body = this.newChild({ inLoop: true }).analyze(s.body)
     return s
   }
-  /*
-  ForRangeStatement(s) {
-    s.low = this.analyze(s.low)
-    check(s.low).isInteger()
-    s.high = this.analyze(s.high)
-    check(s.high).isInteger()
-    s.iterator = new Variable(s.iterator, true)
-    s.iterator.type = Type.INT
-    const bodyContext = this.newChild({ inLoop: true })
-    bodyContext.add(s.iterator.name, s.iterator)
-    s.body = bodyContext.analyze(s.body)
-    return s
-  }
-  ForStatement(s) {
-    s.collection = this.analyze(s.collection)
-    check(s.collection).isAnArray()
-    s.iterator = new Variable(s.iterator, true)
-    s.iterator.type = s.collection.type.baseType
-    const bodyContext = this.newChild({ inLoop: true })
-    bodyContext.add(s.iterator.name, s.iterator)
-    s.body = bodyContext.analyze(s.body)
-    return s
-  }
-*/
   ForLoop(s) {
     s.iterator = this.analyze(s.iterator)
     check(s.iterator).isNumber()
