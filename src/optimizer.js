@@ -14,8 +14,6 @@ const optimizers = {
     return d
   },
   FunctionDeclaration(d) {
-    console.log(d)
-    console.log(d.function)
     d.body = optimize(d.body)
     return d
   },
@@ -157,6 +155,10 @@ const optimizers = {
     if (e.expression.constructor === Number) {
       if (e.prefix === "-") {
         return -e.expression
+      }
+    } else if (e.expression.constructor === Boolean) {
+      if (e.prefix === "!") {
+        return !e.expression
       }
     }
     return e
