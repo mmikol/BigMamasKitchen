@@ -12,7 +12,7 @@ export default function compile(source, outputType) {
   } else if (outputType === "optimized") {
     return optimize(analyze(parse(source)))
   } else if (outputType === "js") {
-    return generate(analyze(parse(source)))
+    return generate(optimize(analyze(parse(source))))
   } else {
     return "Unknown output type"
   }

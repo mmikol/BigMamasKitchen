@@ -4,6 +4,7 @@ import * as ast from "../src/ast.js"
 
 // Make some test cases easier to read
 const x = new ast.Variable(ast.Type.BOOLEAN, "x")
+const z = new ast.Variable(ast.Type.BOOLEAN, "z")
 const incrementX = new ast.Increment(x)
 const decrementX = new ast.Decrement(x)
 const return1p1 = new ast.Return(new ast.BinaryExpression(1, "+", 1))
@@ -12,25 +13,22 @@ const returnX = new ast.Return(x)
 const onePlusFive = new ast.BinaryExpression(1, "+", 5)
 const callee = Object.assign(new ast.Function("id"), { body: returnX })
 const numberFunc = (body) =>
-  new ast.FunctionDeclaration(ast.Type.NUMBER, "name", [], body)
+  new ast.FunctionDeclaration(
+    ast.Type.NUMBER,
+    "name",
+    [new ast.Parameter(ast.Type.NUMBER, "param1")],
+    body
+  )
 const callSomething = (args) => new ast.Call(callee, args)
-// const or = (...d) => d.reduce((x, y) => new ast.BinaryExpression("||", x, y))
-// const and = (...c) => c.reduce((x, y) => new ast.BinaryExpression("&&", x, y))
-// const less = (x, y) => new ast.BinaryExpression("<", x, y)
 const eq = (x, y) => new ast.BinaryExpression(x, "==", y)
 const times = (x, y) => new ast.BinaryExpression(x, "*", y)
 const neg = (x) => new ast.UnaryExpression("-", x)
 const array = (...elements) => new ast.ArrayLiteral(elements)
-const emptyArray = new ast.EmptyArray(ast.Type.NUMBER)
 const arrayAccess = (array, index) => new ast.ArrayAccess(array, index)
 const dictionaryEl = (key, value) => new ast.DictionaryEl(key, value)
 const dictionary = (...entries) => new ast.DictionaryLiteral(entries)
 const dictionaryAccess = (dictionary, key) =>
   new ast.DictionaryAccess(dictionary, key)
-// const unwrapElse = (o, e) => new ast.BinaryExpression("??", o, e)
-// const conditional = (x, y, z) => new ast.Conditional(x, y, z)
-// const emptyOptional = new ast.EmptyOptional(ast.Type.INT)
-// const some = (x) => new ast.UnaryExpression("some", x)
 
 const tests = [
   ["folds +", new ast.BinaryExpression(5, "+", 8), 13],
@@ -95,43 +93,72 @@ const tests = [
     [incrementX, new ast.Assignment(x, x), incrementX],
     [incrementX, incrementX],
   ],
-  ["optimizes if-true", new ast.IfStatement(true, incrementX, []), incrementX],
+  [
+    "optimizes if-true",
+    new ast.IfStatement(true, new ast.Block(incrementX), []),
+    new ast.Block(incrementX),
+  ],
   [
     "optimizes if-false",
     new ast.IfStatement(false, [], incrementX),
     incrementX,
   ],
   [
+    "doesn't optimize if",
+    new ast.IfStatement(x, [], []),
+    new ast.IfStatement(x, [], []),
+  ],
+  [
     "optimizes short-if-true",
-    new ast.ShortIfStatement(true, decrementX),
-    decrementX,
+    new ast.ShortIfStatement(true, new ast.Block(decrementX)),
+    new ast.Block(decrementX),
+  ],
+  [
+    "doesn't optimize short-if",
+    new ast.ShortIfStatement(x, []),
+    new ast.ShortIfStatement(x, []),
   ],
   [
     "optimizes short-if-false",
-    [new ast.ShortIfStatement(false, incrementX)],
+    [new ast.ShortIfStatement(false, new ast.Block(incrementX))],
     [],
   ],
   [
     "optimizes else-if-true",
-    new ast.ElseIfStatement(true, incrementX, []),
-    incrementX,
+    new ast.ElseIfStatement(true, new ast.Block(incrementX), []),
+    new ast.Block(incrementX),
+  ],
+  [
+    "doesn't optimize else-if",
+    new ast.ElseIfStatement(x, [], []),
+    new ast.ElseIfStatement(x, [], []),
   ],
   [
     "optimizes else-if-false",
-    new ast.ElseIfStatement(false, [], incrementX),
-    incrementX,
+    new ast.ElseIfStatement(false, [], new ast.Block(incrementX)),
+    new ast.Block(incrementX),
   ],
   [
     "optimizes short-else-if-true",
-    new ast.ShortElseIfStatement(true, decrementX),
-    decrementX,
+    new ast.ShortElseIfStatement(true, new ast.Block(decrementX)),
+    new ast.Block(decrementX),
+  ],
+  [
+    "doesn't optimize short-else-if",
+    new ast.ShortElseIfStatement(x, []),
+    new ast.ShortElseIfStatement(x, []),
   ],
   [
     "optimizes short-else-if-false",
-    [new ast.ShortElseIfStatement(false, incrementX)],
+    [new ast.ShortElseIfStatement(false, new ast.Block(incrementX))],
     [],
   ],
-  ["optimizes while-false", [new ast.WhileLoop(false, incrementX)], []],
+  ["optimizes while-false", [new ast.WhileLoop(false, new ast.Break())], []],
+  [
+    "optimizes while-loop body",
+    new ast.WhileLoop(x, return1p1),
+    new ast.WhileLoop(x, return2),
+  ],
   [
     "optimizes for loop test",
     new ast.ForLoop(
@@ -183,11 +210,20 @@ const tests = [
     ),
     dictionary(dictionaryEl("key1", 6), dictionaryEl("key2", 15)),
   ],
-  // [
-  //   "optimizes in subscripts for dictionary",
-  //   dictionaryAccess(dicitonary(), onePlusFive),
-  //   dictionaryAccess(dictionary(), 6),
-  // ],
+  [
+    "optimizes in subscripts for dictionary",
+    dictionaryAccess(
+      dictionary(
+        dictionaryEl("key1", onePlusFive),
+        dictionaryEl("key2", times(3, 5))
+      ),
+      "key1"
+    ),
+    dictionaryAccess(
+      dictionary(dictionaryEl("key1", 6), dictionaryEl("key2", 15)),
+      "key1"
+    ),
+  ],
   [
     "optimizes empty-array",
     new ast.EmptyArray(ast.Type.NUMBER),
@@ -197,6 +233,48 @@ const tests = [
     "optimizes empty dictionary",
     new ast.EmptyDictionary(ast.Type.NUMBER),
     new ast.EmptyDictionary(ast.Type.NUMBER),
+  ],
+  [
+    "doesn't optimize assignment",
+    new ast.Assignment(x, z),
+    new ast.Assignment(x, z),
+  ],
+  [
+    "optimizes program",
+    new ast.Program(new ast.BinaryExpression(6, "<", onePlusFive)),
+    new ast.Program(false),
+  ],
+  [
+    "doesn't optimize variable declaration",
+    new ast.VariableDeclaration(ast.Type.BOOLEAN, "zClone", "z"),
+    new ast.VariableDeclaration(ast.Type.BOOLEAN, "zClone", "z"),
+  ],
+  [
+    "param can exist in expression",
+    new ast.FunctionDeclaration(
+      ast.Type.NUMBER,
+      "name",
+      [new ast.Parameter(ast.Type.NUMBER, "param1")],
+      new ast.Block(
+        new ast.BinaryExpression(
+          new ast.Parameter(ast.Type.NUMBER, "param1"),
+          "==",
+          9
+        )
+      )
+    ),
+    new ast.FunctionDeclaration(
+      ast.Type.NUMBER,
+      "name",
+      [new ast.Parameter(ast.Type.NUMBER, "param1")],
+      new ast.Block(
+        new ast.BinaryExpression(
+          new ast.Parameter(ast.Type.NUMBER, "param1"),
+          "==",
+          9
+        )
+      )
+    ),
   ],
 ]
 

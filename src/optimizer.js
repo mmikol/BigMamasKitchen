@@ -21,7 +21,6 @@ const optimizers = {
     return v
   },
   Function(f) {
-    // f.body = optimize(f.body)
     return f
   },
   Parameter(p) {
@@ -38,23 +37,17 @@ const optimizers = {
   Assignment(s) {
     s.source = optimize(s.source)
     s.target = optimize(s.target)
-    //what is going on, no op
-    //compiler is not required to generate a no op instruction
     if (s.source === s.target) {
       return []
     }
     return s
   },
-  Break(s) {
-    return s
-  },
+  Break() {},
   Return(s) {
     s.returnValue = optimize(s.returnValue)
     return s
   },
-  ShortReturnStatement(s) {
-    return s
-  },
+  ShortReturnStatement() {},
   IfStatement(s) {
     s.test = optimize(s.test)
     s.consequent = optimize(s.consequent)
@@ -111,12 +104,6 @@ const optimizers = {
   AndExpression(e) {
     e.expressions = optimize(e.expressions)
     return e
-
-    // if (e.op === "&&") {
-    //   // Optimize boolean constants in && and ||
-    //   if (e.left === true) return e.right
-    //   else if (e.right === true) return e.left
-    // }
   },
   BinaryExpression(e) {
     e.left = optimize(e.left)
@@ -209,7 +196,6 @@ const optimizers = {
     return e
   },
   Array(a) {
-    // Flatmap since each element can be an array
     return a.flatMap(optimize)
   },
 }

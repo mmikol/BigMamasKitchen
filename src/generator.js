@@ -8,7 +8,6 @@ import {
   ShortElseIfStatement,
   Increment,
 } from "./ast.js"
-//import * as stdlib from "./stdlib.js"
 
 export default function generate(program) {
   const output = []
@@ -32,22 +31,16 @@ export default function generate(program) {
   }
 
   const generators = {
-    // Key idea: when generating an expression, just return the JS string; when
-    // generating a statement, write lines of translated JS to the output array.
     Program(p) {
       gen(p.statements)
     },
     VariableDeclaration(d) {
-      // We don't care about const vs. let in the generated code! The analyzer has
-      // already checked that we never updated a const, so let is always fine.
-      // console.log("variable declaration", d.variable, d.initializer)
       output.push(`let ${gen(d.variable)} = ${gen(d.initializer)};`)
     },
     Variable(d) {
       return targetName(d)
     },
     FunctionDeclaration(d) {
-      // console.log("function declaration", d)
       output.push(
         `function ${gen(d.function)}(${gen(d.parameters).join(", ")}) {`
       )
@@ -174,7 +167,6 @@ export default function generate(program) {
     },
     Call(c) {
       const targetCode = `${gen(c.callee)}(${gen(c.args).join(", ")})`
-      // Calls in expressions vs in statements are handled differently
       if (c.callee instanceof Type || c.callee.type.returnType !== Type.VOID) {
         return targetCode
       }
