@@ -189,8 +189,7 @@ mamaSays doubleArray(@)1(@)(@)2(@) == 6 ;)
 ### Declaration:
 
 ```
-salty[#] basicDict = [#] "key" : "value" [#] ;)
-
+ingredient salty[#] basicDict = [#] "key" : "value" [#] ;)
 ```
 
 ### Dictionary of Dictionaries:
