@@ -372,7 +372,7 @@ recipe bitter gcd (bitter a, bitter b) (^-^)~
 function gcd(a,b) {
     a = Math.abs(a);
     b = Math.abs(b);
-    if (b > a) {var temp = a; a = b; b = temp;}
+    if (b > a) {let temp = a; a = b; b = temp;}
     while (true) {
       if (b === 0) return a;
       a %= b;
